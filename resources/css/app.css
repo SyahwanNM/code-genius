@@ -1,0 +1,39 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../**/*.jsx';
+
+@theme {
+    --font-sans: 'Outfit', ui-sans-serif, system-ui, sans-serif;
+    
+    /* Premium Color Palette */
+    --color-primary: #4B3BC9;
+    --color-secondary: #00D1FF;
+    --color-accent: #FF00E5;
+    --color-dark-bg: #0B0E14;
+    --color-dark-surface: #161B22;
+    --color-glass: rgba(255, 255, 255, 0.03);
+    --color-glass-border: rgba(255, 255, 255, 0.1);
+}
+
+@layer base {
+    body {
+        @apply bg-dark-bg text-white selection:bg-primary/30;
+    }
+}
+
+@layer components {
+    .glass-card {
+        @apply bg-glass border border-glass-border backdrop-blur-xl rounded-2xl;
+    }
+    
+    .btn-premium {
+        @apply px-6 py-3 rounded-xl font-semibold transition-all duration-300
+               bg-gradient-to-r from-primary to-secondary
+               hover:shadow-[0_0_20px_rgba(75,59,201,0.5)]
+               active:scale-95;
+    }
+}
