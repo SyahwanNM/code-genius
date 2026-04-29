@@ -1,83 +1,136 @@
 import React, { useState } from 'react';
-import { Link } from '@inertiajs/react';
-import { 
-    Users, BookOpen, ShieldCheck, Mail, Bell, 
-    LogOut, Search, Zap, Layers, Target, Compass, 
-    Settings, Menu, X as CloseIcon, BarChart3, Brain
+import { Link, usePage } from '@inertiajs/react';
+import {
+    Users, BookOpen,
+    LogOut, Menu, X, BarChart3, Brain, Settings, ChevronRight
 } from 'lucide-react';
 
 export default function AdminLayout({ auth, children }) {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const { url } = usePage();
 
     const adminMenu = [
-        { label: 'Platform Overview',   icon: BarChart3, href: '/admin/overview' },
-        { label: 'Manage Users',        icon: Users,     href: '/admin/users' },
-        { label: 'Catalog Content',     icon: BookOpen,  href: '/admin/kursus' },
-        { label: 'Soal Penjajakan',     icon: Brain,     href: '/admin/soal-penjajakan' },
-        { label: 'Platform Settings',   icon: Settings,  href: '/pengaturan' },
+        { label: 'Overview',      icon: BarChart3, href: '/admin/overview' },
+        { label: 'Pengguna',      icon: Users,     href: '/admin/users' },
+        { label: 'Konten Kursus', icon: BookOpen,  href: '/admin/kursus' },
+        { label: 'Soal Penjajakan', icon: Brain,   href: '/admin/soal-penjajakan' },
+        { label: 'Pengaturan',    icon: Settings,  href: '/pengaturan' },
     ];
 
+    const isActive = (href) => url.startsWith(href);
+
     return (
-        <div className="min-h-screen bg-[#05070A] text-white flex overflow-hidden font-outfit relative">
+        <div className="min-h-screen bg-[#0B0E14] text-white flex overflow-hidden">
+
+            {/* Mobile overlay */}
+            {sidebarOpen && (
+                <div
+                    className="lg:hidden fixed inset-0 z-40 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
             <aside className={`
-                fixed lg:relative z-[50] lg:z-20
-                w-72 h-full border-r border-white/5 bg-[#05070A] 
-                transition-transform duration-500 ease-in-out
+                fixed lg:static inset-y-0 left-0 z-50 lg:z-auto
+                w-[240px] h-full flex flex-col
+                bg-[#0B0E14] border-r border-white/5
+                transition-transform duration-300 ease-in-out
                 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'}
             `}>
-                <div className="p-10 flex items-center justify-between">
-                    <Link href="/" className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-red-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg shadow-red-500/20">
-                            <ShieldCheck size={22} />
-                        </div>
-                        <span className="text-xl font-black tracking-tighter uppercase italic">Admin</span>
+                {/* Logo */}
+                <div className="flex items-center justify-between px-5 py-5 border-b border-white/5 shrink-0">
+                    <Link href="/" className="flex items-center gap-2.5">
+                        <img
+                            src="/images/logo_darkmode.svg"
+                            alt="Code Genius"
+                            className="h-7 object-contain"
+                        />
+                        <span className="text-xs font-black tracking-widest uppercase text-red-500">Admin</span>
                     </Link>
+                    <button
+                        className="lg:hidden text-gray-500 hover:text-white"
+                        onClick={() => setSidebarOpen(false)}
+                    >
+                        <X size={16} />
+                    </button>
                 </div>
 
-                <nav className="flex-1 px-6 space-y-1">
-                    <p className="px-5 text-[10px] font-black uppercase tracking-[4px] text-gray-700 mb-4">Management</p>
-                    {adminMenu.map((item, i) => (
-                        <Link 
-                            key={i} 
-                            href={item.href} 
-                            className={`flex items-center gap-4 px-5 py-4 rounded-2xl transition-all duration-300 group ${window.location.pathname === item.href ? 'bg-red-500/10 text-red-500 border border-red-500/20' : 'text-gray-500 hover:text-white hover:bg-white/5'}`}
-                        >
-                            <item.icon size={20} />
-                            <span className="font-bold text-sm">{item.label}</span>
-                        </Link>
-                    ))}
+                {/* Nav */}
+                <nav className="flex-1 py-4 px-3 space-y-0.5 overflow-y-auto">
+                    <p className="px-3 text-[9px] font-black uppercase tracking-[4px] text-gray-700 mb-3">
+                        Manajemen
+                    </p>
+                    {adminMenu.map((item) => {
+                        const active = isActive(item.href);
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                onClick={() => setSidebarOpen(false)}
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
+                                    active
+                                        ? 'bg-red-500/10 text-red-400 border border-red-500/15'
+                                        : 'text-gray-500 hover:text-white hover:bg-white/5'
+                                }`}
+                            >
+                                <item.icon size={16} className="shrink-0" />
+                                <span>{item.label}</span>
+                                {active && <ChevronRight size={12} className="ml-auto" />}
+                            </Link>
+                        );
+                    })}
                 </nav>
 
-                <div className="p-6 border-t border-white/5 mt-auto">
-                    <Link href="/dashboard" className="w-full flex items-center justify-center gap-3 px-5 py-4 rounded-2xl bg-white/5 text-gray-400 font-bold text-xs hover:text-white transition-all mb-4">
-                        Exit to Student View
+                {/* Bottom actions */}
+                <div className="p-3 border-t border-white/5 space-y-1 shrink-0">
+                    <Link
+                        href="/dashboard"
+                        className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-gray-500 font-semibold hover:text-white hover:bg-white/5 transition-all"
+                    >
+                        Keluar ke Tampilan Siswa
                     </Link>
-                    <Link href="/keluar" method="post" as="button" className="w-full flex items-center gap-4 px-5 py-4 rounded-2xl text-red-500/60 hover:text-red-500 hover:bg-red-500/5 transition-all font-bold text-sm">
-                        <LogOut size={20} /> Logout
+                    <Link
+                        href="/keluar"
+                        method="post"
+                        as="button"
+                        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-red-500/60 hover:text-red-400 hover:bg-red-500/5 transition-all font-semibold"
+                    >
+                        <LogOut size={15} /> Logout
                     </Link>
                 </div>
             </aside>
 
-            {/* Main Area */}
-            <main className="flex-1 overflow-y-auto relative custom-scrollbar flex flex-col">
-                <header className="sticky top-0 z-10 bg-[#05070A]/80 backdrop-blur-xl border-b border-white/5 px-6 lg:px-12 py-6 flex items-center justify-between">
-                    <div className="flex items-center gap-4 font-black uppercase tracking-[3px] text-xs text-gray-400">
-                        <button onClick={() => setSidebarOpen(true)} className="lg:hidden p-3 rounded-xl bg-white/5 text-gray-400">
-                            <Menu size={22} />
+            {/* Main */}
+            <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+                {/* Top bar */}
+                <header className="sticky top-0 z-30 bg-[#0B0E14]/90 backdrop-blur-xl border-b border-white/5 px-4 lg:px-6 h-14 flex items-center justify-between shrink-0">
+                    <div className="flex items-center gap-3">
+                        <button
+                            onClick={() => setSidebarOpen(true)}
+                            className="lg:hidden p-2 rounded-lg text-gray-500 hover:text-white hover:bg-white/5 transition-all"
+                        >
+                            <Menu size={18} />
                         </button>
-                        Terminal <span className="text-red-500">_root</span>
+                        <div className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">
+                            Admin <span className="text-red-500">Panel</span>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gradient-to-br from-red-500 to-orange-500 p-[2px]">
-                            <div className="w-full h-full rounded-[10px] bg-[#05070A] flex items-center justify-center font-black">
+                    <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 p-[1.5px]">
+                            <div className="w-full h-full rounded-[7px] bg-[#0B0E14] flex items-center justify-center text-xs font-black text-white">
                                 {auth.pengguna.nama[0]}
                             </div>
+                        </div>
+                        <div className="hidden sm:block">
+                            <p className="text-xs font-bold text-white leading-none">{auth.pengguna.nama}</p>
+                            <p className="text-[10px] text-gray-600 mt-0.5 uppercase tracking-wider">Administrator</p>
                         </div>
                     </div>
                 </header>
 
-                <div className="flex-1">
+                {/* Page content */}
+                <div className="flex-1 overflow-y-auto">
                     {children}
                 </div>
             </main>

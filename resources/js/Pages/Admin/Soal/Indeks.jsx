@@ -9,8 +9,8 @@ const JALUR_OPTIONS = [
 ];
 
 const TIPE_OPTIONS = [
-    { value: 'pilihan_ganda', label: 'Pilihan Ganda', icon: '🔘', desc: 'User memilih A/B/C/D' },
-    { value: 'kode',          label: 'Soal Kode',      icon: '💻', desc: 'User mengetik jawaban' },
+    { value: 'pilihan_ganda', label: 'Pilihan Ganda', desc: 'User memilih A/B/C/D' },
+    { value: 'kode',          label: 'Soal Kode',      desc: 'User mengetik jawaban' },
 ];
 
 const DIFFICULTY_OPTIONS = [
@@ -117,38 +117,38 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
         <AdminLayout auth={auth}>
             <Head title="Admin: Soal Penjajakan" />
 
-            <div className="px-6 lg:px-12 py-12 space-y-10">
+            <div className="px-4 sm:px-6 lg:px-8 py-6 lg:py-8 space-y-6 max-w-7xl mx-auto">
                 {/* Header */}
-                <div className="flex items-center justify-between">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-4xl font-black mb-2 tracking-tight flex items-center gap-3">
-                            <Brain className="text-violet-400" size={36} />
-                            Soal <span className="text-violet-400 italic">Penjajakan</span>
+                        <h1 className="text-2xl lg:text-3xl font-black tracking-tight flex items-center gap-2">
+                            <Brain className="text-violet-400" size={24} />
+                            Soal <span className="text-violet-400">Penjajakan</span>
                         </h1>
-                        <p className="text-gray-500 font-light">
-                            Kelola soal tes penjajakan. Mendukung soal <span className="text-white font-semibold">pilihan ganda</span> dan <span className="text-blue-400 font-semibold">soal kode</span>.
+                        <p className="text-gray-500 text-sm mt-1">
+                            Kelola soal tes penjajakan — <span className="text-white font-semibold">pilihan ganda</span> dan <span className="text-blue-400 font-semibold">soal kode</span>.
                         </p>
                     </div>
                     <button
                         id="btn-tambah-soal"
                         onClick={openCreate}
-                        className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-violet-500 to-blue-500 text-white font-black text-sm uppercase tracking-widest rounded-2xl hover:scale-105 transition-all shadow-xl shadow-violet-500/30"
+                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-violet-600 text-white font-bold text-sm rounded-xl hover:bg-violet-700 transition-all shadow-lg shadow-violet-500/20 shrink-0"
                     >
-                        <Plus size={18} /> Tambah Soal
+                        <Plus size={16} /> Tambah Soal
                     </button>
                 </div>
 
                 {/* Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {[
                         { label: 'Total Soal', val: stats.total,    color: 'text-white',      bg: 'bg-white/5' },
                         { label: 'Frontend',   val: stats.frontend, color: 'text-blue-400',   bg: 'bg-blue-500/10' },
                         { label: 'Backend',    val: stats.backend,  color: 'text-violet-400', bg: 'bg-violet-500/10' },
                         { label: 'Aktif',      val: stats.aktif,    color: 'text-green-400',  bg: 'bg-green-500/10' },
                     ].map((s, i) => (
-                        <div key={i} className={`p-6 rounded-2xl border border-white/5 ${s.bg}`}>
-                            <p className="text-2xl font-black text-white">{s.val}</p>
-                            <p className={`text-xs font-bold uppercase tracking-widest mt-1 ${s.color}`}>{s.label}</p>
+                        <div key={i} className={`p-4 lg:p-5 rounded-xl border border-white/5 ${s.bg}`}>
+                            <p className="text-xl lg:text-2xl font-black text-white">{s.val}</p>
+                            <p className={`text-[10px] font-bold uppercase tracking-widest mt-1 ${s.color}`}>{s.label}</p>
                         </div>
                     ))}
                 </div>
@@ -165,82 +165,103 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                 </div>
 
                 {/* Table */}
-                <div className="glass-card overflow-hidden border-white/5">
+                <div className="bg-[#0D1117] border border-white/5 rounded-2xl overflow-hidden">
                     <div className="overflow-x-auto">
-                        <table className="w-full text-sm min-w-[700px]">
+                        <table className="w-full text-sm" style={{ minWidth: '640px' }}>
                             <thead>
                                 <tr className="border-b border-white/5">
-                                    {['#', 'Pertanyaan', 'Jalur', 'Tipe', 'Level', 'Jawaban', 'Skor', 'Status', 'Aksi'].map(h => (
-                                        <th key={h} className="p-4 text-left text-[10px] font-black uppercase tracking-[3px] text-gray-500">{h}</th>
-                                    ))}
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600">#</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600">Pertanyaan</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600">Jalur</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600">Tipe</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600 hidden md:table-cell">Level</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600 hidden lg:table-cell">Jawaban</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600 hidden sm:table-cell">Skor</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600">Status</th>
+                                    <th className="px-4 py-3 text-left text-[10px] font-black uppercase tracking-widest text-gray-600">Aksi</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody className="divide-y divide-white/5">
                                 {soal.length === 0 ? (
                                     <tr>
-                                        <td colSpan={8} className="text-center py-16 text-gray-600">
+                                        <td colSpan={9} className="text-center py-16 text-gray-600 text-sm">
                                             Belum ada soal. Klik <span className="text-violet-400 font-bold">Tambah Soal</span> untuk mulai.
                                         </td>
                                     </tr>
                                 ) : soal.map((s, i) => {
                                     const jalurCfg = JALUR_OPTIONS.find(j => j.value === s.jalur);
                                     const isKodeTipe = s.tipe === 'kode';
+                                    const diffCfg = DIFFICULTY_OPTIONS.find(d => d.value === (s.difficulty_level || 'beginner'));
                                     return (
-                                        <tr key={s.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors">
-                                            <td className="p-4 text-gray-600 font-bold">{s.urutan || i + 1}</td>
-                                            <td className="p-4 text-gray-300 max-w-xs">
-                                                <p className="line-clamp-2 leading-snug text-sm">{s.pertanyaan}</p>
+                                        <tr key={s.id} className="hover:bg-white/[0.02] transition-colors">
+                                            <td className="px-4 py-3 text-gray-600 font-bold text-xs">{s.urutan || i + 1}</td>
+                                            <td className="px-4 py-3 max-w-[200px] lg:max-w-xs">
+                                                <p className="line-clamp-2 leading-snug text-sm text-gray-300">{s.pertanyaan}</p>
                                                 {s.kode_pertanyaan && (
-                                                    <p className="text-[10px] text-blue-400 mt-1 font-mono flex items-center gap-1">
-                                                        <Code2 size={10} /> Ada code snippet
-                                                    </p>
+                                                    <span className="inline-flex items-center gap-1 text-[10px] text-blue-400 mt-1 font-mono">
+                                                        <Code2 size={10} /> kode
+                                                    </span>
                                                 )}
                                             </td>
-                                            <td className="p-4">
-                                                <span className={`px-3 py-1 rounded-full text-[11px] font-bold ${jalurCfg?.bg} ${jalurCfg?.color} border ${jalurCfg?.border}`}>
+                                            <td className="px-4 py-3">
+                                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${jalurCfg?.bg} ${jalurCfg?.color} border ${jalurCfg?.border}`}>
                                                     {jalurCfg?.label || s.jalur}
                                                 </span>
                                             </td>
-                                            <td className="p-4">
-                                                <span className={`px-3 py-1 rounded-full text-[11px] font-bold ${isKodeTipe ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30' : 'bg-white/5 text-gray-400 border border-white/10'}`}>
-                                                    {isKodeTipe ? '💻 Kode' : '🔘 PG'}
+                                            <td className="px-4 py-3">
+                                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap ${
+                                                    isKodeTipe ? 'bg-blue-500/10 text-blue-400 border border-blue-500/30' : 'bg-white/5 text-gray-400 border border-white/10'
+                                                }`}>
+                                                    {isKodeTipe ? 'Kode' : 'PG'}
                                                 </span>
                                             </td>
-                                            <td className="p-4">
-                                                {(() => {
-                                                    const diffCfg = DIFFICULTY_OPTIONS.find(d => d.value === (s.difficulty_level || 'beginner'));
-                                                    return (
-                                                        <span className={`px-3 py-1 rounded-full text-[11px] font-bold border ${diffCfg?.bg} ${diffCfg?.color} ${diffCfg?.border}`}>
-                                                            {diffCfg?.label}
-                                                        </span>
-                                                    );
-                                                })()}
+                                            <td className="px-4 py-3 hidden md:table-cell">
+                                                <span className={`inline-flex items-center px-2 py-0.5 rounded-full text-[11px] font-bold whitespace-nowrap border ${diffCfg?.bg} ${diffCfg?.color} ${diffCfg?.border}`}>
+                                                    {diffCfg?.label}
+                                                </span>
                                             </td>
-                                            <td className="p-4">
+                                            <td className="px-4 py-3 hidden lg:table-cell">
                                                 {isKodeTipe ? (
                                                     <span className="text-xs text-gray-500 font-mono max-w-[100px] truncate block">{s.kata_kunci_jawaban || s.jawaban_benar}</span>
                                                 ) : (
-                                                    <span className="w-7 h-7 rounded-lg bg-green-500/20 text-green-400 font-black text-xs flex items-center justify-center uppercase">
+                                                    <span className="w-6 h-6 rounded-md bg-green-500/20 text-green-400 font-black text-xs flex items-center justify-center uppercase">
                                                         {s.jawaban_benar}
                                                     </span>
                                                 )}
                                             </td>
-                                            <td className="p-4 text-yellow-400 font-bold">+{s.bobot_skor}</td>
-                                            <td className="p-4">
-                                                <button onClick={() => handleToggle(s.id)} className="flex items-center gap-1.5 text-xs">
+                                            <td className="px-4 py-3 hidden sm:table-cell">
+                                                <span className="text-yellow-400 font-bold text-sm">+{s.bobot_skor}</span>
+                                            </td>
+                                            <td className="px-4 py-3">
+                                                <button
+                                                    onClick={() => handleToggle(s.id)}
+                                                    className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-[11px] font-bold border transition-all ${
+                                                        s.aktif
+                                                            ? 'bg-green-500/10 text-green-400 border-green-500/30 hover:bg-green-500/20'
+                                                            : 'bg-white/5 text-gray-500 border-white/10 hover:bg-white/10'
+                                                    }`}
+                                                >
                                                     {s.aktif
-                                                        ? <><ToggleRight size={20} className="text-green-400" /><span className="text-green-400">Aktif</span></>
-                                                        : <><ToggleLeft size={20} className="text-gray-600" /><span className="text-gray-600">Nonaktif</span></>
+                                                        ? <><ToggleRight size={14} /> Aktif</>
+                                                        : <><ToggleLeft size={14} /> Nonaktif</>
                                                     }
                                                 </button>
                                             </td>
-                                            <td className="p-4">
-                                                <div className="flex gap-2">
-                                                    <button onClick={() => openEdit(s)} className="p-2 rounded-xl hover:bg-blue-500/10 text-gray-500 hover:text-blue-400 transition-colors">
-                                                        <Edit2 size={15} />
+                                            <td className="px-4 py-3">
+                                                <div className="flex items-center gap-1">
+                                                    <button
+                                                        onClick={() => openEdit(s)}
+                                                        className="p-1.5 rounded-lg text-gray-600 hover:text-blue-400 hover:bg-blue-500/10 transition-all"
+                                                        title="Edit soal"
+                                                    >
+                                                        <Edit2 size={14} />
                                                     </button>
-                                                    <button onClick={() => handleDelete(s.id)} className="p-2 rounded-xl hover:bg-red-500/10 text-gray-500 hover:text-red-400 transition-colors">
-                                                        <Trash2 size={15} />
+                                                    <button
+                                                        onClick={() => handleDelete(s.id)}
+                                                        className="p-1.5 rounded-lg text-gray-600 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                                        title="Hapus soal"
+                                                    >
+                                                        <Trash2 size={14} />
                                                     </button>
                                                 </div>
                                             </td>

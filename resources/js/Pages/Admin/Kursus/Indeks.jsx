@@ -89,17 +89,17 @@ export default function Indeks({ auth, semua_kursus: initialCourses }) {
                 </div>
             )}
             
-            <div className="px-6 lg:px-12 py-12 space-y-12">
-                <header className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="px-4 sm:px-6 lg:px-8 py-6 lg:py-8 space-y-8 max-w-7xl mx-auto">
+                <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h1 className="text-4xl font-black mb-2 tracking-tight">Content <span className="text-red-500 italic">Vault</span></h1>
-                        <p className="text-gray-500 font-light">Kelola kurikulum, materi, dan roadmap pembelajaran.</p>
+                        <h1 className="text-2xl lg:text-3xl font-black tracking-tight">Konten <span className="text-red-500">Kursus</span></h1>
+                        <p className="text-gray-500 text-sm mt-1">Kelola kurikulum, materi, dan roadmap pembelajaran.</p>
                     </div>
-                    <button 
+                    <button
                         onClick={() => setShowModal(true)}
-                        className="flex items-center justify-center gap-3 px-8 py-4 bg-red-500 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-red-600 transition-all shadow-xl shadow-red-500/20"
+                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-red-500 text-white font-bold text-sm rounded-xl hover:bg-red-600 transition-all shadow-lg shadow-red-500/20 shrink-0"
                     >
-                        <Plus size={18} /> Tambah Kursus Baru
+                        <Plus size={16} /> Tambah Kursus
                     </button>
                 </header>
 

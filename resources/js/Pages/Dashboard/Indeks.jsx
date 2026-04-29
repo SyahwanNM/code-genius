@@ -1,203 +1,241 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { 
-    Award, Clock, Zap, Target, ArrowRight, Star, ChevronRight, 
-    Sparkles, Rocket, Monitor, Server, BookOpen, Map
+import {
+    ArrowUpRight,
+    BookOpen,
+    Brain,
+    CalendarDays,
+    ChevronRight,
+    CircleCheck,
+    Code2,
+    Flame,
+    Lightbulb,
+    Medal,
+    Palette,
+    Sparkles,
+    Swords,
+    Target,
+    Timer,
+    Trophy,
+    Zap,
 } from 'lucide-react';
 import UserLayout from '@/Layouts/UserLayout';
 
 const LEVEL_CONFIG = {
-    beginner:     { label: 'Beginner',     color: 'from-emerald-500 to-teal-400',    text: 'text-emerald-400',  bg: 'bg-emerald-500/10', emoji: '🌱' },
-    intermediate: { label: 'Intermediate', color: 'from-yellow-500 to-orange-400',   text: 'text-yellow-400',   bg: 'bg-yellow-500/10',  emoji: '⚡' },
-    advanced:     { label: 'Advanced',     color: 'from-red-500 to-rose-400',        text: 'text-red-400',      bg: 'bg-red-500/10',     emoji: '🔥' },
+    beginner: { label: 'Beginner' },
+    intermediate: { label: 'Intermediate' },
+    advanced: { label: 'Advanced' },
 };
 
 const JALUR_CONFIG = {
-    frontend: { label: 'Frontend Developer', icon: Monitor, color: 'from-blue-500 to-cyan-400',    text: 'text-blue-400',   bg: 'bg-blue-500/10' },
-    backend:  { label: 'Backend Developer',  icon: Server,  color: 'from-violet-500 to-indigo-400', text: 'text-violet-400', bg: 'bg-violet-500/10' },
+    frontend: { label: 'Frontend Developer' },
+    backend: { label: 'Backend Developer' },
 };
 
 export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
-    const user       = auth.pengguna;
-    const jalurCfg   = JALUR_CONFIG[user.jalur_belajar] || JALUR_CONFIG.frontend;
-    const levelCfg   = LEVEL_CONFIG[user.level_pemahaman] || LEVEL_CONFIG.beginner;
-    const JalurIcon  = jalurCfg.icon;
-
+    const user = auth.pengguna;
+    const jalurCfg = JALUR_CONFIG[user.jalur_belajar] || JALUR_CONFIG.frontend;
+    const levelCfg = LEVEL_CONFIG[user.level_pemahaman] || LEVEL_CONFIG.beginner;
     const displayKursus = kursus_rekomendasi?.length > 0 ? kursus_rekomendasi : semua_kursus;
+    const previewCourses = displayKursus.slice(0, 4);
+
+    const xp = Number(user.xp || 0);
+    const targetXp = 5000;
+    const progressPercent = Math.min(100, Math.round((xp / targetXp) * 100));
+    const numberID = new Intl.NumberFormat('id-ID');
+
+    const cards = [
+        { title: 'Jalur Belajar', value: user.jalur_belajar || 'Frontend', icon: Palette, color: 'text-pink-300' },
+        { title: 'Level Kamu', value: levelCfg.label, icon: Zap, color: 'text-orange-400' },
+        { title: 'Total XP', value: numberID.format(xp), icon: Sparkles, color: 'text-purple-400' },
+        { title: 'Streak Harian', value: `${user.streak_harian || 0} Hari`, icon: Flame, color: 'text-orange-500' },
+    ];
+
+    const achievements = [
+        { label: 'First Code', icon: Trophy },
+        { label: '7-Day Streak', icon: Flame },
+        { label: 'Course Complete', icon: Medal },
+        { label: 'AI Chat Master', icon: Brain },
+        { label: 'Code Warrior', icon: Swords },
+        { label: 'Speed Coder', icon: Zap },
+    ];
+
 
     return (
         <UserLayout auth={auth}>
             <Head title="Dashboard — Code Genius" />
-            
-            <div className="px-6 lg:px-12 py-8 lg:py-12 space-y-8 lg:space-y-12 relative z-10">
 
-                {/* Welcome Hero — Personalized */}
-                <section className={`relative p-8 lg:p-12 rounded-[32px] lg:rounded-[40px] bg-gradient-to-r ${jalurCfg.color} overflow-hidden shadow-2xl group`}>
-                    <div className="absolute top-0 right-0 p-12 opacity-10 group-hover:rotate-12 transition-transform duration-700 hidden lg:block">
-                        <Sparkles size={250} />
+            <div className="px-6 lg:px-10 py-6 space-y-5 font-sans">
+                <section className="relative overflow-hidden rounded-2xl border border-[#2b4eae] bg-[#2142a0] p-6 lg:p-8">
+                    <div className="absolute right-8 top-2 opacity-15 hidden md:block">
+                        <Palette size={120} className="text-[#6d86d2]" />
                     </div>
-                    <div className="relative z-10 max-w-xl">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 text-white/80 text-xs font-bold uppercase tracking-widest mb-5">
-                            <JalurIcon size={12} />
-                            {jalurCfg.label}
-                        </div>
-                        <h1 className="text-3xl lg:text-5xl font-black mb-4 lg:mb-6 leading-tight text-white">
-                            Selamat datang, <br className="hidden sm:block" />
-                            <span className="italic underline decoration-white/30">{user.nama}!</span>
-                        </h1>
-                        <div className="flex items-center gap-3 mb-6">
-                            <span className={`text-2xl`}>{levelCfg.emoji}</span>
-                            <div className={`px-3 py-1 rounded-full ${levelCfg.bg} border border-white/20 text-white text-xs font-black uppercase tracking-widest`}>
-                                Level: {levelCfg.label}
-                            </div>
-                        </div>
-                        <p className="text-white/80 font-light mb-8 lg:mb-10 leading-relaxed text-base lg:text-lg">
-                            Materi yang ditampilkan sudah disesuaikan dengan <span className="font-bold text-white">jalur & level</span> pemahamanmu.
-                        </p>
-                        <div className="flex flex-wrap gap-4">
-                            <Link href="/roadmap" className="inline-flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-white text-black font-black uppercase tracking-widest text-[10px] lg:text-xs rounded-2xl hover:bg-white/90 transition-all shadow-xl">
-                                <Map size={16} /> Lihat Roadmap
-                            </Link>
-                            <Link href="/kursus" className="inline-flex items-center gap-3 px-6 lg:px-8 py-3 lg:py-4 bg-white/20 text-white font-black uppercase tracking-widest text-[10px] lg:text-xs rounded-2xl hover:bg-white/30 transition-all border border-white/30">
-                                <BookOpen size={16} /> Semua Kursus
-                            </Link>
-                        </div>
+
+                    {/* Labels for Large Screen */}
+                    <div className="absolute right-6 top-6 hidden lg:flex lg:items-center lg:gap-2.5">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm font-medium">
+                            <Palette size={14} /> {jalurCfg.label}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm font-medium">
+                            <Zap size={14} /> {levelCfg.label}
+                        </span>
+                    </div>
+
+                    <p className="text-sm font-medium text-white/70">Selamat datang kembali</p>
+                    <h1 className="text-4xl font-bold leading-tight mt-1">{user.nama}!</h1>
+
+                    {/* Labels for Small Screen */}
+                    <div className="mt-3 flex flex-wrap gap-2.5 lg:hidden">
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm font-medium">
+                            <Palette size={14} /> {jalurCfg.label}
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 rounded-full border border-white/20 bg-white/10 px-3 py-1.5 text-sm font-medium">
+                            <Zap size={14} /> {levelCfg.label}
+                        </span>
+                    </div>
+
+                    <div className="mt-5 flex flex-wrap gap-3">
+                        <Link
+                            href="/kursus"
+                            className="inline-flex items-center gap-2 rounded-xl bg-[#f4c400] px-4 py-2.5 text-sm font-semibold text-black hover:bg-[#ffd84a] transition-colors"
+                        >
+                            <BookOpen size={16} /> Semua Kursus
+                        </Link>
+                        <Link
+                            href="/roadmap"
+                            className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/10 px-4 py-2.5 text-sm font-medium hover:bg-white/20 transition-colors"
+                        >
+                            <Target size={16} /> Lihat Roadmap
+                        </Link>
                     </div>
                 </section>
 
-                {/* Stats Grid */}
-                <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[
-                        { label: 'Jalur Belajar',    val: jalurCfg.label,                      icon: JalurIcon,  color: jalurCfg.text,   bg: jalurCfg.bg   },
-                        { label: 'Level Pemahaman',  val: `${levelCfg.emoji} ${levelCfg.label}`, icon: Target,     color: levelCfg.text,   bg: levelCfg.bg   },
-                        { label: 'Total XP',         val: `${user.xp || 0} XP`,                 icon: Award,      color: 'text-secondary', bg: 'bg-secondary/10' },
-                        { label: 'Streak Harian',    val: `${user.streak_harian || 0} Hari`,    icon: Zap,        color: 'text-yellow-500', bg: 'bg-yellow-500/10' },
-                    ].map((s, i) => (
-                        <div key={i} className="group relative glass-card p-6 lg:p-8 transition-all hover:bg-white/5 border-white/5 hover:border-white/10 overflow-hidden">
-                            <div className={`absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-10 transition-opacity`}>
-                                <s.icon size={100} />
+                <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-3">
+                    {cards.map((card) => (
+                        <div key={card.title} className="rounded-xl border border-[#17326d] bg-[#0f1b3a] p-5">
+                            <div className="flex items-center justify-between mb-3.5">
+                                <p className="text-sm font-medium text-[#7e92bf]">{card.title}</p>
+                                <card.icon size={18} className={card.color} />
                             </div>
-                            <div className={`w-12 h-12 lg:w-14 lg:h-14 rounded-2xl ${s.bg} ${s.color} flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-6 transition-transform`}>
-                                <s.icon size={24} />
-                            </div>
-                            <p className="text-[10px] font-black uppercase tracking-[3px] text-gray-600 mb-1">{s.label}</p>
-                            <h3 className="text-xl lg:text-2xl font-black text-white leading-tight">{s.val}</h3>
+                            <h3 className="text-2xl font-semibold capitalize leading-tight">{card.value}</h3>
                         </div>
                     ))}
                 </section>
 
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    {/* Rekomendasi Kursus */}
-                    <div className="lg:col-span-2 space-y-8">
-                        <div className="flex items-end justify-between px-2">
-                            <div>
-                                <h2 className="text-2xl font-black mb-2">
-                                    {kursus_rekomendasi?.length > 0 ? 'Kursus ' : 'Semua '}
-                                    <span className={`${jalurCfg.text} italic`}>
-                                        {kursus_rekomendasi?.length > 0 ? 'Untukmu' : 'Kursus'}
-                                    </span>
-                                </h2>
-                                <p className="text-gray-600 text-sm font-light italic">
-                                    {kursus_rekomendasi?.length > 0
-                                        ? `Dipilih berdasarkan jalur ${jalurCfg.label} & level ${levelCfg.label}mu.`
-                                        : 'Jelajahi semua materi yang tersedia.'}
-                                </p>
-                            </div>
-                            <Link href="/kursus" className="text-secondary text-xs font-black uppercase tracking-widest hover:underline flex items-center gap-2">
-                                Semua <ChevronRight size={14} />
-                            </Link>
+                <section className="rounded-xl border border-[#17326d] bg-[#0f1b3a] p-5">
+                    <div className="flex items-end justify-between mb-2">
+                        <div>
+                            <h2 className="text-xl font-semibold">Progress ke Level Advanced</h2>
+                            <p className="text-sm text-[#7e92bf] mt-0.5">{numberID.format(xp)} / {numberID.format(targetXp)} XP</p>
                         </div>
+                        <p className="text-xl font-semibold text-[#f4c400]">{progressPercent}%</p>
+                    </div>
+                    <div className="h-3 w-full rounded-full bg-[#172a54] overflow-hidden">
+                        <div
+                            className="h-full rounded-full bg-gradient-to-r from-[#2b5ce7] via-[#7ea2e6] to-[#f4c400]"
+                            style={{ width: `${progressPercent}%` }}
+                        />
+                    </div>
+                </section>
 
-                        {displayKursus.length === 0 ? (
-                            <div className="glass-card p-12 text-center border-white/5">
-                                <BookOpen size={48} className="text-gray-700 mx-auto mb-4" />
-                                <p className="text-gray-500 font-light">Belum ada kursus tersedia untuk jalur dan level ini.</p>
-                                <p className="text-gray-600 text-xs mt-2">Admin sedang menyiapkan materi untukmu.</p>
+                <section className="grid grid-cols-1 xl:grid-cols-12 gap-4">
+                    
+
+                    <div className="xl:col-span-8 h-full">
+                        <div className="rounded-xl border border-[#17326d] bg-[#0f1b3a] p-5 flex flex-col h-full">
+                            <div className="flex items-center justify-between mb-3">
+                                <div>
+                                    <h3 className="text-lg font-semibold">Aktivitas Minggu Ini</h3>
+                                    <p className="text-xs text-[#7e92bf] mt-1">Total XP: <span className="text-[#f4c400] font-semibold">1.300 XP</span></p>
+                                </div>
+                                <span className="text-xs text-[#2ce0b0] bg-[#123d39] px-2.5 py-1 rounded-full font-medium">+12% dari minggu lalu</span>
                             </div>
-                        ) : (
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                {displayKursus.map((k) => (
-                                    <Link 
-                                        key={k.id} 
-                                        href={`/kursus/${k.slug}`} 
-                                        className="group relative glass-card p-0 overflow-hidden border-white/5 hover:border-primary/20 transition-all flex flex-col"
-                                    >
-                                        <div className="p-8 pb-2">
-                                            <div className="text-4xl mb-6 bg-white/5 w-16 h-16 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 group-hover:rotate-3 shadow-inner text-white/50 group-hover:text-secondary">
-                                                {k.ikon}
-                                            </div>
-                                            {/* Level & Jalur badges */}
-                                            <div className="flex gap-2 mb-3">
-                                                {k.level_kesulitan && (
-                                                    <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-lg ${LEVEL_CONFIG[k.level_kesulitan]?.bg} ${LEVEL_CONFIG[k.level_kesulitan]?.text}`}>
-                                                        {LEVEL_CONFIG[k.level_kesulitan]?.label}
-                                                    </span>
-                                                )}
-                                                {k.jalur && k.jalur !== 'umum' && (
-                                                    <span className={`text-[10px] font-black uppercase px-2 py-1 rounded-lg ${JALUR_CONFIG[k.jalur]?.bg} ${JALUR_CONFIG[k.jalur]?.text}`}>
-                                                        {JALUR_CONFIG[k.jalur]?.label}
-                                                    </span>
-                                                )}
-                                            </div>
-                                            <h3 className="text-xl font-bold mb-3">{k.nama}</h3>
-                                            <p className="text-gray-500 text-xs leading-relaxed line-clamp-2 font-light">{k.deskripsi}</p>
-                                        </div>
-                                        <div className="p-8 pt-6 mt-auto border-t border-white/5 flex items-center justify-between bg-white/2">
-                                            <div className="flex items-center gap-4 text-[10px] text-gray-600 font-bold uppercase tracking-widest">
-                                                <span className="flex items-center gap-1.5"><Clock size={12} className="text-primary" /> 5h</span>
-                                                <span className="flex items-center gap-1.5"><Star size={12} className="text-secondary" /> 4.9</span>
-                                            </div>
-                                            <ChevronRight size={18} className="text-gray-700 group-hover:text-primary transition-colors transform group-hover:translate-x-1" />
-                                        </div>
-                                    </Link>
+                            <svg viewBox="0 0 600 200" className="w-full flex-1" style={{ minHeight: '240px' }}>
+                                <defs>
+                                    <linearGradient id="lineGrad" x1="0" y1="0" x2="1" y2="0">
+                                        <stop offset="0%" stopColor="#4f79ff" />
+                                        <stop offset="100%" stopColor="#2b5ce7" />
+                                    </linearGradient>
+                                </defs>
+                                <g opacity="0.2" stroke="#35508f" strokeWidth="1">
+                                    <line x1="0" y1="40" x2="600" y2="40" />
+                                    <line x1="0" y1="80" x2="600" y2="80" />
+                                    <line x1="0" y1="120" x2="600" y2="120" />
+                                    <line x1="0" y1="160" x2="600" y2="160" />
+                                </g>
+                                <polyline
+                                    fill="none"
+                                    stroke="url(#lineGrad)"
+                                    strokeWidth="3"
+                                    points="10,140 100,160 190,80 280,100 370,30 460,60 560,100"
+                                />
+                            </svg>
+                            <div className="flex justify-between text-[11px] text-[#7e92bf] mt-3 font-medium">
+                                {['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'].map((d) => (
+                                    <span key={d}>{d}</span>
                                 ))}
                             </div>
-                        )}
+                        </div>
                     </div>
 
-                    {/* Sidebar: Learning Progress */}
-                    <div className="space-y-8">
-                        <h2 className="text-2xl font-black mb-2 px-2">Learning <span className="text-yellow-500 italic">Progress</span></h2>
-                        <div className="glass-card p-8 space-y-6 bg-gradient-to-b from-white/[0.03] to-transparent">
-                            {/* Level progress visual */}
-                            <div className={`p-5 rounded-2xl bg-gradient-to-br ${levelCfg.color} bg-opacity-10 border ${levelCfg.bg} border-white/10`}>
-                                <p className="text-[10px] font-black uppercase tracking-[3px] text-white/60 mb-2">Level Saat Ini</p>
-                                <div className="flex items-center gap-3">
-                                    <span className="text-3xl">{levelCfg.emoji}</span>
-                                    <div>
-                                        <p className={`text-xl font-black bg-gradient-to-r ${levelCfg.color} bg-clip-text text-transparent`}>{levelCfg.label}</p>
-                                        <p className="text-xs text-white/50">Berdasarkan hasil tes penjajakan</p>
+                    <div className="xl:col-span-4 space-y-4 h-full flex flex-col">
+                        <div className="rounded-xl border border-[#3f56b8] bg-gradient-to-b from-[#3650bd] to-[#21378f] p-5">
+                            <h3 className="inline-flex items-center gap-2.5 text-base font-semibold mb-3">
+                                <Lightbulb size={18} className="text-[#f4c400]" /> Tips Hari Ini
+                            </h3>
+                            <p className="text-sm leading-relaxed text-white">
+                                Konsistensi lebih penting dari intensitas. 30 menit setiap hari jauh lebih efektif daripada 5 jam sekali.
+                            </p>
+                        </div>
+
+                        <div className="rounded-xl border border-[#17326d] bg-[#0f1b3a] p-5 flex-1">
+                            <div className="flex items-center justify-between mb-4">
+                                <h3 className="inline-flex items-center gap-2 text-base font-semibold">
+                                    <Trophy size={16} className="text-[#f4c400]" /> Pencapaian
+                                </h3>
+                                <span className="text-xs text-[#7e92bf] bg-[#122142] px-2.5 py-1 rounded-full">3/6</span>
+                            </div>
+                            <div className="grid grid-cols-3 gap-3">
+                                {achievements.map((item, i) => (
+                                    <div
+                                        key={item.label}
+                                        className={`rounded-lg border p-3 text-center transition-all ${i < 3 ? 'border-[#3d4f82] bg-[#1a2a54]' : 'border-[#223560] bg-[#101a34] opacity-60'}`}
+                                    >
+                                        <item.icon size={18} className={`mx-auto mb-2 ${i < 3 ? 'text-[#f4c400]' : 'text-[#7e92bf]'}`} />
+                                        <p className="text-[11px] leading-snug text-[#9bb0da] font-medium">{item.label}</p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="xl:col-span-12">
+                        <div className="rounded-xl border border-[#17326d] bg-[#0f1b3a] p-5">
+                            <h3 className="inline-flex items-center gap-2 text-base font-semibold mb-4">
+                                <CalendarDays size={16} className="text-[#6d91ff]" /> Tantangan Mendatang
+                            </h3>
+                            <div className="grid grid-cols-2 gap-4">
+                                <div className="flex items-start gap-3 text-[#d7e1ff] bg-[#0a0f1f] p-4 rounded-lg border border-[#172a54]">
+                                    <span className="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-[#f4c400]" />
+                                    <div className="flex-1">
+                                        <p className="text-sm font-medium">Weekly Challenge: Array Sorting Basics</p>
+                                        <p className="text-xs text-[#7e92bf] mt-2"><span className="text-[#f4c400] font-semibold">+150 XP</span></p>
+                                    </div>
+                                </div>
+                                <div className="flex items-start gap-3 text-[#d7e1ff] bg-[#0a0f1f] p-4 rounded-lg border border-[#172a54]">
+                                    <span className="mt-1 flex-shrink-0 w-2 h-2 rounded-full bg-[#f4c400]" />
+                                    <div className="flex-1">
+                                        <p className="text-sm font-medium">Live Coding Session Sabtu 10:00</p>
+                                        <p className="text-xs text-[#7e92bf] mt-2"><span className="text-[#f4c400] font-semibold">+300 XP</span></p>
                                     </div>
                                 </div>
                             </div>
-
-                            <div className="space-y-4">
-                                {[
-                                    { task: 'Selesaikan kursus pertama', reward: '+100 XP', done: false },
-                                    { task: 'Belajar 7 hari berturut-turut', reward: '+200 XP', done: false },
-                                    { task: 'Naik ke level berikutnya', reward: '🏆 Badge', done: false },
-                                ].map((t, i) => (
-                                    <div key={i} className="flex items-center gap-4 group cursor-pointer">
-                                        <div className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center text-gray-600 group-hover:text-secondary transition-colors">
-                                            <Rocket size={18} />
-                                        </div>
-                                        <div className="flex-1">
-                                            <h4 className="text-sm font-bold text-gray-400 group-hover:text-white transition-colors">{t.task}</h4>
-                                            <p className="text-[10px] font-black uppercase text-gray-600 tracking-wider">{t.reward}</p>
-                                        </div>
-                                        <div className="w-5 h-5 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors">
-                                            <div className="w-2 h-2 rounded-full bg-transparent group-hover:bg-primary transition-all" />
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-
-                            <Link href="/roadmap" className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-gradient-to-r from-primary/20 to-secondary/20 border border-primary/20 text-primary text-xs font-black uppercase tracking-widest hover:from-primary/30 hover:to-secondary/30 transition-all">
-                                <Map size={14} /> Lihat Roadmapku <ArrowRight size={14} />
+                            <Link href="/roadmap" className="inline-flex items-center justify-center gap-2 text-[#6d91ff] text-sm font-medium mt-4 hover:text-[#9bb0ff] transition-colors w-full">
+                                Lihat Semua Progres <ChevronRight size={14} />
                             </Link>
                         </div>
                     </div>
-                </div>
+                </section>
             </div>
         </UserLayout>
     );
