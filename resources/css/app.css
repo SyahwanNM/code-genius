@@ -25,6 +25,7 @@
     html {
         /* Global fluid scale: keeps text readable on desktop and smaller on mobile */
         font-size: clamp(14px, 0.25vw + 13px, 16px);
+        scroll-behavior: smooth;
     }
 
     body {

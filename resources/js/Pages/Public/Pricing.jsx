@@ -43,7 +43,7 @@ export default function Pricing({ auth }) {
             <header className="pt-32 pb-20 text-center relative overflow-hidden">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-primary/5 blur-[120px] rounded-full" />
                 <div className="max-w-3xl mx-auto px-8 relative z-10">
-                    <h1 className="text-5xl font-black mb-6 leading-tight">Pilih Jalur <span className="text-secondary">Kesuksesanmu</span></h1>
+                    <h1 className="text-5xl font-black leading-tight">Pilih Jalur <span className="text-accent">Kesuksesanmu</span></h1>
                     <p className="text-gray-500 text-lg font-light">Investasi terbaik adalah investasi pada dirimu sendiri. Mulai belajar hari ini.</p>
                 </div>
             </header>
