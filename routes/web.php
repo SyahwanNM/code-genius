@@ -80,6 +80,8 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::get('/users', [AdminUserController::class, 'indeks'])->name('admin.users');
     Route::get('/kursus', [AdminKursusController::class, 'indeks'])->name('admin.kursus');
     Route::get('/kursus/{id}/materi', [AdminKursusController::class, 'materi'])->name('admin.kursus.materi');
+    Route::post('/settings/profile', [ProfilController::class, 'updateAdmin'])->name('admin.settings.update');
+    Route::post('/settings/system', [ProfilController::class, 'updateSystem'])->name('admin.settings.system');
 
     // Manajemen Soal Penjajakan
     Route::get('/soal-penjajakan', [AdminSoalController::class, 'indeks'])->name('admin.soal');
@@ -99,6 +101,16 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
         Route::get('/kursus/{id}', [ApiKursusController::class, 'detail']);
         Route::put('/kursus/{id}', [ApiKursusController::class, 'update']);
         Route::delete('/kursus/{id}', [ApiKursusController::class, 'hapus']);
+
+        // Manajemen Modul
+        Route::post('/modul', [ApiKursusController::class, 'simpanModul']);
+        Route::put('/modul/{id}', [ApiKursusController::class, 'updateModul']);
+        Route::delete('/modul/{id}', [ApiKursusController::class, 'hapusModul']);
+
+        // Manajemen Materi
+        Route::post('/materi', [ApiKursusController::class, 'simpanMateri']);
+        Route::put('/materi/{id}', [ApiKursusController::class, 'updateMateri']);
+        Route::delete('/materi/{id}', [ApiKursusController::class, 'hapusMateri']);
 
         // Manajemen User
         Route::put('/users/{id}/role', [ApiAdminController::class, 'updateRole']);

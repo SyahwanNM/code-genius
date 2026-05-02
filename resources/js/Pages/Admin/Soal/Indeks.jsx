@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Head, router } from '@inertiajs/react';
 import { Plus, Edit2, Trash2, ToggleLeft, ToggleRight, X, Save, Brain, Monitor, Server, Code2 } from 'lucide-react';
 import AdminLayout from '@/Layouts/AdminLayout';
+import ModalKonfirmasi from '@/Components/Admin/ModalKonfirmasi';
 
 const JALUR_OPTIONS = [
     { value: 'frontend', label: 'Frontend', icon: Monitor, color: 'text-blue-400',   bg: 'bg-blue-500/10',   border: 'border-blue-500/30' },
@@ -42,6 +43,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
     const [filterActive, setFilterActive] = useState(filter_jalur || 'semua');
     const [form, setForm]               = useState(EMPTY_FORM);
     const [processing, setProcessing]   = useState(false);
+    const [deleteId, setDeleteId]       = useState(null);
 
     const setField = (key, val) => setForm(f => ({ ...f, [key]: val }));
 
@@ -100,8 +102,18 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
     };
 
     const handleDelete = (id) => {
-        if (!confirm('Hapus soal ini?')) return;
-        router.delete(`/admin/soal-penjajakan/${id}`);
+        setDeleteId(id);
+    };
+
+    const handleConfirmDelete = () => {
+        setProcessing(true);
+        router.delete(`/admin/soal-penjajakan/${deleteId}`, {
+            onSuccess: () => {
+                setDeleteId(null);
+                setProcessing(false);
+            },
+            onFinish: () => setProcessing(false)
+        });
     };
 
     const handleToggle = (id) => router.patch(`/admin/soal-penjajakan/${id}/toggle`);
@@ -122,8 +134,8 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                         <h1 className="text-2xl lg:text-3xl font-black tracking-tight flex items-center gap-2">
-                            <Brain className="text-violet-400" size={24} />
-                            Soal <span className="text-violet-400">Penjajakan</span>
+                            <Brain className="text-amber-400" size={24} />
+                            Soal <span className="text-amber-400">Penjajakan</span>
                         </h1>
                         <p className="text-gray-500 text-sm mt-1">
                             Kelola soal tes penjajakan — <span className="text-white font-semibold">pilihan ganda</span> dan <span className="text-blue-400 font-semibold">soal kode</span>.
@@ -132,7 +144,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                     <button
                         id="btn-tambah-soal"
                         onClick={openCreate}
-                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-violet-600 text-white font-bold text-sm rounded-xl hover:bg-violet-700 transition-all shadow-lg shadow-violet-500/20 shrink-0"
+                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-amber-500 text-black font-bold text-sm rounded-xl hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/20 shrink-0"
                     >
                         <Plus size={16} /> Tambah Soal
                     </button>
@@ -143,7 +155,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                     {[
                         { label: 'Total Soal', val: stats.total,    color: 'text-white',      bg: 'bg-white/5' },
                         { label: 'Frontend',   val: stats.frontend, color: 'text-blue-400',   bg: 'bg-blue-500/10' },
-                        { label: 'Backend',    val: stats.backend,  color: 'text-violet-400', bg: 'bg-violet-500/10' },
+                        { label: 'Backend',    val: stats.backend,  color: 'text-amber-400', bg: 'bg-amber-500/10' },
                         { label: 'Aktif',      val: stats.aktif,    color: 'text-green-400',  bg: 'bg-green-500/10' },
                     ].map((s, i) => (
                         <div key={i} className={`p-4 lg:p-5 rounded-xl border border-white/5 ${s.bg}`}>
@@ -158,7 +170,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                     {[{ value: 'semua', label: 'Semua' }, ...JALUR_OPTIONS.map(j => ({ value: j.value, label: j.label }))].map(f => (
                         <button key={f.value} onClick={() => handleFilter(f.value)}
                             className={`px-5 py-2 rounded-xl text-sm font-bold transition-all border
-                                ${filterActive === f.value ? 'bg-violet-500/20 border-violet-500/50 text-violet-300' : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'}`}>
+                                ${filterActive === f.value ? 'bg-amber-500/20 border-amber-500/50 text-amber-300' : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'}`}>
                             {f.label}
                         </button>
                     ))}
@@ -273,6 +285,18 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                     </div>
                 </div>
             </div>
+            
+            {/* Modal Konfirmasi Hapus */}
+            <ModalKonfirmasi 
+                show={!!deleteId}
+                onClose={() => setDeleteId(null)}
+                onConfirm={handleConfirmDelete}
+                processing={processing}
+                variant="danger"
+                title="Hapus Soal?"
+                message="Tindakan ini tidak dapat dibatalkan. Soal yang dihapus akan hilang dari bank soal dan tes penjajakan siswa."
+                confirmText="Ya, Hapus Soal"
+            />
 
             {/* ── MODAL ── */}
             {showModal && (
@@ -429,7 +453,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                                     Batal
                                 </button>
                                 <button type="submit" disabled={processing}
-                                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-violet-500 to-blue-500 text-white font-black text-sm uppercase tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-black text-sm uppercase tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
                                     <Save size={16} />
                                     {processing ? 'Menyimpan...' : editTarget ? 'Simpan Perubahan' : 'Tambah Soal'}
                                 </button>

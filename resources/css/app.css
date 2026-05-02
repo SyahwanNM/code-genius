@@ -11,9 +11,9 @@
     --font-sans: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
     --font-mono: 'Fira Code', ui-monospace, SFMono-Regular, Menlo, monospace;
     
-    /* Premium Color Palette */
-    --color-primary: #1B3FA6;
-    --color-secondary: #00D1FF;
+    /* Premium Yellow/Amber Color Palette */
+    --color-primary: #F59E0B; /* Amber 500 */
+    --color-secondary: #FBBF24; /* Amber 400 */
     --color-accent: #FEC303;
     --color-dark-bg: #0B0E14;
     --color-dark-surface: #161B22;

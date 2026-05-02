@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { Book, Clock, BookOpen, Server, Database, Code2 } from 'lucide-react';
+import { Book, Clock, BookOpen, Server, Database, Code2, ChevronRight, Layers, Sparkles } from 'lucide-react';
 import UserLayout from '@/Layouts/UserLayout';
 import NavbarPublik from '@/Components/NavbarPublik';
 
@@ -9,112 +9,105 @@ export default function DaftarKursus({ auth, semua_kursus }) {
 
     const getIconComponent = (iconName) => {
         const icons = {
-            'Book': <Book size={32} />,
-            'BookOpen': <BookOpen size={32} />,
-            'Server': <Server size={32} />,
-            'Database': <Database size={32} />,
-            'Code2': <Code2 size={32} />,
+            'Book': <Book size={24} />,
+            'BookOpen': <BookOpen size={24} />,
+            'Server': <Server size={24} />,
+            'Database': <Database size={24} />,
+            'Code2': <Code2 size={24} />,
         };
-        return icons[iconName] || <Code2 size={32} />;
-    };
-
-    const getIconBgColor = (nama) => {
-        const colors = [
-            'bg-red-500',
-            'bg-green-500',
-            'bg-blue-500',
-            'bg-yellow-500',
-            'bg-purple-500',
-            'bg-pink-500',
-            'bg-indigo-500',
-            'bg-cyan-500',
-        ];
-        return colors[nama.charCodeAt(0) % colors.length];
+        return icons[iconName] || <Code2 size={24} />;
     };
 
     const getLevelColor = (level) => {
-        if (!level) return 'bg-slate-800 text-slate-300';
+        if (!level) return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
         const normalized = level.toLowerCase();
-        if (normalized === 'beginner') return 'bg-emerald-900 text-emerald-400';
-        if (normalized === 'intermediate') return 'bg-sky-900 text-sky-400';
-        if (normalized === 'advanced') return 'bg-zinc-800 text-zinc-300';
-        return 'bg-slate-800 text-slate-300';
+        if (normalized === 'beginner') return 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20';
+        if (normalized === 'intermediate') return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
+        if (normalized === 'advanced') return 'text-red-500 bg-red-500/10 border-red-500/20';
+        return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
     };
 
     const Content = (
-        <div className={`w-full ${isPublic ? 'px-6 sm:px-8 lg:px-10' : 'px-4 sm:px-6 lg:px-10'} ${isPublic ? 'py-16 sm:py-24 lg:py-32' : 'py-8 sm:py-10 lg:py-12'}`}>
-            <header className="mb-5">
-                <div className="flex items-center gap-3 text-gray-400 mb-2">
-                        <BookOpen size={20} />
-                        <span className="text-[10px] font-bold uppercase tracking-[3px]">Learning Roadmap</span>
+        <div className={`w-full ${isPublic ? 'max-w-7xl mx-auto px-6 lg:px-8 py-24' : 'px-6 lg:px-10 py-10'}`}>
+            <header className="mb-12">
+                <div className="flex items-center gap-3 text-amber-500 mb-4 animate-in fade-in slide-in-from-left-4 duration-500">
+                    <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                        <BookOpen size={16} />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[4px]">Learning Roadmap</span>
                 </div>
-                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black mb-1 sm:mb-2">Pilih Jalur <span className="text-accent italic">Keahlianmu</span></h1>
-                <p className="text-gray-500 max-w-2xl font-light text-sm sm:text-base">
-                    Temukan kursus yang tepat untuk kamu
+                <h1 className="text-3xl md:text-5xl font-black mb-4 text-white italic uppercase tracking-tight">Pilih Jalur <span className="text-amber-500">Keahlianmu</span></h1>
+                <p className="text-gray-500 max-w-2xl font-bold uppercase text-[10px] tracking-[2px] leading-relaxed">
+                    Kuasai teknologi industri melalui kurikulum berbasis proyek yang dirancang oleh pakar.
                 </p>
             </header>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 lg:gap-10">
-                {semua_kursus.map((k) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {semua_kursus.map((k, i) => (
                     <div
                         key={k.id}
-                        className="group glass-card rounded-2xl p-5 sm:p-6 hover:border-secondary/30 transition-all flex flex-col"
+                        className="group relative bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden hover:border-amber-500/30 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-amber-500/5"
+                        style={{ animationDelay: `${i * 100}ms` }}
                     >
-                        {/* Card Header */}
-                        <div className="flex gap-4 sm:gap-5 mb-4 sm:mb-5">
-                            {/* Icon */}
-                            <div className={`${getIconBgColor(k.nama)} w-10 h-10 sm:w-15 sm:h-15 rounded-2xl flex items-center justify-center flex-shrink-0 text-white shadow-lg`}>
-                                {getIconComponent(k.ikon)}
-                            </div>
+                        {/* Course Image Placeholder / Visual Area */}
+                        <div className="aspect-[16/9] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                             <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                             <div className="absolute inset-0 flex items-center justify-center">
+                                 <div className="text-white/10 group-hover:text-amber-500/40 transition-all duration-500 transform group-hover:scale-110">
+                                     {getIconComponent(k.ikon)}
+                                 </div>
+                             </div>
+                             <div className="absolute top-4 left-4 flex gap-2">
+                                <span className={`px-3 py-1 rounded-full border text-[9px] font-black uppercase tracking-widest ${getLevelColor(k.level_kesulitan)}`}>
+                                    {k.level_kesulitan || 'Beginner'}
+                                </span>
+                             </div>
+                        </div>
 
-                            {/* Title and Badges */}
-                            <div className="flex-1 min-w-0">
-                                <h3 className="text-base sm:text-lg font-bold text-white mb-2 group-hover:text-secondary transition-colors line-clamp-2">
-                                    {k.nama}
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {k.level_kesulitan && (
-                                        <span className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] sm:text-xs font-semibold capitalize ${getLevelColor(k.level_kesulitan)}`}>
-                                            {k.level_kesulitan}
-                                        </span>
-                                    )}
-                                    {k.jalur && (
-                                        <span className="inline-flex items-center rounded-full px-3 py-1 text-[10px] sm:text-xs font-semibold capitalize bg-indigo-900 text-indigo-400">
-                                            {k.jalur}
-                                        </span>
-                                    )}
+                        <div className="p-8 flex-1 flex flex-col">
+                            <div className="flex items-center gap-2 text-amber-500 text-[10px] font-black uppercase tracking-widest mb-3">
+                                <Layers size={12} /> {k.jalur || 'Fullstack'} Developer
+                            </div>
+                            <h3 className="text-xl font-black text-white mb-3 group-hover:text-amber-500 transition-colors uppercase tracking-tight leading-tight">
+                                {k.nama}
+                            </h3>
+                            <p className="text-gray-500 text-xs leading-relaxed mb-8 font-medium line-clamp-3">
+                                {k.deskripsi || 'Pelajari konsep fundamental dan bangun portofolio kelas dunia dengan teknologi terkini.'}
+                            </p>
+
+                            <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <div className="flex items-center gap-1.5">
+                                        <Book size={14} className="text-amber-500" />
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{k.modul_count || 0} Modul</span>
+                                    </div>
+                                    <div className="flex items-center gap-1.5">
+                                        <Clock size={14} className="text-gray-500" />
+                                        <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{k.modul_count ? k.modul_count * 2 : 1} Jam</span>
+                                    </div>
+                                </div>
+                                <div className="text-amber-500/50 group-hover:text-amber-500 transition-colors">
+                                    <Sparkles size={16} />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Description */}
-                        <p className="text-gray-400 text-xs sm:text-sm leading-relaxed mb-4 sm:mb-5 font-light line-clamp-2">
-                            {k.deskripsi}
-                        </p>
-
-                        {/* Meta Info */}
-                        <div className="flex items-center gap-4 sm:gap-5 text-xs sm:text-sm text-gray-500 font-semibold mb-auto">
-                            <div className="flex items-center gap-1.5">
-                                <Clock size={16} className="text-gray-400" />
-                                <span>{k.modul_count ? k.modul_count * 2 : 0} jam</span>
-                            </div>
-                            <div className="flex items-center gap-1.5">
-                                <Book size={16} className="text-gray-400" />
-                                <span>{k.modul_count || 0} modul</span>
-                            </div>
-                        </div>
-
-                        {/* Action Button - pushes to bottom */}
-                        <Link href={`/kursus/${k.slug}`} className="w-full py-3 sm:py-3.5 px-4 sm:px-5 rounded-xl bg-primary hover:bg-primary/70 text-white text-sm sm:text-base font-semibold transition-all shadow-lg shadow-primary/20 mt-5 sm:mt-6 text-center inline-flex items-center justify-center">
-                            Mulai Kursus
+                        <Link 
+                            href={`/kursus/${k.slug}`} 
+                            className="w-full py-5 bg-white/[0.02] border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[3px] text-gray-500 group-hover:bg-amber-500 group-hover:text-black transition-all flex items-center justify-center gap-2"
+                        >
+                            Pelajari Sekarang <ChevronRight size={14} />
                         </Link>
                     </div>
                 ))}
             </div>
 
             {semua_kursus.length === 0 && (
-                <div className="text-center py-12 sm:py-16">
-                    <p className="text-gray-500 text-sm sm:text-base">Tidak ada kursus tersedia</p>
+                <div className="text-center py-32 border border-dashed border-white/10 rounded-[32px] bg-white/[0.01]">
+                    <div className="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center mx-auto mb-6 text-gray-700">
+                        <BookOpen size={32} />
+                    </div>
+                    <p className="text-xs font-black text-gray-600 uppercase tracking-[4px]">Katalog kursus sedang diperbarui</p>
                 </div>
             )}
         </div>
@@ -122,7 +115,7 @@ export default function DaftarKursus({ auth, semua_kursus }) {
 
     if (isPublic) {
         return (
-            <div className="min-h-screen bg-[#0B0E14] text-white">
+            <div className="min-h-screen bg-[#08090D] text-white selection:bg-amber-500/20">
                 <Head title="Katalog Kursus - Code Genius" />
                 <NavbarPublik auth={auth} />
                 {Content}
@@ -133,7 +126,9 @@ export default function DaftarKursus({ auth, semua_kursus }) {
     return (
         <UserLayout auth={auth}>
             <Head title="Katalog Kursus - Code Genius" />
-            {Content}
+            <div className="bg-[#05070A] min-h-full">
+                {Content}
+            </div>
         </UserLayout>
     );
 }

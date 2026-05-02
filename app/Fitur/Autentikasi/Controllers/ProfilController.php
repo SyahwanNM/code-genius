@@ -38,8 +38,31 @@ class ProfilController extends Controller
         return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
     }
 
+    public function updateAdmin(Request $request)
+    {
+        $pengguna = auth()->user();
+
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'email' => 'required|email|unique:pengguna,email,' . $pengguna->id,
+        ]);
+
+        $pengguna->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+        ]);
+
+        return redirect()->back()->with('success', 'Identitas admin berhasil diperbarui!');
+    }
+
     public function pengaturan()
     {
+        $konfigurasi = \App\Models\Konfigurasi::first();
+        if (auth()->user()->peran === 'admin') {
+            return Inertia::render('Admin/Settings/Indeks', [
+                'konfigurasi' => $konfigurasi
+            ]);
+        }
         return Inertia::render('Settings/Indeks');
     }
 
@@ -61,5 +84,20 @@ class ProfilController extends Controller
         ]);
 
         return redirect()->back()->with('success', 'Password berhasil diubah!');
+    }
+
+    public function updateSystem(Request $request)
+    {
+        $request->validate([
+            'site_name' => 'required|string|max:100',
+            'maintenance_mode' => 'required|boolean',
+            'registration_open' => 'required|boolean',
+            'ai_debug' => 'required|boolean',
+        ]);
+
+        $konfigurasi = \App\Models\Konfigurasi::first();
+        $konfigurasi->update($request->all());
+
+        return redirect()->back()->with('success', 'Konfigurasi platform berhasil diperbarui!');
     }
 }

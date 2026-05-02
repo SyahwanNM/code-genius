@@ -11,7 +11,10 @@ class BerandaController extends Controller
 {
     public function indeks()
     {
-        return Inertia::render('Public/Beranda');
+        $kursus_populer = Kursus::withCount('materi')->take(3)->get();
+        return Inertia::render('Public/Beranda', [
+            'kursus_populer' => $kursus_populer
+        ]);
     }
 
     public function dashboard()

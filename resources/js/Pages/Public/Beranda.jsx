@@ -110,7 +110,7 @@ function StarRating({ count = 5 }) {
 
 /* ─── COMPONENT ──────────────────────────────────────────── */
 
-export default function Beranda({ auth }) {
+export default function Beranda({ auth, kursus_populer }) {
     return (
         <div className="min-h-screen bg-[#08090D] text-white font-outfit selection:bg-yellow-400/20">
             <Head title="Code Genius — Kuasai Coding dengan AI-Driven Roadmap" />
@@ -220,55 +220,76 @@ export default function Beranda({ auth }) {
             </section>
 
             {/* ══════════════════════════════════════
-                LEARNING PATHS — Pilih Jalur Belajarmu
+                POPULAR COURSES — Kursus Paling Diminati
             ══════════════════════════════════════ */}
             <section id="jalur-belajar" className="py-28 bg-[#08090D]">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-xs font-bold uppercase tracking-widest mb-4">
-                            <Layers size={11} className="text-yellow-400" /> Track Pembelajaran
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-widest mb-4">
+                            <Layers size={11} /> Kursus Terpopuler
                         </div>
                         <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">
-                            Pilih Jalur <span className="text-yellow-400">Belajarmu</span>
+                            Mulai <span className="text-amber-500">Petualangan Kodemu</span>
                         </h2>
                         <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
-                            Dua jalur karir paling diminati industri teknologi. Pilih satu, dan kami akan
-                            panduan kamu langkah demi langkah sampai siap kerja.
+                            Pilih dari berbagai kursus yang dirancang khusus untuk membawa Anda dari tingkat pemula hingga siap kerja.
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                        {PATHS.map((p, i) => (
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {kursus_populer?.map((k, i) => (
                             <div
-                                key={i}
-                                className={`relative p-8 rounded-2xl bg-gradient-to-br ${p.gradient} border ${p.border} hover:scale-[1.02] transition-all overflow-hidden`}
+                                key={k.id}
+                                className="group relative bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/5"
                             >
-                                <div className="flex items-center gap-4 mb-5">
-                                    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center">
-                                        <p.icon size={28} className={p.accent} />
+                                {/* Course Image Placeholder / Visual */}
+                                <div className="aspect-[16/10] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
+                                    <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="absolute inset-0 flex items-center justify-center">
+                                        <Code2 size={48} className="text-white/20 group-hover:text-amber-500/40 transition-colors duration-500" />
                                     </div>
-                                    <div>
-                                        <h3 className="text-xl font-black text-white">{p.title}</h3>
-                                        <p className="text-gray-400 text-xs mt-0.5">{p.desc}</p>
+                                    <div className="absolute top-4 left-4">
+                                        <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-widest text-white">
+                                            {k.level_kesulitan || 'Beginner'}
+                                        </span>
                                     </div>
                                 </div>
 
-                                <div className="flex flex-wrap gap-2 mb-7">
-                                    {p.techs.map((t) => (
-                                        <span key={t} className="px-3 py-1 rounded-full bg-white/10 text-xs font-bold text-gray-300">
-                                            {t}
-                                        </span>
-                                    ))}
+                                <div className="p-8">
+                                    <h3 className="text-xl font-black text-white mb-2 group-hover:text-amber-500 transition-colors">{k.nama}</h3>
+                                    <p className="text-gray-500 text-sm line-clamp-2 mb-6 font-medium leading-relaxed">
+                                        {k.deskripsi || 'Kuasai fundamental dan kembangkan proyek nyata dengan kurikulum terstruktur.'}
+                                    </p>
+
+                                    <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                                        <div className="flex items-center gap-2">
+                                            <Layers size={14} className="text-amber-500" />
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{k.materi_count || 0} Materi</span>
+                                        </div>
+                                        <div className="flex items-center gap-2">
+                                            <Users size={14} className="text-blue-500" />
+                                            <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">Aktif</span>
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <Link
-                                    href="/explorasi"
-                                    className={`inline-flex items-center gap-1.5 text-sm font-bold ${p.accent} hover:underline`}
+                                    href={auth.pengguna ? `/kursus/${k.slug || k.id}` : '/daftar'}
+                                    className="mt-auto block w-full py-5 bg-white/[0.02] border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[3px] text-gray-500 group-hover:bg-amber-500 group-hover:text-black transition-all"
                                 >
-                                    Lihat Kurikulum <ChevronRight size={15} />
+                                    Lihat Detail Kursus
                                 </Link>
                             </div>
                         ))}
+                    </div>
+
+                    <div className="mt-16 text-center">
+                        <Link
+                            href="/explorasi"
+                            className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-amber-500 transition-colors"
+                        >
+                            Lihat Semua Koleksi Kursus <ChevronRight size={16} />
+                        </Link>
                     </div>
                 </div>
             </section>

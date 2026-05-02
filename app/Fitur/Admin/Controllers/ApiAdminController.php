@@ -12,7 +12,7 @@ class ApiAdminController extends Controller
     // API Manajemen User
     public function updateRole(Request $request, $id)
     {
-        $request->validate(['peran' => 'required|in:Siswa,Mentor,Admin']);
+        $request->validate(['peran' => 'required|in:pengguna_biasa,mentor,admin']);
         
         $user = Pengguna::findOrFail($id);
         $user->update(['peran' => $request->peran]);
@@ -49,7 +49,7 @@ class ApiAdminController extends Controller
         DB::beginTransaction();
         try {
             DB::table('pengajuan_mentor')->where('id', $id)->update(['status' => 'Diterima', 'updated_at' => now()]);
-            Pengguna::where('id', $pengajuan->id_pengguna)->update(['peran' => 'Mentor']);
+            Pengguna::where('id', $pengajuan->id_pengguna)->update(['peran' => 'mentor']);
             DB::commit();
 
             return response()->json(['status' => 'success', 'message' => 'Calon mentor berhasil disetujui']);

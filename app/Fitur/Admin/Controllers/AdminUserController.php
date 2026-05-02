@@ -20,7 +20,7 @@ class AdminUserController extends Controller
 
     public function updateRole(Request $request, $id)
     {
-        $request->validate(['peran' => 'required|in:Siswa,Mentor,Admin']);
+        $request->validate(['peran' => 'required|in:pengguna_biasa,mentor,admin']);
         
         $user = Pengguna::findOrFail($id);
         $user->update(['peran' => $request->peran]);

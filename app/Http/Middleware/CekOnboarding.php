@@ -17,7 +17,7 @@ class CekOnboarding
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (!$user || $user->peran === 'admin') {
             return $next($request);
         }
 

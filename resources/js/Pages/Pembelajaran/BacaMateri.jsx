@@ -3,7 +3,7 @@ import { Head, Link } from '@inertiajs/react';
 import {
     Play, ChevronLeft, ChevronRight, Code as CodeIcon, FileText,
     CheckCircle2, RotateCcw, Bot, X, ArrowLeft, Maximize2, Menu,
-    PanelLeftClose, PanelLeftOpen, BookOpen
+    PanelLeftClose, PanelLeftOpen, BookOpen, Sparkles, Lock, Check
 } from 'lucide-react';
 import axios from 'axios';
 
@@ -23,6 +23,8 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
     const [aiOpen, setAiOpen] = useState(false);
     const [aiLoading, setAiLoading] = useState(false);
     const [aiResponse, setAiResponse] = useState('');
+    const [successModal, setSuccessModal] = useState(false);
+    const [successData, setSuccessData] = useState(null);
 
     const isFrontend = kursus.jalur === 'frontend' || kursus.slug.includes('frontend');
 
@@ -54,7 +56,8 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
     const tandaiSelesai = async () => {
         try {
             const res = await axios.post('/progres/selesai', { id_materi: materi.id });
-            alert(res.data.pesan);
+            setSuccessData(res.data);
+            setSuccessModal(true);
         } catch { console.error('Gagal simpan progres'); }
     };
 
@@ -100,7 +103,23 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
 
     /* ─────────────── computed ─────────────── */
     const isLatihan = materi.tipe === 'latihan';
-    const showEditorLabel = editorWidth >= 38; // hide text when editor is narrow
+    const showEditorLabel = editorWidth >= 38;
+
+    const navigasiSelanjutnya = async () => {
+        if (materi.tipe !== 'latihan') {
+            try {
+                await axios.post('/progres/selesai', { id_materi: materi.id });
+            } catch (err) {
+                console.error('Gagal simpan progres otomatis');
+            }
+        }
+    };
+
+    // Logika Navigasi Materi
+    const semuaMateri = sidebar.flatMap(m => m.materi);
+    const indexSekarang = semuaMateri.findIndex(m => m.id === materi.id);
+    const materiSebelum = indexSekarang > 0 ? semuaMateri[indexSekarang - 1] : null;
+    const materiSesudah = indexSekarang < semuaMateri.length - 1 ? semuaMateri[indexSekarang + 1] : null;
 
     /* ─────────────── render ─────────────── */
     return (
@@ -138,8 +157,8 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                 </div>
 
                 {/* XP Badge */}
-                <div className="shrink-0 flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#00b27b]/10 text-[#00b27b] border border-[#00b27b]/20 text-[10px] lg:text-xs font-bold">
-                    <CheckCircle2 size={12} />
+                <div className="shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-500 border border-amber-500/20 text-[10px] lg:text-xs font-black uppercase tracking-widest">
+                    <Sparkles size={12} />
                     <span>+200 XP</span>
                 </div>
 
@@ -148,14 +167,14 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                     <div className="lg:hidden flex shrink-0 items-center bg-white/5 rounded-lg p-0.5 gap-0.5">
                         <button
                             onClick={() => setMobileTab('materi')}
-                            className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold transition-all ${mobileTab === 'materi' ? 'bg-[#2348b7] text-white' : 'text-gray-400'}`}
+                            className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-widest transition-all ${mobileTab === 'materi' ? 'bg-amber-500 text-black' : 'text-gray-500'}`}
                         >
                             <BookOpen size={12} />
                             <span className="hidden xs:inline">Materi</span>
                         </button>
                         <button
                             onClick={() => setMobileTab('editor')}
-                            className={`flex items-center gap-1 px-2 py-1 rounded-md text-[10px] font-bold transition-all ${mobileTab === 'editor' ? 'bg-[#fbbc05] text-[#111827]' : 'text-gray-400'}`}
+                            className={`flex items-center gap-1 px-3 py-1.5 rounded-md text-[10px] font-black uppercase tracking-widest transition-all ${mobileTab === 'editor' ? 'bg-amber-500 text-black' : 'text-gray-500'}`}
                         >
                             <CodeIcon size={12} />
                             <span className="hidden xs:inline">Editor</span>
@@ -231,20 +250,25 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                                         return (
                                             <Link
                                                 key={m.id}
-                                                href={`/kursus/${kursus.slug}/${m.slug}`}
-                                                onClick={() => setSidebarOpen(false)}
-                                                className={`relative flex items-center gap-3 px-5 py-2.5 text-[13px] transition-all ${
+                                                href={modul.terkunci ? '#' : `/kursus/${kursus.slug}/${m.slug}`}
+                                                onClick={() => !modul.terkunci && setSidebarOpen(false)}
+                                                className={`relative flex items-center gap-3 px-5 py-3 text-[12px] transition-all ${
                                                     active
-                                                        ? 'bg-[#1a2340]/70 text-white font-semibold'
-                                                        : 'text-gray-500 hover:text-white hover:bg-white/5'
+                                                        ? 'bg-amber-500/10 text-white font-black uppercase tracking-tight'
+                                                        : modul.terkunci
+                                                            ? 'text-gray-700 cursor-not-allowed opacity-50'
+                                                            : 'text-gray-500 hover:text-white hover:bg-white/5'
                                                 }`}
                                             >
-                                                {active && <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#2348b7]" />}
-                                                {m.tipe === 'latihan'
-                                                    ? <CodeIcon size={14} className={active ? 'text-yellow-500 shrink-0' : 'text-gray-600 shrink-0'} />
-                                                    : <FileText size={14} className="text-gray-600 shrink-0" />}
+                                                {active && <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" />}
+                                                <div className="shrink-0">
+                                                    {modul.terkunci ? <Lock size={12} className="text-gray-800" /> :
+                                                     m.selesai ? <Check size={14} className="text-emerald-500" /> :
+                                                     m.tipe === 'latihan' ? <CodeIcon size={14} className={active ? 'text-amber-500' : 'text-gray-600'} /> :
+                                                     <FileText size={14} className={active ? 'text-amber-500' : 'text-gray-600'} />}
+                                                </div>
                                                 <span className="truncate">
-                                                    {m.tipe === 'latihan' && active ? `Misi: ${m.judul}` : m.judul}
+                                                    {m.judul}
                                                 </span>
                                             </Link>
                                         );
@@ -295,15 +319,39 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                         />
 
                         {/* Navigation buttons */}
-                        <div className="mt-12 pt-6 border-t border-white/5 flex items-center gap-3">
-                            <button className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl border border-white/10 text-gray-400 text-sm font-semibold hover:bg-white/5 hover:text-white transition-all">
-                                <ChevronLeft size={16} className="shrink-0" />
-                                <span className="truncate">Sebelumnya</span>
-                            </button>
-                            <button className="flex-1 flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#2348b7] text-white text-sm font-bold hover:bg-[#2348b7]/90 transition-all shadow-[0_4px_14px_0_rgba(35,72,183,0.3)]">
-                                <span className="truncate">Berikutnya</span>
-                                <ChevronRight size={16} className="shrink-0" />
-                            </button>
+                        <div className="mt-12 pt-8 border-t border-white/5 flex items-center gap-4">
+                            {materiSebelum ? (
+                                <Link
+                                    href={`/kursus/${kursus.slug}/${materiSebelum.slug}`}
+                                    className="flex-1 flex items-center justify-center gap-3 py-4 px-6 rounded-2xl border border-white/5 bg-white/[0.02] text-gray-500 text-[10px] font-black uppercase tracking-[3px] hover:bg-white/5 hover:text-white transition-all group/prev"
+                                >
+                                    <ChevronLeft size={16} className="shrink-0 group-hover:-translate-x-1 transition-transform" />
+                                    <span className="truncate">Sebelumnya</span>
+                                </Link>
+                            ) : (
+                                <div className="flex-1 py-4 px-6 rounded-2xl border border-white/5 bg-white/[0.01] text-gray-800 text-[10px] font-black uppercase tracking-[3px] text-center opacity-50 cursor-not-allowed">
+                                    Awal Materi
+                                </div>
+                            )}
+
+                            {materiSesudah ? (
+                                <Link
+                                    href={`/kursus/${kursus.slug}/${materiSesudah.slug}`}
+                                    onClick={navigasiSelanjutnya}
+                                    className="flex-1 flex items-center justify-center gap-3 py-4 px-6 rounded-2xl bg-amber-500 text-black text-[10px] font-black uppercase tracking-[3px] hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/10 active:scale-95 group/next"
+                                >
+                                    <span className="truncate">Selanjutnya</span>
+                                    <ChevronRight size={16} className="shrink-0 group-hover:translate-x-1 transition-transform" />
+                                </Link>
+                            ) : (
+                                <Link
+                                    href={`/kursus/${kursus.slug}`}
+                                    onClick={navigasiSelanjutnya}
+                                    className="flex-1 flex items-center justify-center gap-3 py-4 px-6 rounded-2xl bg-emerald-500 text-black text-[10px] font-black uppercase tracking-[3px] hover:bg-emerald-400 transition-all shadow-xl shadow-emerald-500/10 active:scale-95"
+                                >
+                                    <CheckCircle2 size={16} /> Selesaikan Kursus
+                                </Link>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -311,11 +359,11 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                 {/* ── DESKTOP RESIZER ── */}
                 {isLatihan && (
                     <div
-                        className="hidden lg:flex w-[5px] shrink-0 cursor-col-resize relative group z-10 bg-[#0B0E14] hover:bg-[#2348b7]/40 transition-colors border-x border-white/5"
+                        className="hidden lg:flex w-[5px] shrink-0 cursor-col-resize relative group z-10 bg-[#0B0E14] hover:bg-amber-500/40 transition-colors border-x border-white/5"
                         onMouseDown={() => setIsDragging(true)}
                     >
                         <div className="absolute inset-y-0 -left-1 -right-1 flex items-center justify-center">
-                            <div className="w-0.5 h-8 rounded-full bg-white/15 group-hover:bg-white/60 transition-colors" />
+                            <div className="w-0.5 h-8 rounded-full bg-white/15 group-hover:bg-amber-500/60 transition-colors" />
                         </div>
                     </div>
                 )}
@@ -362,14 +410,14 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                             />
                             {latihanSelesai && (
                                 <div className="absolute top-4 right-4 flex flex-col items-end gap-2">
-                                    <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-green-500/20 text-green-400 text-xs font-bold border border-green-500/20 animate-bounce">
+                                    <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-500/10 text-emerald-500 text-[10px] font-black uppercase tracking-widest border border-emerald-500/20 shadow-2xl shadow-emerald-500/10 animate-bounce">
                                         <CheckCircle2 size={14} /> Jawaban Benar!
                                     </div>
                                     <button
                                         onClick={tandaiSelesai}
-                                        className="px-3 py-1.5 rounded-xl bg-[#2348b7] text-white text-[10px] font-black uppercase tracking-widest shadow-lg hover:scale-105 transition-all"
+                                        className="px-5 py-2.5 rounded-xl bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest shadow-xl shadow-amber-500/20 hover:scale-105 transition-all active:scale-95"
                                     >
-                                        Lanjut Level
+                                        Lanjut Level <ChevronRight size={14} className="inline ml-1" />
                                     </button>
                                 </div>
                             )}
@@ -396,14 +444,14 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                             <div className="flex items-center gap-2">
                                 <button
                                     onClick={jalankanKode}
-                                    className="flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-lg bg-[#2348b7] text-white text-xs font-bold hover:bg-[#2348b7]/90 transition-all shadow-[0_2px_10px_rgba(35,72,183,0.4)] whitespace-nowrap"
+                                    className="flex items-center gap-2 px-5 lg:px-6 py-2.5 rounded-xl bg-amber-500 text-black text-[10px] font-black uppercase tracking-widest hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 whitespace-nowrap active:scale-95"
                                 >
                                     <Play size={13} fill="currentColor" />
                                     <span>Jalankan</span>
                                 </button>
                                 <button
                                     onClick={resetKode}
-                                    className="flex items-center gap-1.5 px-3 py-2 rounded-lg border border-white/10 text-gray-400 text-xs font-bold hover:bg-white/5 hover:text-white transition-all whitespace-nowrap"
+                                    className="flex items-center gap-2 px-5 py-2.5 rounded-xl border border-white/10 bg-white/5 text-gray-400 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all whitespace-nowrap"
                                 >
                                     <RotateCcw size={13} />
                                     <span>Reset</span>
@@ -412,11 +460,11 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                             <button
                                 onClick={cekDenganAI}
                                 title="Evaluasi dengan AI"
-                                className="flex items-center gap-1.5 px-3 lg:px-4 py-2 rounded-lg bg-[#fbbc05] text-[#111827] text-xs font-bold hover:bg-[#e5ab00] transition-all shadow-[0_0_12px_rgba(251,188,5,0.25)] whitespace-nowrap shrink-0"
+                                className="flex items-center gap-2 px-5 lg:px-6 py-2.5 rounded-xl bg-black border border-amber-500/30 text-amber-500 text-[10px] font-black uppercase tracking-widest hover:bg-amber-500 hover:text-black transition-all shadow-xl shadow-amber-500/5 whitespace-nowrap shrink-0 group/ai"
                             >
-                                <Bot size={13} />
+                                <Bot size={14} className="group-hover:animate-bounce" />
                                 {showEditorLabel
-                                    ? <span className="hidden sm:inline">Evaluasi dengan AI</span>
+                                    ? <span className="hidden sm:inline">Evaluasi AI</span>
                                     : null}
                             </button>
                         </div>
@@ -429,12 +477,12 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                 <div className="fixed right-3 bottom-3 lg:right-6 lg:bottom-5 w-[calc(100%-1.5rem)] max-w-sm lg:max-w-[380px] max-h-[75vh] flex flex-col bg-[#161B22] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.6)] z-[200] border border-white/10 overflow-hidden">
                     <div className="flex items-center justify-between px-4 py-3 border-b border-white/5 bg-[#0B0E14]/60 shrink-0">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-xl bg-[#2348b7] flex items-center justify-center shadow-lg shadow-[#2348b7]/30">
-                                <Bot size={18} />
+                            <div className="w-10 h-10 rounded-2xl bg-amber-500 flex items-center justify-center shadow-xl shadow-amber-500/30">
+                                <Bot size={20} className="text-black" />
                             </div>
                             <div>
-                                <p className="font-bold text-sm text-white leading-none">AI Mentor</p>
-                                <p className="text-[9px] text-[#2348b7] font-black uppercase tracking-widest mt-0.5">Online</p>
+                                <p className="font-black text-[11px] text-white uppercase tracking-widest leading-none">AI Mentor</p>
+                                <p className="text-[9px] text-amber-500 font-black uppercase tracking-widest mt-1.5">Thinking...</p>
                             </div>
                         </div>
                         <button onClick={() => setAiOpen(false)} className="w-7 h-7 flex items-center justify-center rounded-full text-gray-500 hover:bg-white/10 hover:text-white transition-all">
@@ -444,17 +492,56 @@ export default function BacaMateri({ kursus, materi, sidebar }) {
                     <div className="flex-1 overflow-y-auto p-4 min-h-[180px]">
                         {aiLoading ? (
                             <div className="flex flex-col items-center justify-center py-10 gap-3">
-                                <div className="w-8 h-8 border-[3px] border-[#2348b7] border-t-transparent rounded-full animate-spin" />
-                                <p className="text-xs text-gray-500 font-bold animate-pulse">Menganalisis kode...</p>
+                                <div className="w-10 h-10 border-[3px] border-amber-500 border-t-transparent rounded-full animate-spin" />
+                                <p className="text-[10px] text-gray-500 font-black uppercase tracking-[3px] animate-pulse">Analysing Code...</p>
                             </div>
                         ) : (
-                            <p className="text-sm leading-relaxed text-gray-300 whitespace-pre-wrap">
-                                {aiResponse || 'Halo! Klik "Evaluasi dengan AI" jika butuh bantuan.'}
+                            <p className="text-sm leading-relaxed text-gray-300 whitespace-pre-wrap font-medium">
+                                {aiResponse || 'Halo! Saya AI Mentor Anda. Kirimkan kode Anda untuk evaluasi instan atau tanyakan jika ada yang membingungkan.'}
                             </p>
                         )}
                     </div>
                     <div className="px-4 py-2 bg-white/5 border-t border-white/5 text-[8px] text-center text-gray-600 font-bold uppercase tracking-[3px] shrink-0">
                         Powered by Google Gemini Pro
+                    </div>
+                </div>
+            )}
+            {/* ════════════ SUCCESS MODAL ════════════ */}
+            {successModal && (
+                <div className="fixed inset-0 z-[300] flex items-center justify-center px-4">
+                    <div className="absolute inset-0 bg-[#05070A]/90 backdrop-blur-sm animate-in fade-in duration-300" onClick={() => setSuccessModal(false)} />
+                    <div className="relative w-full max-w-sm bg-[#0D1117] border border-white/10 rounded-[32px] overflow-hidden shadow-2xl animate-in zoom-in-95 duration-300">
+                        <div className="p-10 text-center">
+                            <div className="w-20 h-20 bg-amber-500 rounded-[28px] flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-amber-500/30">
+                                <Sparkles size={40} className="text-black" />
+                            </div>
+                            <h2 className="text-2xl font-black text-white uppercase italic tracking-tight mb-2">Misi Berhasil!</h2>
+                            <p className="text-gray-500 text-[10px] font-black uppercase tracking-widest mb-8">
+                                {successData?.pesan || 'Anda telah menyelesaikan materi ini.'}
+                            </p>
+
+                            <div className="bg-white/5 border border-white/5 rounded-2xl p-4 mb-8 flex items-center justify-center gap-3">
+                                <div className="text-amber-500 font-black text-xl">+{successData?.xp_didapat || 50}</div>
+                                <div className="text-[10px] font-black uppercase tracking-widest text-gray-400">XP Koleksi</div>
+                            </div>
+
+                            <button
+                                onClick={() => {
+                                    setSuccessModal(false);
+                                    if (materiSesudah) {
+                                        window.location.href = `/kursus/${kursus.slug}/${materiSesudah.slug}`;
+                                    } else {
+                                        window.location.href = `/kursus/${kursus.slug}`;
+                                    }
+                                }}
+                                className="w-full py-5 bg-amber-500 text-black text-[10px] font-black uppercase tracking-[3px] rounded-2xl hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/10 active:scale-95"
+                            >
+                                Lanjut Sekarang
+                            </button>
+                        </div>
+                        <div className="py-4 bg-white/[0.02] border-t border-white/5 text-center">
+                            <button onClick={() => setSuccessModal(false)} className="text-[9px] font-black text-gray-700 uppercase tracking-widest hover:text-gray-400 transition-colors">Tutup Jendela</button>
+                        </div>
                     </div>
                 </div>
             )}

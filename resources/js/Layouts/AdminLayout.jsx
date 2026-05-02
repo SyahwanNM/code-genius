@@ -1,13 +1,34 @@
 import React, { useState } from 'react';
-import { Link, usePage } from '@inertiajs/react';
+import { Link, usePage, router } from '@inertiajs/react';
 import {
     Users, BookOpen,
-    LogOut, Menu, X, BarChart3, Brain, Settings, ChevronRight
+    LogOut, Menu, X, BarChart3, Brain, Settings, ChevronRight,
+    CheckCircle2, AlertCircle
 } from 'lucide-react';
 
+import ModalKonfirmasi from '@/Components/Admin/ModalKonfirmasi';
+
 export default function AdminLayout({ auth, children }) {
+    const { url, props } = usePage();
+    const { flash } = props;
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const { url } = usePage();
+    const [toast, setToast] = useState(null);
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+
+    // Watch for flash messages
+    React.useEffect(() => {
+        if (flash?.sukses || flash?.success) {
+            setToast({ message: flash.sukses || flash.success, type: 'success' });
+            setTimeout(() => setToast(null), 3000);
+        } else if (flash?.error) {
+            setToast({ message: flash.error, type: 'error' });
+            setTimeout(() => setToast(null), 3000);
+        }
+    }, [flash]);
+
+    const handleLogout = () => {
+        router.post('/keluar');
+    };
 
     const adminMenu = [
         { label: 'Overview',      icon: BarChart3, href: '/admin/overview' },
@@ -46,7 +67,7 @@ export default function AdminLayout({ auth, children }) {
                             alt="Code Genius"
                             className="h-7 object-contain"
                         />
-                        <span className="text-xs font-black tracking-widest uppercase text-red-500">Admin</span>
+                        <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent italic">Control Panel</span>
                     </Link>
                     <button
                         className="lg:hidden text-gray-500 hover:text-white"
@@ -70,7 +91,7 @@ export default function AdminLayout({ auth, children }) {
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                                     active
-                                        ? 'bg-red-500/10 text-red-400 border border-red-500/15'
+                                        ? 'bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.2)]'
                                         : 'text-gray-500 hover:text-white hover:bg-white/5'
                                 }`}
                             >
@@ -90,14 +111,12 @@ export default function AdminLayout({ auth, children }) {
                     >
                         Keluar ke Tampilan Siswa
                     </Link>
-                    <Link
-                        href="/keluar"
-                        method="post"
-                        as="button"
+                    <button
+                        onClick={() => setShowLogoutModal(true)}
                         className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs text-red-500/60 hover:text-red-400 hover:bg-red-500/5 transition-all font-semibold"
                     >
                         <LogOut size={15} /> Logout
-                    </Link>
+                    </button>
                 </div>
             </aside>
 
@@ -134,6 +153,27 @@ export default function AdminLayout({ auth, children }) {
                     {children}
                 </div>
             </main>
+
+            {/* Logout Confirmation Modal */}
+            <ModalKonfirmasi 
+                show={showLogoutModal}
+                onClose={() => setShowLogoutModal(false)}
+                onConfirm={handleLogout}
+                variant="logout"
+                title="Konfirmasi Logout"
+                message="Sesi Anda akan berakhir. Pastikan semua pekerjaan telah disimpan sebelum keluar."
+                confirmText="Ya, Keluar Sekarang"
+            />
+
+            {/* Toast Notification */}
+            {toast && (
+                <div className={`fixed bottom-8 right-8 z-[100] px-6 py-4 rounded-2xl shadow-2xl font-bold text-sm flex items-center gap-3 animate-in slide-in-from-bottom-4 ${
+                    toast.type === 'error' ? 'bg-red-500' : 'bg-emerald-600'
+                } text-white`}>
+                    {toast.type === 'error' ? <AlertCircle size={18} /> : <CheckCircle2 size={18} />}
+                    {toast.message}
+                </div>
+            )}
         </div>
     );
 }

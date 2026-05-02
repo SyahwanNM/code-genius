@@ -71,4 +71,9 @@ class Pengguna extends Authenticatable
     {
         return 'token_ingat';
     }
+
+    public function notifikasis()
+    {
+        return $this->hasMany(\App\Models\Notifikasi::class, 'id_pengguna')->orderBy('created_at', 'desc');
+    }
 }
