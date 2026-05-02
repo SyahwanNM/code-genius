@@ -27,15 +27,21 @@ class ProfilController extends Controller
             'nama' => 'required|string|max:255',
             'email' => 'required|email|unique:pengguna,email,' . $pengguna->id,
             'bio' => 'nullable|string|max:1000',
+            'tautan_sosial' => 'nullable|array',
+            'keahlian_utama' => 'nullable|array',
+            'avatar_style' => 'nullable|string',
         ]);
 
         $pengguna->update([
             'nama' => $request->nama,
             'email' => $request->email,
             'bio' => $request->bio,
+            'tautan_sosial' => $request->tautan_sosial,
+            'keahlian_utama' => $request->keahlian_utama,
+            'avatar_style' => $request->avatar_style,
         ]);
 
-        return redirect()->back()->with('success', 'Profil berhasil diperbarui!');
+        return redirect()->back()->with('success', 'Profil Anda berhasil dimodernisasi!');
     }
 
     public function updateAdmin(Request $request)

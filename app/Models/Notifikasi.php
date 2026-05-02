@@ -13,6 +13,7 @@ class Notifikasi extends Model
 
     protected $fillable = [
         'id_pengguna',
+        'id_broadcast',
         'judul',
         'pesan',
         'tipe',
@@ -20,8 +21,13 @@ class Notifikasi extends Model
         'url'
     ];
 
+    public function broadcast()
+    {
+        return $this->belongsTo(Broadcast::class, 'id_broadcast');
+    }
+
     public function pengguna()
     {
-        return $this->belongsTo(Pengguna::class, 'id_pengguna');
+        return $this->belongsTo(\App\Fitur\Autentikasi\Models\Pengguna::class, 'id_pengguna');
     }
 }

@@ -3,7 +3,7 @@ import { Link, usePage, router } from '@inertiajs/react';
 import {
     Users, BookOpen,
     LogOut, Menu, X, BarChart3, Brain, Settings, ChevronRight,
-    CheckCircle2, AlertCircle
+    CheckCircle2, AlertCircle, Bell
 } from 'lucide-react';
 
 import ModalKonfirmasi from '@/Components/Admin/ModalKonfirmasi';
@@ -35,6 +35,7 @@ export default function AdminLayout({ auth, children }) {
         { label: 'Pengguna',      icon: Users,     href: '/admin/users' },
         { label: 'Konten Kursus', icon: BookOpen,  href: '/admin/kursus' },
         { label: 'Soal Penjajakan', icon: Brain,   href: '/admin/soal-penjajakan' },
+        { label: 'Notifikasi',    icon: Bell,      href: '/admin/notifikasi' },
         { label: 'Pengaturan',    icon: Settings,  href: '/pengaturan' },
     ];
 

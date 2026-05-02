@@ -90,6 +90,11 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
     Route::delete('/soal-penjajakan/{id}', [AdminSoalController::class, 'hapus'])->name('admin.soal.hapus');
     Route::patch('/soal-penjajakan/{id}/toggle', [AdminSoalController::class, 'toggleAktif'])->name('admin.soal.toggle');
 
+    // Manajemen Notifikasi
+    Route::get('/notifikasi', [\App\Fitur\Admin\Controllers\AdminNotifikasiController::class, 'indeks'])->name('admin.notifikasi');
+    Route::post('/notifikasi/kirim', [\App\Fitur\Admin\Controllers\AdminNotifikasiController::class, 'kirim'])->name('admin.notifikasi.kirim');
+    Route::delete('/notifikasi/{id}', [\App\Fitur\Admin\Controllers\AdminNotifikasiController::class, 'hapus'])->name('admin.notifikasi.hapus');
+
     // ─────────────────────────────────────────────────────────────────────────
     // REST API Endpoints v1 (JSON Response) — Base URL: /admin/api/v1/
     // ─────────────────────────────────────────────────────────────────────────

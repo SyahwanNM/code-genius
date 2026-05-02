@@ -37,28 +37,24 @@ class Pengguna extends Authenticatable
         'jalur_belajar',
         'level_pemahaman',
         'tes_selesai',
+        'tautan_sosial',
+        'keahlian_utama',
+        'avatar_style',
+        'foto_profil',
     ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'kata_sandi',
         'token_ingat',
     ];
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
     protected function casts(): array
     {
         return [
             'email_diverifikasi_pada' => 'datetime',
             'kata_sandi' => 'hashed',
+            'tautan_sosial' => 'array',
+            'keahlian_utama' => 'array',
         ];
     }
 
