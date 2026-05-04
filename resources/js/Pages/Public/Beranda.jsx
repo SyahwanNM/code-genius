@@ -225,11 +225,11 @@ export default function Beranda({ auth, kursus_populer }) {
             <section id="jalur-belajar" className="py-28 bg-[#08090D]">
                 <div className="max-w-6xl mx-auto px-6">
                     <div className="text-center mb-16">
-                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500 text-xs font-bold uppercase tracking-widest mb-4">
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-xs font-bold uppercase tracking-widest mb-4">
                             <Layers size={11} /> Kursus Terpopuler
                         </div>
                         <h2 className="text-3xl md:text-5xl font-black tracking-tight mb-4">
-                            Mulai <span className="text-amber-500">Petualangan Kodemu</span>
+                            Mulai <span className="text-accent">Petualangan Kodemu</span>
                         </h2>
                         <p className="text-gray-500 max-w-lg mx-auto text-sm leading-relaxed">
                             Pilih dari berbagai kursus yang dirancang khusus untuk membawa Anda dari tingkat pemula hingga siap kerja.
@@ -240,13 +240,13 @@ export default function Beranda({ auth, kursus_populer }) {
                         {kursus_populer?.map((k, i) => (
                             <div
                                 key={k.id}
-                                className="group relative bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden hover:border-amber-500/30 transition-all duration-500 hover:shadow-2xl hover:shadow-amber-500/5"
+                                className="group relative bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden hover:border-accent/30 transition-all duration-500 hover:shadow-2xl hover:shadow-accent/5"
                             >
                                 {/* Course Image Placeholder / Visual */}
                                 <div className="aspect-[16/10] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
-                                    <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                                     <div className="absolute inset-0 flex items-center justify-center">
-                                        <Code2 size={48} className="text-white/20 group-hover:text-amber-500/40 transition-colors duration-500" />
+                                        <Code2 size={48} className="text-white/20 group-hover:text-accent/40 transition-colors duration-500" />
                                     </div>
                                     <div className="absolute top-4 left-4">
                                         <span className="px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-widest text-white">
@@ -256,14 +256,14 @@ export default function Beranda({ auth, kursus_populer }) {
                                 </div>
 
                                 <div className="p-8">
-                                    <h3 className="text-xl font-black text-white mb-2 group-hover:text-amber-500 transition-colors">{k.nama}</h3>
+                                    <h3 className="text-xl font-black text-white mb-2 group-hover:text-accent transition-colors">{k.nama}</h3>
                                     <p className="text-gray-500 text-sm line-clamp-2 mb-6 font-medium leading-relaxed">
                                         {k.deskripsi || 'Kuasai fundamental dan kembangkan proyek nyata dengan kurikulum terstruktur.'}
                                     </p>
 
                                     <div className="flex items-center gap-4 pt-6 border-t border-white/5">
                                         <div className="flex items-center gap-2">
-                                            <Layers size={14} className="text-amber-500" />
+                                            <Layers size={14} className="text-accent" />
                                             <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{k.materi_count || 0} Materi</span>
                                         </div>
                                         <div className="flex items-center gap-2">
@@ -275,7 +275,7 @@ export default function Beranda({ auth, kursus_populer }) {
 
                                 <Link
                                     href={auth.pengguna ? `/kursus/${k.slug || k.id}` : '/daftar'}
-                                    className="mt-auto block w-full py-5 bg-white/[0.02] border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[3px] text-gray-500 group-hover:bg-amber-500 group-hover:text-black transition-all"
+                                    className="mt-auto block w-full py-5 bg-white/[0.02] border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[3px] text-gray-500 group-hover:bg-accent group-hover:text-black transition-all"
                                 >
                                     Lihat Detail Kursus
                                 </Link>
@@ -286,7 +286,7 @@ export default function Beranda({ auth, kursus_populer }) {
                     <div className="mt-16 text-center">
                         <Link
                             href="/explorasi"
-                            className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-amber-500 transition-colors"
+                            className="inline-flex items-center gap-2 text-sm font-black uppercase tracking-widest text-gray-500 hover:text-accent transition-colors"
                         >
                             Lihat Semua Koleksi Kursus <ChevronRight size={16} />
                         </Link>

@@ -19,24 +19,24 @@ export default function DaftarKursus({ auth, semua_kursus }) {
     };
 
     const getLevelColor = (level) => {
-        if (!level) return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
+        if (!level) return 'text-accent bg-accent/10 border-accent/20';
         const normalized = level.toLowerCase();
         if (normalized === 'beginner') return 'text-emerald-500 bg-emerald-500/10 border-emerald-500/20';
-        if (normalized === 'intermediate') return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
+        if (normalized === 'intermediate') return 'text-accent bg-accent/10 border-accent/20';
         if (normalized === 'advanced') return 'text-red-500 bg-red-500/10 border-red-500/20';
-        return 'text-amber-500 bg-amber-500/10 border-amber-500/20';
+        return 'text-accent bg-accent/10 border-accent/20';
     };
 
     const Content = (
         <div className={`w-full ${isPublic ? 'max-w-7xl mx-auto px-6 lg:px-8 py-24' : 'px-6 lg:px-10 py-10'}`}>
             <header className="mb-12">
-                <div className="flex items-center gap-3 text-amber-500 mb-4 animate-in fade-in slide-in-from-left-4 duration-500">
-                    <div className="p-2 rounded-xl bg-amber-500/10 border border-amber-500/20">
+                <div className="flex items-center gap-3 text-accent mb-4 animate-in fade-in slide-in-from-left-4 duration-500">
+                    <div className="p-2 rounded-xl bg-accent/10 border border-accent/20">
                         <BookOpen size={16} />
                     </div>
                     <span className="text-[10px] font-black uppercase tracking-[4px]">Learning Roadmap</span>
                 </div>
-                <h1 className="text-3xl md:text-5xl font-black mb-4 text-white italic uppercase tracking-tight">Pilih Jalur <span className="text-amber-500">Keahlianmu</span></h1>
+                <h1 className="text-3xl md:text-5xl font-black mb-4 text-white italic uppercase tracking-tight">Pilih Jalur <span className="text-accent">Keahlianmu</span></h1>
                 <p className="text-gray-500 max-w-2xl font-bold uppercase text-[10px] tracking-[2px] leading-relaxed">
                     Kuasai teknologi industri melalui kurikulum berbasis proyek yang dirancang oleh pakar.
                 </p>
@@ -46,14 +46,14 @@ export default function DaftarKursus({ auth, semua_kursus }) {
                 {semua_kursus.map((k, i) => (
                     <div
                         key={k.id}
-                        className="group relative bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden hover:border-amber-500/30 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-amber-500/5"
+                        className="group relative bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden hover:border-accent/30 transition-all duration-500 flex flex-col hover:shadow-2xl hover:shadow-accent/5"
                         style={{ animationDelay: `${i * 100}ms` }}
                     >
                         {/* Course Image Placeholder / Visual Area */}
                         <div className="aspect-[16/9] bg-gradient-to-br from-gray-800 to-gray-900 relative overflow-hidden">
-                             <div className="absolute inset-0 bg-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+                             <div className="absolute inset-0 bg-accent/10 opacity-0 group-hover:opacity-100 transition-opacity" />
                              <div className="absolute inset-0 flex items-center justify-center">
-                                 <div className="text-white/10 group-hover:text-amber-500/40 transition-all duration-500 transform group-hover:scale-110">
+                                 <div className="text-white/10 group-hover:text-accent/40 transition-all duration-500 transform group-hover:scale-110">
                                      {getIconComponent(k.ikon)}
                                  </div>
                              </div>
@@ -65,10 +65,10 @@ export default function DaftarKursus({ auth, semua_kursus }) {
                         </div>
 
                         <div className="p-8 flex-1 flex flex-col">
-                            <div className="flex items-center gap-2 text-amber-500 text-[10px] font-black uppercase tracking-widest mb-3">
+                            <div className="flex items-center gap-2 text-accent text-[10px] font-black uppercase tracking-widest mb-3">
                                 <Layers size={12} /> {k.jalur || 'Fullstack'} Developer
                             </div>
-                            <h3 className="text-xl font-black text-white mb-3 group-hover:text-amber-500 transition-colors uppercase tracking-tight leading-tight">
+                            <h3 className="text-xl font-black text-white mb-3 group-hover:text-accent transition-colors uppercase tracking-tight leading-tight">
                                 {k.nama}
                             </h3>
                             <p className="text-gray-500 text-xs leading-relaxed mb-8 font-medium line-clamp-3">
@@ -78,7 +78,7 @@ export default function DaftarKursus({ auth, semua_kursus }) {
                             <div className="mt-auto pt-6 border-t border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <div className="flex items-center gap-1.5">
-                                        <Book size={14} className="text-amber-500" />
+                                        <Book size={14} className="text-accent" />
                                         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{k.modul_count || 0} Modul</span>
                                     </div>
                                     <div className="flex items-center gap-1.5">
@@ -86,7 +86,7 @@ export default function DaftarKursus({ auth, semua_kursus }) {
                                         <span className="text-[10px] font-black uppercase tracking-widest text-gray-400">{k.modul_count ? k.modul_count * 2 : 1} Jam</span>
                                     </div>
                                 </div>
-                                <div className="text-amber-500/50 group-hover:text-amber-500 transition-colors">
+                                <div className="text-accent/50 group-hover:text-accent transition-colors">
                                     <Sparkles size={16} />
                                 </div>
                             </div>
@@ -94,7 +94,7 @@ export default function DaftarKursus({ auth, semua_kursus }) {
 
                         <Link 
                             href={`/kursus/${k.slug}`} 
-                            className="w-full py-5 bg-white/[0.02] border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[3px] text-gray-500 group-hover:bg-amber-500 group-hover:text-black transition-all flex items-center justify-center gap-2"
+                            className="w-full py-5 bg-white/[0.02] border-t border-white/5 text-center text-[10px] font-black uppercase tracking-[3px] text-gray-500 group-hover:bg-accent group-hover:text-black transition-all flex items-center justify-center gap-2"
                         >
                             Pelajari Sekarang <ChevronRight size={14} />
                         </Link>
@@ -115,7 +115,7 @@ export default function DaftarKursus({ auth, semua_kursus }) {
 
     if (isPublic) {
         return (
-            <div className="min-h-screen bg-[#08090D] text-white selection:bg-amber-500/20">
+            <div className="min-h-screen bg-[#08090D] text-white selection:bg-accent/20">
                 <Head title="Katalog Kursus - Code Genius" />
                 <NavbarPublik auth={auth} />
                 {Content}

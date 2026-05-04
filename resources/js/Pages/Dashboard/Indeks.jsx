@@ -47,7 +47,7 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
     const cards = [
         { title: 'Jalur Belajar', value: user.jalur_belajar || 'Frontend', icon: Palette, color: 'text-amber-400' },
         { title: 'Level Kamu', value: levelCfg.label, icon: Zap, color: 'text-yellow-400' },
-        { title: 'Total XP', value: numberID.format(xp), icon: Sparkles, color: 'text-amber-500' },
+        { title: 'Total XP', value: numberID.format(xp), icon: Sparkles, color: 'text-accent' },
         { title: 'Streak Harian', value: `${user.streak_harian || 0} Hari`, icon: Flame, color: 'text-orange-500' },
     ];
 
@@ -67,7 +67,7 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
 
             <div className="px-6 lg:px-10 py-6 space-y-5 font-sans">
                 {/* Banner Hero */}
-                <section className="relative overflow-hidden rounded-[32px] border border-amber-500/20 bg-gradient-to-br from-amber-600 to-yellow-500 p-8 lg:p-10 shadow-2xl shadow-amber-500/10">
+                <section className="relative overflow-hidden rounded-[32px] border border-accent/20 bg-accent-600 p-8 lg:p-10 shadow-2xl shadow-accent/10">
                     <div className="absolute right-12 top-0 opacity-10 hidden md:block rotate-12">
                         <Sparkles size={180} className="text-white" />
                     </div>
@@ -116,7 +116,7 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                 {/* Stat Cards */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
                     {cards.map((card) => (
-                        <div key={card.title} className="rounded-3xl border border-white/5 bg-[#0D1117] p-6 hover:border-amber-500/20 transition-all group">
+                        <div key={card.title} className="rounded-3xl border border-white/5 bg-[#0D1117] p-6 hover:border-accent/20 transition-all group">
                             <div className="flex items-center justify-between mb-4">
                                 <p className="text-[10px] font-black uppercase tracking-widest text-gray-500">{card.title}</p>
                                 <div className={`w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center ${card.color} group-hover:scale-110 transition-transform`}>
@@ -134,10 +134,10 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                         <div>
                             <h2 className="text-xl font-black text-white tracking-tight italic uppercase">Level Progression</h2>
                             <p className="text-xs text-gray-500 mt-1 font-bold uppercase tracking-widest">
-                                <span className="text-amber-500">{numberID.format(xp)}</span> / {numberID.format(targetXp)} XP Collected
+                                <span className="text-accent">{numberID.format(xp)}</span> / {numberID.format(targetXp)} XP Collected
                             </p>
                         </div>
-                        <p className="text-2xl font-black text-amber-500 italic">{progressPercent}%</p>
+                        <p className="text-2xl font-black text-accent italic">{progressPercent}%</p>
                     </div>
                     <div className="h-4 w-full rounded-full bg-white/5 overflow-hidden border border-white/5 p-1">
                         <div
@@ -158,7 +158,7 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                     <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Lacak konsistensi belajarmu setiap hari</p>
                                 </div>
                                 <div className="text-right">
-                                    <span className="text-[10px] text-amber-500 bg-amber-500/10 px-3 py-1.5 rounded-full font-black uppercase tracking-widest border border-amber-500/20">Active Streak</span>
+                                    <span className="text-[10px] text-accent bg-accent/10 px-3 py-1.5 rounded-full font-black uppercase tracking-widest border border-accent/20">Active Streak</span>
                                     <p className="text-xs text-white font-black mt-2">{user.streak_harian || 0} Days 🔥</p>
                                 </div>
                             </div>
@@ -177,13 +177,13 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                         <div className="w-full relative flex items-end justify-center h-40">
                                             {/* Glow Effect on Hover */}
                                             <div 
-                                                className="absolute bottom-0 w-full max-w-[32px] bg-amber-500/20 blur-xl opacity-0 group-hover/bar:opacity-100 transition-opacity duration-500"
+                                                className="absolute bottom-0 w-full max-w-[32px] bg-accent/20 blur-xl opacity-0 group-hover/bar:opacity-100 transition-opacity duration-500"
                                                 style={{ height: `${item.val}%` }}
                                             />
                                             {/* Main Bar */}
                                             <div 
                                                 className={`w-full max-w-[32px] rounded-t-xl transition-all duration-700 ease-out relative overflow-hidden ${
-                                                    item.val > 80 ? 'bg-amber-500 shadow-[0_0_20px_rgba(245,158,11,0.4)]' : 'bg-white/5 group-hover/bar:bg-white/10'
+                                                    item.val > 80 ? 'bg-accent shadow-[0_0_20px_rgba(245,158,11,0.4)]' : 'bg-white/5 group-hover/bar:bg-white/10'
                                                 }`}
                                                 style={{ height: `${item.val}%` }}
                                             >
@@ -193,13 +193,13 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                             </div>
                                             {/* Value Tooltip */}
                                             <div className="absolute -top-8 left-1/2 -translate-x-1/2 opacity-0 group-hover/bar:opacity-100 transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 pointer-events-none">
-                                                <span className="text-[10px] font-black text-amber-500 bg-black border border-amber-500/20 px-2 py-1 rounded-md whitespace-nowrap">
+                                                <span className="text-[10px] font-black text-accent bg-black border border-accent/20 px-2 py-1 rounded-md whitespace-nowrap">
                                                     {Math.round(item.val * 12)} XP
                                                 </span>
                                             </div>
                                         </div>
                                         <span className={`text-[10px] font-black uppercase tracking-widest transition-colors ${
-                                            item.val > 80 ? 'text-amber-500' : 'text-gray-600 group-hover/bar:text-gray-400'
+                                            item.val > 80 ? 'text-accent' : 'text-gray-600 group-hover/bar:text-gray-400'
                                         }`}>
                                             {item.day}
                                         </span>
@@ -212,11 +212,11 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                     {/* Right Sidebar */}
                     <div className="xl:col-span-4 space-y-6">
                         {/* Daily Tips */}
-                        <div className="rounded-3xl border border-amber-500/20 bg-amber-500/10 p-8 relative overflow-hidden group">
+                        <div className="rounded-3xl border border-accent/20 bg-accent/10 p-8 relative overflow-hidden group">
                             <div className="absolute -right-4 -top-4 opacity-5 group-hover:scale-110 transition-transform">
                                 <Lightbulb size={100} />
                             </div>
-                            <h3 className="flex items-center gap-2 text-sm font-black text-amber-500 uppercase tracking-[3px] mb-4 italic">
+                            <h3 className="flex items-center gap-2 text-sm font-black text-accent uppercase tracking-[3px] mb-4 italic">
                                 <Zap size={16} /> Daily Insight
                             </h3>
                             <p className="text-sm font-medium leading-relaxed text-gray-300">
@@ -239,11 +239,11 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                         title={item.isUnlocked ? `Terbuka: ${item.desc}` : `Terkunci: ${item.desc}`}
                                         className={`aspect-square rounded-2xl border flex flex-col items-center justify-center p-2 transition-all cursor-help relative group/badge ${
                                             item.isUnlocked 
-                                            ? 'border-amber-500/30 bg-amber-500/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]' 
+                                            ? 'border-accent/30 bg-accent/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]' 
                                             : 'border-white/5 bg-white/[0.02] opacity-30 grayscale'
                                         }`}
                                     >
-                                        <item.icon size={20} className={`${item.isUnlocked ? 'text-amber-500 animate-in zoom-in' : 'text-gray-600'}`} />
+                                        <item.icon size={20} className={`${item.isUnlocked ? 'text-accent animate-in zoom-in' : 'text-gray-600'}`} />
                                         
                                         {/* Simple Tooltip on hover */}
                                         <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-black border border-white/10 rounded-lg text-[9px] font-bold text-white whitespace-nowrap opacity-0 group-hover/badge:opacity-100 transition-opacity pointer-events-none z-50">
@@ -262,19 +262,19 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                 <Flame size={20} className="text-orange-500" /> Hot Challenges
                             </h3>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div className="flex items-center justify-between p-6 rounded-[24px] bg-white/[0.02] border border-white/5 hover:border-amber-500/20 transition-all group">
+                                <div className="flex items-center justify-between p-6 rounded-[24px] bg-white/[0.02] border border-white/5 hover:border-accent/20 transition-all group">
                                     <div className="flex items-center gap-5">
-                                        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                        <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                                             <Code2 size={24} />
                                         </div>
                                         <div>
-                                            <p className="text-sm font-bold text-white group-hover:text-amber-500 transition-colors">Weekly Challenge: Array Sorting</p>
+                                            <p className="text-sm font-bold text-white group-hover:text-accent transition-colors">Weekly Challenge: Array Sorting</p>
                                             <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Reward: +150 XP</p>
                                         </div>
                                     </div>
-                                    <ChevronRight size={18} className="text-gray-700 group-hover:text-amber-500 transition-colors" />
+                                    <ChevronRight size={18} className="text-gray-700 group-hover:text-accent transition-colors" />
                                 </div>
-                                <div className="flex items-center justify-between p-6 rounded-[24px] bg-white/[0.02] border border-white/5 hover:border-amber-500/20 transition-all group">
+                                <div className="flex items-center justify-between p-6 rounded-[24px] bg-white/[0.02] border border-white/5 hover:border-accent/20 transition-all group">
                                     <div className="flex items-center gap-5">
                                         <div className="w-12 h-12 rounded-2xl bg-blue-500/10 flex items-center justify-center text-blue-500">
                                             <Brain size={24} />

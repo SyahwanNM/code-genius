@@ -28,13 +28,13 @@ export default function DetailKursus({ auth, kursus }) {
             {/* ── Hero Header ── */}
             <div className="relative border-b border-white/5 overflow-hidden">
                 {/* Ambient glow */}
-                <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-amber-500/5 blur-[120px] rounded-full pointer-events-none" />
+                <div className="absolute top-0 right-0 w-[600px] h-[400px] bg-accent/5 blur-[120px] rounded-full pointer-events-none" />
 
                 <div className="max-w-6xl mx-auto px-6 lg:px-10 pt-10 pb-12 relative">
                     {/* Back link */}
                     <Link
                         href="/kursus"
-                        className="inline-flex items-center gap-2 text-gray-500 hover:text-amber-500 mb-10 transition-colors group text-[10px] font-black uppercase tracking-[3px]"
+                        className="inline-flex items-center gap-2 text-gray-500 hover:text-accent mb-10 transition-colors group text-[10px] font-black uppercase tracking-[3px]"
                     >
                         <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
                         Kembali ke Katalog
@@ -43,13 +43,13 @@ export default function DetailKursus({ auth, kursus }) {
                     {/* Course identity */}
                     <div className="flex flex-col md:flex-row items-start gap-8 lg:gap-12">
                         {/* Visual / Icon Box */}
-                        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-[32px] bg-gradient-to-br from-amber-500 to-yellow-600 flex items-center justify-center shrink-0 shadow-2xl shadow-amber-500/20">
+                        <div className="w-20 h-20 lg:w-24 lg:h-24 rounded-[32px] bg-gradient-to-br from-accent to-yellow-600 flex items-center justify-center shrink-0 shadow-2xl shadow-accent/20">
                             <Code2 size={40} className="text-black" />
                         </div>
 
                         <div className="flex-1 min-w-0">
                             <div className="flex items-center gap-3 mb-4">
-                                <span className="inline-flex items-center px-3 py-1 text-[10px] font-black uppercase tracking-widest text-amber-500 bg-amber-500/10 border border-amber-500/20 rounded-full">
+                                <span className="inline-flex items-center px-3 py-1 text-[10px] font-black uppercase tracking-widest text-accent bg-accent/10 border border-accent/20 rounded-full">
                                     {kursus.level_kesulitan || 'Beginner'}
                                 </span>
                                 <span className="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-black uppercase tracking-widest text-emerald-500 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
@@ -77,7 +77,7 @@ export default function DetailKursus({ auth, kursus }) {
                     <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-10">
                             <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-2xl bg-amber-500/10 text-amber-500 flex items-center justify-center border border-amber-500/20 shrink-0">
+                                <div className="w-10 h-10 rounded-2xl bg-accent/10 text-accent flex items-center justify-center border border-accent/20 shrink-0">
                                     <BookOpen size={20} />
                                 </div>
                                 <div>
@@ -92,7 +92,7 @@ export default function DetailKursus({ auth, kursus }) {
                                 <div key={modul.id} className="animate-in fade-in slide-in-from-bottom-4 duration-500" style={{ animationDelay: `${i * 100}ms` }}>
                                     {/* Module header */}
                                     <div className="flex items-center gap-4 mb-5 group">
-                                        <div className="w-8 h-8 rounded-xl bg-white/5 text-gray-500 flex items-center justify-center text-[11px] font-black border border-white/5 shrink-0 group-hover:bg-amber-500 group-hover:text-black transition-all">
+                                        <div className="w-8 h-8 rounded-xl bg-white/5 text-gray-500 flex items-center justify-center text-[11px] font-black border border-white/5 shrink-0 group-hover:bg-accent group-hover:text-black transition-all">
                                             {String(i + 1).padStart(2, '0')}
                                         </div>
                                         <h3 className="text-sm font-black text-gray-300 uppercase tracking-widest group-hover:text-white transition-colors">{modul.judul}</h3>
@@ -107,7 +107,7 @@ export default function DetailKursus({ auth, kursus }) {
                                                 className={`flex items-center justify-between px-6 py-4 rounded-[20px] border transition-all group/materi ${
                                                     modul.terkunci 
                                                         ? 'bg-black/20 border-white/5 cursor-not-allowed opacity-50' 
-                                                        : 'bg-[#0D1117] border-white/5 hover:border-amber-500/30 hover:bg-amber-500/[0.02]'
+                                                        : 'bg-[#0D1117] border-white/5 hover:border-accent/30 hover:bg-accent/[0.02]'
                                                 }`}
                                             >
                                                 <div className="flex items-center gap-4 min-w-0">
@@ -118,7 +118,7 @@ export default function DetailKursus({ auth, kursus }) {
                                                                 ? 'bg-emerald-500/10 text-emerald-500' 
                                                                 : materi.tipe === 'latihan'
                                                                     ? 'bg-yellow-500/10 text-yellow-500 group-hover/materi:scale-110'
-                                                                    : 'bg-amber-500/10 text-amber-500 group-hover/materi:scale-110'
+                                                                    : 'bg-accent/10 text-accent group-hover/materi:scale-110'
                                                     }`}>
                                                         {modul.terkunci ? <Lock size={16} /> : 
                                                          materi.selesai ? <Check size={18} /> :
@@ -140,7 +140,7 @@ export default function DetailKursus({ auth, kursus }) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="w-8 h-8 rounded-full flex items-center justify-center text-gray-800 group-hover/materi:text-amber-500 transition-colors">
+                                                <div className="w-8 h-8 rounded-full flex items-center justify-center text-gray-800 group-hover/materi:text-accent transition-colors">
                                                     {modul.terkunci ? null : <ChevronRight size={18} />}
                                                 </div>
                                             </Link>
@@ -171,7 +171,7 @@ export default function DetailKursus({ auth, kursus }) {
                                         href={kursus.modul?.[0]?.materi?.[0]
                                             ? `/kursus/${kursus.slug}/${kursus.modul[0].materi[0].slug}`
                                             : '#'}
-                                        className="w-full flex justify-center items-center gap-3 py-5 rounded-2xl bg-amber-500 text-black text-[10px] font-black uppercase tracking-[3px] hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 active:scale-[0.98]"
+                                        className="w-full flex justify-center items-center gap-3 py-5 rounded-2xl bg-accent text-black text-[10px] font-black uppercase tracking-[3px] hover:bg-amber-400 transition-all shadow-xl shadow-accent/20 active:scale-[0.98]"
                                     >
                                         <Play size={14} fill="currentColor" /> Mulai Belajar
                                     </Link>
@@ -181,14 +181,14 @@ export default function DetailKursus({ auth, kursus }) {
                             {/* Stats List */}
                             <div className="p-4 space-y-1">
                                 {[
-                                    { icon: <Trophy size={16} className="text-amber-500" />, label: 'Level Kesulitan', value: kursus.level_kesulitan || 'Beginner' },
-                                    { icon: <Clock size={16} className="text-amber-500" />, label: 'Estimasi Durasi', value: `${kursus.modul?.length * 2 || 2} Jam` },
-                                    { icon: <BookOpen size={16} className="text-amber-500" />, label: 'Total Materi', value: `${totalMateri} Pelajaran` },
-                                    { icon: <Sparkles size={16} className="text-amber-500" />, label: 'Rewards', value: 'Sertifikat & XP' },
+                                    { icon: <Trophy size={16} className="text-accent" />, label: 'Level Kesulitan', value: kursus.level_kesulitan || 'Beginner' },
+                                    { icon: <Clock size={16} className="text-accent" />, label: 'Estimasi Durasi', value: `${kursus.modul?.length * 2 || 2} Jam` },
+                                    { icon: <BookOpen size={16} className="text-accent" />, label: 'Total Materi', value: `${totalMateri} Pelajaran` },
+                                    { icon: <Sparkles size={16} className="text-accent" />, label: 'Rewards', value: 'Sertifikat & XP' },
                                 ].map(({ icon, label, value }) => (
                                     <div key={label} className="flex items-center justify-between px-4 py-4 rounded-2xl hover:bg-white/[0.02] transition-colors group">
                                         <div className="flex items-center gap-3">
-                                            <div className="p-2 rounded-lg bg-white/5 text-gray-500 group-hover:text-amber-500 transition-colors">
+                                            <div className="p-2 rounded-lg bg-white/5 text-gray-500 group-hover:text-accent transition-colors">
                                                 {icon}
                                             </div>
                                             <span className="text-[10px] font-black uppercase tracking-widest text-gray-500">{label}</span>

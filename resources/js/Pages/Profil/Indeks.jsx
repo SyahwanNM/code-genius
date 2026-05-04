@@ -19,7 +19,7 @@ export default function Indeks({ auth }) {
             <div className="px-6 lg:px-12 py-12 space-y-12 relative z-10 max-w-7xl mx-auto">
                 {/* Profile Header Card */}
                 <section className="glass-card p-0 overflow-hidden border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-2xl">
-                    <div className="h-56 bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-amber-500/10 flex items-center justify-center overflow-hidden relative">
+                    <div className="h-56 bg-gradient-to-r from-accent/10 via-accent/5 to-accent/10 flex items-center justify-center overflow-hidden relative">
                         <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-10" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#05070A] to-transparent opacity-80" />
                         <SparkleBackground />
@@ -27,7 +27,7 @@ export default function Indeks({ auth }) {
                     
                     <div className="px-12 pb-12 relative">
                         <div className="flex flex-col md:flex-row items-end gap-10 -mt-20 mb-12">
-                            <div className="w-44 h-44 rounded-[44px] bg-amber-500 p-1 shadow-2xl shadow-amber-500/30">
+                            <div className="w-44 h-44 rounded-[44px] bg-accent p-1 shadow-2xl shadow-accent/30">
                                 <div className="w-full h-full rounded-[42px] bg-[#05070A] overflow-hidden flex items-center justify-center">
                                     <img 
                                         src={`https://api.dicebear.com/7.x/${avatarStyle}/svg?seed=${pengguna.nama}`} 
@@ -39,21 +39,21 @@ export default function Indeks({ auth }) {
                             <div className="flex-1 pb-6">
                                 <div className="flex flex-wrap items-center gap-4 mb-4">
                                     <h1 className="text-4xl font-black text-white">{pengguna.nama}</h1>
-                                    <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500 text-black text-[10px] font-black uppercase tracking-[2px] shadow-lg shadow-amber-500/20">
+                                    <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent text-black text-[10px] font-black uppercase tracking-[2px] shadow-lg shadow-accent/20">
                                         <Award size={12} /> Level {pengguna.level || 1}
                                     </div>
                                 </div>
                                 <div className="flex flex-wrap gap-6 text-gray-500 text-sm font-medium">
-                                    <span className="flex items-center gap-2"><MapPin size={16} className="text-amber-500" /> Indonesia</span>
-                                    <span className="flex items-center gap-2"><Calendar size={16} className="text-amber-500" /> Joined Code Genius</span>
-                                    <span className="flex items-center gap-2 text-amber-500 font-black uppercase tracking-widest text-[10px] bg-amber-500/10 px-3 py-1 rounded-lg border border-amber-500/20">
+                                    <span className="flex items-center gap-2"><MapPin size={16} className="text-accent" /> Indonesia</span>
+                                    <span className="flex items-center gap-2"><Calendar size={16} className="text-accent" /> Joined Code Genius</span>
+                                    <span className="flex items-center gap-2 text-accent font-black uppercase tracking-widest text-[10px] bg-accent/10 px-3 py-1 rounded-lg border border-accent/20">
                                         <Zap size={14} fill="currentColor" /> {pengguna.streak_harian || 0} Day Streak
                                     </span>
                                 </div>
                             </div>
                             <div className="flex gap-4 pb-6">
                                 <Link href="/profil/edit" className="px-10 py-4 rounded-2xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[3px] hover:bg-white/10 transition-all flex items-center gap-3 text-white">
-                                    <Edit3 size={18} className="text-amber-500" /> Customize Profile
+                                    <Edit3 size={18} className="text-accent" /> Customize Profile
                                 </Link>
                             </div>
                         </div>
@@ -63,44 +63,44 @@ export default function Indeks({ auth }) {
                             <div className="space-y-12">
                                 <div className="space-y-6">
                                     <h2 className="text-[10px] font-black uppercase tracking-[4px] text-gray-700 flex items-center gap-3">
-                                        <div className="w-2 h-2 rounded-full bg-amber-500 shadow-[0_0_10px_rgba(245,158,11,0.5)]" /> Experience Points
+                                        <div className="w-2 h-2 rounded-full bg-accent shadow-[0_0_10px_rgba(245,158,11,0.5)]" /> Experience Points
                                     </h2>
                                     <div className="grid grid-cols-2 gap-4">
-                                        <div className="p-8 bg-white/[0.02] rounded-[32px] border border-white/5 group hover:border-amber-500/30 transition-all">
+                                        <div className="p-8 bg-white/[0.02] rounded-[32px] border border-white/5 group hover:border-accent/30 transition-all">
                                             <p className="text-[10px] font-black text-gray-600 uppercase mb-3 tracking-widest">Total XP</p>
                                             <div className="flex items-end gap-2">
                                                 <p className="text-3xl font-black text-white">{pengguna.xp || 0}</p>
-                                                <span className="text-[10px] font-black text-amber-500 mb-1.5 uppercase">Pts</span>
+                                                <span className="text-[10px] font-black text-accent mb-1.5 uppercase">Pts</span>
                                             </div>
                                         </div>
-                                        <div className="p-8 bg-white/[0.02] rounded-[32px] border border-white/5 group hover:border-amber-500/30 transition-all">
+                                        <div className="p-8 bg-white/[0.02] rounded-[32px] border border-white/5 group hover:border-accent/30 transition-all">
                                             <p className="text-[10px] font-black text-gray-600 uppercase mb-3 tracking-widest">Global Rank</p>
-                                            <p className="text-3xl font-black text-amber-500 italic">#1</p>
+                                            <p className="text-3xl font-black text-accent italic">#1</p>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="space-y-6">
                                     <h2 className="text-[10px] font-black uppercase tracking-[4px] text-gray-700 flex items-center gap-3">
-                                        <div className="w-2 h-2 rounded-full bg-amber-500/30 shadow-[0_0_10px_rgba(245,158,11,0.2)]" /> Social Links
+                                        <div className="w-2 h-2 rounded-full bg-accent/30 shadow-[0_0_10px_rgba(245,158,11,0.2)]" /> Social Links
                                     </h2>
                                     <div className="space-y-3">
                                         {socialLinks.github && (
                                             <a href={`https://github.com/${socialLinks.github}`} target="_blank" className="flex items-center justify-between p-5 bg-white/[0.02] rounded-2xl border border-white/5 text-sm hover:bg-white/5 transition-all group">
                                                 <div className="flex items-center gap-3 text-gray-400 group-hover:text-white"><GitBranch size={18} /> <span className="font-black uppercase tracking-widest text-[10px]">GitHub</span></div>
-                                                <span className="text-amber-500 font-medium italic">@{socialLinks.github}</span>
+                                                <span className="text-accent font-medium italic">@{socialLinks.github}</span>
                                             </a>
                                         )}
                                         {socialLinks.linkedin && (
                                             <a href={socialLinks.linkedin} target="_blank" className="flex items-center justify-between p-5 bg-white/[0.02] rounded-2xl border border-white/5 text-sm hover:bg-white/5 transition-all group">
                                                 <div className="flex items-center gap-3 text-gray-400 group-hover:text-white"><LinkIcon size={18} /> <span className="font-black uppercase tracking-widest text-[10px]">LinkedIn</span></div>
-                                                <span className="text-amber-500 font-medium italic">View Profile</span>
+                                                <span className="text-accent font-medium italic">View Profile</span>
                                             </a>
                                         )}
                                         {socialLinks.website && (
                                             <a href={socialLinks.website} target="_blank" className="flex items-center justify-between p-5 bg-white/[0.02] rounded-2xl border border-white/5 text-sm hover:bg-white/5 transition-all group">
                                                 <div className="flex items-center gap-3 text-gray-400 group-hover:text-white"><Globe size={18} /> <span className="font-black uppercase tracking-widest text-[10px]">Website</span></div>
-                                                <span className="text-amber-500 font-medium italic">Visit Site</span>
+                                                <span className="text-accent font-medium italic">Visit Site</span>
                                             </a>
                                         )}
                                         {!socialLinks.github && !socialLinks.linkedin && !socialLinks.website && (
@@ -116,7 +116,7 @@ export default function Indeks({ auth }) {
                             <div className="lg:col-span-2 space-y-12">
                                 <div className="space-y-8">
                                     <h2 className="text-2xl font-black flex items-center gap-4 italic">
-                                        <div className="w-10 h-10 rounded-xl bg-amber-500 flex items-center justify-center text-black">
+                                        <div className="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-black">
                                             <Sparkles size={20} />
                                         </div>
                                         Digital Persona & Expertise
@@ -127,11 +127,11 @@ export default function Indeks({ auth }) {
                                         </p>
                                         <div className="space-y-6">
                                             <p className="text-[10px] font-black uppercase tracking-[4px] text-gray-700 flex items-center gap-3">
-                                                <Code2 size={14} className="text-amber-500" /> Specialized Skills
+                                                <Code2 size={14} className="text-accent" /> Specialized Skills
                                             </p>
                                             <div className="flex flex-wrap gap-3">
                                                 {skills.length > 0 ? skills.map((skill, i) => (
-                                                    <span key={i} className="px-6 py-3 rounded-2xl bg-amber-500/5 border border-amber-500/10 text-[10px] font-black text-amber-500 uppercase tracking-widest hover:bg-amber-500 hover:text-black transition-all cursor-default">
+                                                    <span key={i} className="px-6 py-3 rounded-2xl bg-accent/5 border border-accent/10 text-[10px] font-black text-accent uppercase tracking-widest hover:bg-accent hover:text-black transition-all cursor-default">
                                                         {skill}
                                                     </span>
                                                 )) : (
@@ -143,7 +143,7 @@ export default function Indeks({ auth }) {
                                 </div>
 
                                 {/* Learning Path Badge - Optional Future Feature */}
-                                <div className="p-10 rounded-[40px] bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-between group overflow-hidden relative shadow-2xl shadow-amber-500/20">
+                                <div className="p-10 rounded-[40px] bg-gradient-to-br from-accent to-amber-600 flex items-center justify-between group overflow-hidden relative shadow-2xl shadow-accent/20">
                                     <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:scale-110 transition-transform">
                                         <Target size={180} />
                                     </div>
@@ -172,7 +172,7 @@ function SparkleBackground() {
             {[...Array(20)].map((_, i) => (
                 <div 
                     key={i}
-                    className="absolute w-1 h-1 bg-amber-500 rounded-full animate-pulse"
+                    className="absolute w-1 h-1 bg-accent rounded-full animate-pulse"
                     style={{
                         top: Math.random() * 100 + '%',
                         left: Math.random() * 100 + '%',

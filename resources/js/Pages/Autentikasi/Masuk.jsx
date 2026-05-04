@@ -45,7 +45,7 @@ export default function Masuk() {
                                 value={data.email}
                                 onChange={(e) => setData('email', e.target.value)}
                             />
-                            {errors.email && <p className="text-amber-500 text-[10px] font-bold">{errors.email}</p>}
+                            {errors.email && <p className="text-accent text-[10px] font-bold">{errors.email}</p>}
                         </div>
 
                         <div className="space-y-2">
@@ -60,7 +60,7 @@ export default function Masuk() {
                                 value={data.kata_sandi}
                                 onChange={(e) => setData('kata_sandi', e.target.value)}
                             />
-                            {errors.kata_sandi && <p className="text-amber-500 text-[10px] font-bold">{errors.kata_sandi}</p>}
+                            {errors.kata_sandi && <p className="text-accent text-[10px] font-bold">{errors.kata_sandi}</p>}
                         </div>
 
                         <div className="flex items-center">

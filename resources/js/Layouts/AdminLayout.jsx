@@ -68,7 +68,7 @@ export default function AdminLayout({ auth, children }) {
                             alt="Code Genius"
                             className="h-7 object-contain"
                         />
-                        <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent italic">Control Panel</span>
+                        <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Control Panel</span>
                     </Link>
                     <button
                         className="lg:hidden text-gray-500 hover:text-white"
@@ -92,7 +92,7 @@ export default function AdminLayout({ auth, children }) {
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                                     active
-                                        ? 'bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.2)]'
+                                        ? 'bg-accent text-black shadow-[0_0_20px_rgba(245,158,11,0.2)]'
                                         : 'text-gray-500 hover:text-white hover:bg-white/5'
                                 }`}
                             >
