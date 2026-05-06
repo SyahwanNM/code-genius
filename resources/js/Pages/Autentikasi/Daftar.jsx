@@ -1,5 +1,6 @@
 import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
+import { Sparkles, ArrowRight, Lock, Mail, User } from 'lucide-react';
 
 export default function Daftar() {
     const { data, setData, post, processing, errors } = useForm({
@@ -15,87 +16,150 @@ export default function Daftar() {
     };
 
     return (
-        <div className="min-h-screen bg-[#0B0E14] flex items-center justify-center p-6 relative overflow-hidden">
-            <Head title="Daftar Akun" />
-            
-            {/* Background Orbs */}
-            <div className="absolute top-[-20%] left-[-10%] w-[60%] h-[60%] bg-primary/10 blur-[120px] rounded-full" />
-            <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-secondary/5 blur-[120px] rounded-full" />
+        <div className="min-h-screen bg-[#08090D] flex items-center justify-center p-6 relative overflow-hidden font-outfit">
+            <Head title="Daftar Akun — Code Genius" />
+
+            {/* Background glows */}
+            <div className="pointer-events-none absolute inset-0">
+                <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-yellow-400/5 blur-[140px] rounded-full" />
+                <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-600/8 blur-[120px] rounded-full" />
+                <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-purple-600/8 blur-[110px] rounded-full" />
+            </div>
+
+            {/* Dot grid */}
+            <div
+                className="pointer-events-none absolute inset-0 opacity-[0.03]"
+                style={{
+                    backgroundImage: 'radial-gradient(rgba(255,255,255,0.8) 1px, transparent 1px)',
+                    backgroundSize: '32px 32px',
+                }}
+            />
 
             <div className="w-full max-w-md relative z-10">
-                <div className="glass-card p-10 border-white/5">
+                <div className="bg-[#0F1118] border border-white/5 rounded-2xl p-10 shadow-2xl shadow-black/40">
+
+                    {/* Header */}
                     <div className="text-center mb-10">
                         <Link href="/" className="inline-block mb-6 group">
-                            <img 
-                                src="/images/logo_darkmode.svg" 
-                                alt="Code Genius" 
-                                className="h-14 mx-auto group-hover:scale-105 transition-transform drop-shadow-[0_0_15px_rgba(245,158,11,0.2)]"
+                            <img
+                                src="/images/logo_darkmode.svg"
+                                alt="Code Genius"
+                                className="h-12 mx-auto group-hover:scale-105 transition-transform drop-shadow-[0_0_20px_rgba(250,204,21,0.25)]"
                             />
                         </Link>
-                        <h1 className="text-3xl font-black mb-2 text-white text-center">Buat Akun</h1>
-                        <p className="text-gray-500 text-[10px] font-bold uppercase tracking-[3px] text-center">Bergabung dengan Masa Depan</p>
+
+                        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-[10px] font-bold uppercase tracking-widest mb-4">
+                            <Sparkles size={10} />
+                            Bergabung Sekarang
+                        </div>
+
+                        <h1 className="text-3xl font-black text-white tracking-tight">Buat Akun</h1>
+                        <p className="text-gray-500 text-xs mt-2">Mulai perjalanan belajar coding-mu hari ini</p>
                     </div>
 
+                    {/* Form */}
                     <form onSubmit={submit} className="space-y-5">
+
+                        {/* Nama */}
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">Nama Lengkap</label>
-                            <input
-                                type="text"
-                                className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 focus:border-primary focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
-                                placeholder="Masukkan nama Anda"
-                                value={data.nama}
-                                onChange={(e) => setData('nama', e.target.value)}
-                            />
-                            {errors.nama && <p className="text-accent text-[10px] font-bold">{errors.nama}</p>}
+                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">
+                                Nama Lengkap
+                            </label>
+                            <div className="relative group">
+                                <User size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-yellow-400 transition-colors" />
+                                <input
+                                    type="text"
+                                    className="w-full bg-white/[0.03] border border-white/8 rounded-xl pl-11 pr-4 py-3.5 focus:border-yellow-400/50 focus:bg-yellow-400/[0.02] focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
+                                    placeholder="Masukkan nama lengkap"
+                                    value={data.nama}
+                                    onChange={(e) => setData('nama', e.target.value)}
+                                />
+                            </div>
+                            {errors.nama && <p className="text-red-400 text-[10px] font-bold">{errors.nama}</p>}
                         </div>
 
+                        {/* Email */}
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">Alamat Email</label>
-                            <input
-                                type="email"
-                                className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 focus:border-primary focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
-                                placeholder="name@example.com"
-                                value={data.email}
-                                onChange={(e) => setData('email', e.target.value)}
-                            />
-                            {errors.email && <p className="text-accent text-[10px] font-bold">{errors.email}</p>}
+                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">
+                                Alamat Email
+                            </label>
+                            <div className="relative group">
+                                <Mail size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-yellow-400 transition-colors" />
+                                <input
+                                    type="email"
+                                    className="w-full bg-white/[0.03] border border-white/8 rounded-xl pl-11 pr-4 py-3.5 focus:border-yellow-400/50 focus:bg-yellow-400/[0.02] focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
+                                    placeholder="nama@email.com"
+                                    value={data.email}
+                                    onChange={(e) => setData('email', e.target.value)}
+                                />
+                            </div>
+                            {errors.email && <p className="text-red-400 text-[10px] font-bold">{errors.email}</p>}
                         </div>
 
+                        {/* Password */}
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">Kata Sandi</label>
-                            <input
-                                type="password"
-                                className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 focus:border-primary focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
-                                placeholder="••••••••"
-                                value={data.kata_sandi}
-                                onChange={(e) => setData('kata_sandi', e.target.value)}
-                            />
-                            {errors.kata_sandi && <p className="text-accent text-[10px] font-bold">{errors.kata_sandi}</p>}
+                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">
+                                Kata Sandi
+                            </label>
+                            <div className="relative group">
+                                <Lock size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-yellow-400 transition-colors" />
+                                <input
+                                    type="password"
+                                    className="w-full bg-white/[0.03] border border-white/8 rounded-xl pl-11 pr-4 py-3.5 focus:border-yellow-400/50 focus:bg-yellow-400/[0.02] focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
+                                    placeholder="Min. 8 karakter"
+                                    value={data.kata_sandi}
+                                    onChange={(e) => setData('kata_sandi', e.target.value)}
+                                />
+                            </div>
+                            {errors.kata_sandi && <p className="text-red-400 text-[10px] font-bold">{errors.kata_sandi}</p>}
                         </div>
 
+                        {/* Konfirmasi Password */}
                         <div className="space-y-2">
-                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">Konfirmasi Sandi</label>
-                            <input
-                                type="password"
-                                className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-4 focus:border-primary focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
-                                placeholder="••••••••"
-                                value={data.kata_sandi_confirmation}
-                                onChange={(e) => setData('kata_sandi_confirmation', e.target.value)}
-                            />
+                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500">
+                                Konfirmasi Sandi
+                            </label>
+                            <div className="relative group">
+                                <Lock size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-yellow-400 transition-colors" />
+                                <input
+                                    type="password"
+                                    className="w-full bg-white/[0.03] border border-white/8 rounded-xl pl-11 pr-4 py-3.5 focus:border-yellow-400/50 focus:bg-yellow-400/[0.02] focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
+                                    placeholder="Ulangi kata sandi"
+                                    value={data.kata_sandi_confirmation}
+                                    onChange={(e) => setData('kata_sandi_confirmation', e.target.value)}
+                                />
+                            </div>
+                            {errors.kata_sandi_confirmation && <p className="text-red-400 text-[10px] font-bold">{errors.kata_sandi_confirmation}</p>}
                         </div>
 
+                        {/* Submit */}
                         <button
                             type="submit"
                             disabled={processing}
-                            className="w-full py-5 bg-white text-black font-black uppercase tracking-widest text-xs rounded-2xl hover:bg-primary transition-all shadow-2xl shadow-primary/10 active:scale-95 disabled:opacity-50 mt-4"
+                            className="group w-full flex items-center justify-center gap-2 py-3.5 bg-yellow-400 text-black font-black text-sm uppercase tracking-wider rounded-xl hover:bg-yellow-300 transition-all duration-200 shadow-[0_0_30px_rgba(250,204,21,0.25)] hover:shadow-[0_0_40px_rgba(250,204,21,0.35)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                         >
-                            {processing ? 'Memproses...' : 'Daftar Sekarang'}
+                            {processing ? 'Memproses...' : (
+                                <>
+                                    Daftar Sekarang
+                                    <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
+                                </>
+                            )}
                         </button>
                     </form>
 
-                    <p className="text-center mt-10 text-gray-500 text-[10px] font-bold uppercase tracking-widest">
+                    {/* Divider */}
+                    <div className="flex items-center gap-4 my-8">
+                        <div className="flex-1 h-px bg-white/5" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-700">atau</span>
+                        <div className="flex-1 h-px bg-white/5" />
+                    </div>
+
+                    {/* Footer link */}
+                    <p className="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest">
                         Sudah punya akun?{' '}
-                        <Link href="/masuk" className="text-primary hover:text-secondary transition-colors font-black">Masuk di sini</Link>
+                        <Link href="/masuk" className="text-yellow-400 hover:text-yellow-300 transition-colors font-black">
+                            Masuk di sini
+                        </Link>
                     </p>
                 </div>
             </div>
