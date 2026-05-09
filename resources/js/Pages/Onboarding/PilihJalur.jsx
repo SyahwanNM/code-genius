@@ -165,7 +165,7 @@ export default function PilihJalur({ jalur_saat_ini }) {
                         disabled={!selected || isSubmitting}
                         className={`inline-flex items-center gap-3 px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300
                             ${selected
-                                ? 'bg-gradient-to-r from-accent to-violet-500 text-white shadow-2xl shadow-accent/30 hover:scale-105 hover:shadow-accent/50'
+                                ? 'bg-gradient-to-r from-accent to-accent/80 text-white shadow-2xl shadow-accent/30 hover:scale-105 hover:shadow-accent/50'
                                 : 'bg-white/5 text-gray-600 cursor-not-allowed border border-white/10'
                             }`}
                     >
