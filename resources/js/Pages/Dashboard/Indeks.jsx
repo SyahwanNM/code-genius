@@ -148,8 +148,9 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                 <section className="grid grid-cols-1 xl:grid-cols-12 gap-6">
                     {/* Weekly Activity Chart */}
                     <div className="xl:col-span-8">
-                        <div className="rounded-[2rem] border border-white/5 bg-[#0D1117] p-6 md:p-8 h-full">
-                            <div className="flex flex-col sm:flex-row sm:items-stretch justify-between gap-4 mb-10">
+                        <div className="rounded-[2rem] border border-white/5 bg-[#0D1117] p-6 md:p-8 h-full flex flex-col">
+                            {/* Header */}
+                            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 mb-6">
                                 <div>
                                     <h3 className="text-base md:text-lg font-black text-white uppercase tracking-wider italic">Weekly Momentum</h3>
                                     <p className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Lacak konsistensi belajarmu</p>
@@ -159,38 +160,51 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                     <p className="text-sm text-white font-black mt-2">{user.streak_harian || 0} Days</p>
                                 </div>
                             </div>
-                            
-                            <div className="flex items-end justify-between gap-3 sm:gap-4 px-2 min-h-[180px]">
-                                {[
-                                    { day: 'Mon', val: 65 }, { day: 'Tue', val: 40 }, { day: 'Wed', val: 85 },
-                                    { day: 'Thu', val: 55 }, { day: 'Fri', val: 95 }, { day: 'Sat', val: 30 },
-                                    { day: 'Sun', val: 20 }
-                                ].map((item) => (
-                                    <div key={item.day} className="flex-1 flex flex-col items-center gap-4 group/bar">
-                                        <div className="w-full relative flex items-end justify-center h-36">
-                                            <div 
-                                                className="absolute bottom-0 w-full max-w-[28px] bg-accent/20 blur-lg opacity-0 group-hover/bar:opacity-100 transition-opacity"
-                                                style={{ height: `${item.val}%` }}
-                                            />
-                                            <div 
-                                                className={`w-full max-w-[28px] rounded-t-lg transition-all duration-500 ease-out ${
-                                                    item.val > 80 ? 'bg-accent shadow-[0_0_15px_rgba(245,158,11,0.3)]' : 'bg-white/5 group-hover/bar:bg-white/10'
-                                                }`}
-                                                style={{ height: `${item.val}%` }}
-                                            />
-                                            <div className="absolute -top-7 left-1/2 -translate-x-1/2 opacity-0 group-hover/bar:opacity-100 transition-all duration-300 pointer-events-none">
-                                                <span className="text-[10px] font-black text-accent bg-black border border-accent/20 px-2 py-1 rounded-md whitespace-nowrap">
-                                                    {Math.round(item.val * 12)} XP
-                                                </span>
+
+                            {/* Chart — flex-grow agar mengisi sisa ruang, bar selalu nempel bawah */}
+                            <div className="flex-grow flex flex-col justify-end min-h-0">
+                                <div className="flex items-end justify-between gap-2 sm:gap-3 px-1 w-full flex-grow min-h-[140px]">
+                                    {[
+                                        { day: 'Mon', val: 65 }, { day: 'Tue', val: 40 }, { day: 'Wed', val: 85 },
+                                        { day: 'Thu', val: 55 }, { day: 'Fri', val: 95 }, { day: 'Sat', val: 30 },
+                                        { day: 'Sun', val: 20 }
+                                    ].map((item) => (
+                                        <div key={item.day} className="flex-1 flex flex-col items-center gap-2 h-full group/bar">
+                                            {/* Track: relative, fixed pixel height, bar absolute bottom-0 */}
+                                            <div className="relative w-full flex-1">
+                                                {/* Glow */}
+                                                <div
+                                                    className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[26px] bg-accent/25 blur-md rounded-t-lg opacity-0 group-hover/bar:opacity-100 transition-opacity"
+                                                    style={{ height: `${item.val}%` }}
+                                                />
+                                                {/* Bar */}
+                                                <div
+                                                    className={`absolute bottom-0 left-1/2 -translate-x-1/2 w-[26px] rounded-t-lg transition-all duration-500 ease-out ${
+                                                        item.val > 80
+                                                            ? 'bg-accent shadow-[0_0_12px_rgba(245,158,11,0.4)]'
+                                                            : 'bg-white/10 group-hover/bar:bg-white/20'
+                                                    }`}
+                                                    style={{ height: `${item.val}%` }}
+                                                />
+                                                {/* Tooltip */}
+                                                <div
+                                                    className="absolute left-1/2 -translate-x-1/2 opacity-0 group-hover/bar:opacity-100 transition-all duration-300 pointer-events-none z-10"
+                                                    style={{ bottom: `calc(${item.val}% + 8px)` }}
+                                                >
+                                                    <span className="text-[10px] font-black text-accent bg-black border border-accent/20 px-2 py-1 rounded-md whitespace-nowrap">
+                                                        {Math.round(item.val * 12)} XP
+                                                    </span>
+                                                </div>
                                             </div>
+                                            {/* Day label */}
+                                            <span className={`text-[10px] font-black uppercase tracking-widest transition-colors flex-shrink-0 ${
+                                                item.val > 80 ? 'text-accent' : 'text-gray-600 group-hover/bar:text-gray-400'
+                                            }`}>
+                                                {item.day}
+                                            </span>
                                         </div>
-                                        <span className={`text-[10px] font-black uppercase tracking-widest transition-colors ${
-                                            item.val > 80 ? 'text-accent' : 'text-gray-600 group-hover/bar:text-gray-400'
-                                        }`}>
-                                            {item.day}
-                                        </span>
-                                    </div>
-                                ))}
+                                    ))}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -218,21 +232,34 @@ export default function Indeks({ auth, semua_kursus, kursus_rekomendasi }) {
                                     {achievements.filter(a => a.isUnlocked).length}/{achievements.length}
                                 </span>
                             </div>
-                            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 xl:grid-cols-3 gap-3">
+                            <div className="grid grid-cols-3 gap-3">
                                 {achievements.map((item) => (
                                     <div
                                         key={item.id}
-                                        title={item.isUnlocked ? `Terbuka: ${item.desc}` : `Terkunci: ${item.desc}`}
-                                        className={`aspect-square rounded-2xl border flex items-center justify-center p-2 transition-all cursor-help group/badge ${
-                                            item.isUnlocked 
-                                            ? 'border-accent/30 bg-accent/5 shadow-[0_0_15px_rgba(245,158,11,0.05)]' 
+                                        className={`relative rounded-2xl border flex flex-col items-center justify-center gap-2 p-3 transition-all cursor-default group/badge ${
+                                            item.isUnlocked
+                                            ? 'border-accent/30 bg-accent/5 hover:bg-accent/10 hover:border-accent/50 hover:shadow-[0_0_20px_rgba(245,158,11,0.1)]'
                                             : 'border-white/5 bg-white/[0.02] opacity-40 grayscale'
                                         }`}
                                     >
-                                        <item.icon size={24} className={`${item.isUnlocked ? 'text-accent animate-in zoom-in' : 'text-gray-600'}`} />
-                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-2.5 py-1.5 bg-black border border-white/10 rounded-lg text-[10px] font-bold text-white text-center whitespace-nowrap opacity-0 group-hover/badge:opacity-100 transition-opacity pointer-events-none z-50">
-                                            <p>{item.label}</p>
-                                            <p className="text-white/60 text-[9px] font-normal">{item.desc}</p>
+                                        {/* Icon */}
+                                        <item.icon
+                                            size={22}
+                                            className={item.isUnlocked ? 'text-accent' : 'text-gray-600'}
+                                        />
+                                        {/* Label — selalu tampil */}
+                                        <span className={`text-[9px] font-black uppercase tracking-wider text-center leading-tight ${
+                                            item.isUnlocked ? 'text-white/80' : 'text-gray-600'
+                                        }`}>
+                                            {item.label}
+                                        </span>
+
+                                        {/* Tooltip deskripsi — muncul saat hover */}
+                                        <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-max max-w-[160px] px-3 py-2 rounded-xl bg-[#0D1117] border border-white/10 backdrop-blur-md shadow-xl opacity-0 group-hover/badge:opacity-100 transition-all duration-200 pointer-events-none z-50 scale-95 group-hover/badge:scale-100">
+                                            <p className="text-[10px] font-black text-white text-center">{item.label}</p>
+                                            <p className="text-[9px] font-medium text-white/50 text-center mt-0.5 leading-snug">{item.desc}</p>
+                                            {/* Arrow */}
+                                            <div className="absolute top-full left-1/2 -translate-x-1/2 w-0 h-0 border-l-[5px] border-r-[5px] border-t-[5px] border-l-transparent border-r-transparent border-t-white/10" />
                                         </div>
                                     </div>
                                 ))}

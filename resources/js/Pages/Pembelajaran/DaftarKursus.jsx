@@ -34,7 +34,7 @@ export default function DaftarKursus({ auth, semua_kursus }) {
                     <div className="p-2 rounded-xl bg-accent/10 border border-accent/20">
                         <BookOpen size={16} />
                     </div>
-                    <span className="text-[10px] font-black uppercase tracking-[4px]">Learning Roadmap</span>
+                    <span className="text-[10px] font-black uppercase tracking-[4px]">Learning Path</span>
                 </div>
                 <h1 className="text-3xl md:text-5xl font-black mb-4 text-white italic uppercase tracking-tight">Pilih Jalur <span className="text-accent">Keahlianmu</span></h1>
                 <p className="text-gray-500 max-w-2xl font-bold uppercase text-[10px] tracking-[2px] leading-relaxed">

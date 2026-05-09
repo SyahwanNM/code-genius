@@ -65,15 +65,19 @@ export default function Roadmap({ auth, kursus_per_level }) {
 
             <div className="max-w-5xl mx-auto px-6 lg:px-8 py-10">
                 <header className="mb-12">
-                    <div className="flex items-center gap-2 text-gray-400 mb-3">
-                        <Compass size={16} />
-                        <span className="text-[10px] font-bold uppercase tracking-[2px]">Learning Roadmap</span>
+                    <div className="flex items-center gap-3 text-accent mb-4 animate-in fade-in slide-in-from-left-4 duration-500">
+                        <div className="p-2 rounded-xl bg-accent/10 border border-accent/20">
+                            <Compass size={16} />
+                        </div>
+                        <span className="text-[10px] font-black uppercase tracking-[4px]">Learning Roadmap</span>
                     </div>
-                    <h1 className="text-3xl lg:text-4xl font-bold mb-3 text-white">
-                        Roadmap <span className={`italic ${jalurCfg.color}`}>{jalurCfg.label}</span>
+                    <h1 className="text-3xl md:text-5xl font-black mb-4 text-white italic uppercase tracking-tight">
+                        Roadmap <span className={`text-accent`}>{jalurCfg.label}</span>
                     </h1>
-                    <p className="text-gray-400 max-w-2xl">
-                        Jalur belajarmu yang dipersonalisasi. Mulai dari level <span className={`font-semibold ${LEVEL_CONFIG[userLevel]?.labelColor}`}>{LEVEL_CONFIG[userLevel]?.label}</span> sesuai hasil tes penjajakan.
+                    <p className="text-gray-500 max-w-2xl font-bold uppercase text-[10px] tracking-[2px] leading-relaxed">
+                        Jalur belajarmu yang dipersonalisasi — dimulai dari level{' '}
+                        <span className={`${LEVEL_CONFIG[userLevel]?.labelColor}`}>{LEVEL_CONFIG[userLevel]?.label}</span>{' '}
+                        sesuai hasil tes penjajakan.
                     </p>
                 </header>
 
