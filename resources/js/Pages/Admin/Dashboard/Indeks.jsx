@@ -14,7 +14,7 @@ export default function Indeks({ auth, stats, revenue_monthly, system_health }) 
         { title: 'Total Revenue',     value: fmt(stats.total_revenue),  icon: DollarSign, color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/20' },
         { title: 'Total Siswa',       value: stats.total_users,          icon: Users,      color: 'text-blue-400',    bg: 'bg-blue-500/10',    border: 'border-blue-500/20' },
         { title: 'Kursus Aktif',      value: stats.active_courses,       icon: BookOpen,   color: 'text-violet-400',  bg: 'bg-violet-500/10',  border: 'border-violet-500/20' },
-        { title: 'Total Materi',      value: stats.total_materi,         icon: Star,       color: 'text-amber-400',   bg: 'bg-amber-500/10',   border: 'border-amber-500/20' },
+        { title: 'Total Materi',      value: stats.total_materi,         icon: Star,       color: 'text-amber-400',   bg: 'bg-accent/10',   border: 'border-accent/20' },
     ];
 
     const maxRevenue = Math.max(...(revenue_monthly?.map(d => d.amount) || [1]));
@@ -27,12 +27,12 @@ export default function Indeks({ auth, stats, revenue_monthly, system_health }) 
 
                 {/* Page header */}
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-                    <div>
+                    <div className="space-y-1">
                         <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-white">
-                            Dashboard <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent underline decoration-amber-500/30">Overview</span>
+                            Dashboard <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Overview</span>
                         </h1>
-                        <p className="text-gray-400 text-sm mt-2 flex items-center gap-2">
-                            <Activity size={14} className="text-amber-500" />
+                        <p className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                            <Activity size={14} className="text-accent" />
                             Ringkasan performa dan kesehatan platform Code Genius hari ini.
                         </p>
                     </div>
@@ -71,29 +71,28 @@ export default function Indeks({ auth, stats, revenue_monthly, system_health }) 
                             
                             <div className="flex items-center justify-between mb-8 relative z-10">
                                 <div className="flex items-center gap-3">
-                                    <div className="p-2 bg-amber-500/10 rounded-xl">
-                                        <TrendingUp size={20} className="text-amber-500" />
+                                    <div className="p-2 bg-accent/10 rounded-xl">
+                                        <TrendingUp size={20} className="text-accent" />
                                     </div>
                                     <h2 className="text-lg font-black text-white">Revenue Analysis</h2>
                                 </div>
                                 <div className="flex items-center gap-2">
-                                    <span className="text-[10px] font-black px-3 py-1.5 bg-amber-500/10 text-amber-400 rounded-full border border-amber-500/20 uppercase">Monthly Report</span>
+                                    <span className="text-[10px] font-black px-3 py-1.5 bg-accent/10 text-amber-400 rounded-full border border-accent/20 uppercase">Monthly Report</span>
                                 </div>
                             </div>
 
-                            <div className="h-64 flex items-end gap-3 sm:gap-6 border-b border-white/5 px-2 pb-6 relative z-10">
+                            <div className="h-64 flex items-end gap-3 sm:gap-6 border-b border-white/5 px-2 pb-0 relative z-10">
                                 {revenue_monthly?.map((data, i) => {
                                     const pct = (data.amount / maxRevenue) * 100;
                                     return (
-                                        <div key={i} className="flex-1 flex flex-col items-center gap-3 group h-full justify-end">
-                                            <div className="w-full relative flex items-end justify-center" style={{ height: `${pct || 5}%` }}>
-                                                <div className="w-full max-w-[40px] bg-gradient-to-t from-amber-600 to-yellow-500 rounded-t-xl transition-all duration-500 group-hover:from-amber-500 group-hover:to-yellow-400 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]">
-                                                    <div className="absolute -top-12 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-black px-2.5 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all transform group-hover:-translate-y-1 shadow-xl whitespace-nowrap z-20">
-                                                        {fmt(data.amount)}
-                                                    </div>
+                                        <div key={i} className="flex-1 flex flex-col items-center gap-2 group h-full justify-end">
+                                            <div className="w-full relative flex flex-col items-center justify-end" style={{ height: `${pct || 5}%` }}>
+                                                <div className="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-black text-[10px] font-black px-2.5 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-all transform group-hover:-translate-y-1 shadow-xl whitespace-nowrap z-20 pointer-events-none">
+                                                    {fmt(data.amount)}
                                                 </div>
+                                                <div className="w-full max-w-[40px] h-full bg-gradient-to-t from-amber-600 to-yellow-500 rounded-t-xl transition-all duration-500 group-hover:from-accent group-hover:to-yellow-400 group-hover:shadow-[0_0_20px_rgba(245,158,11,0.3)]" />
                                             </div>
-                                            <span className="text-[10px] font-bold text-gray-500 group-hover:text-white transition-colors">{data.month}</span>
+                                            <span className="text-[10px] font-bold text-gray-500 group-hover:text-white transition-colors pb-2">{data.month}</span>
                                         </div>
                                     );
                                 })}
@@ -101,6 +100,7 @@ export default function Indeks({ auth, stats, revenue_monthly, system_health }) 
                         </div>
 
                         {/* Recent Users List */}
+
                         <div className="bg-[#0D1117] border border-white/5 rounded-3xl p-6 lg:p-8">
                             <div className="flex items-center justify-between mb-6">
                                 <div className="flex items-center gap-3">
@@ -214,8 +214,8 @@ export default function Indeks({ auth, stats, revenue_monthly, system_health }) 
                         {/* Top Courses */}
                         <div className="bg-[#0D1117] border border-white/5 rounded-3xl p-6 lg:p-8">
                             <div className="flex items-center gap-3 mb-6">
-                                <div className="p-2 bg-amber-500/10 rounded-xl">
-                                    <Star size={20} className="text-amber-500" />
+                                <div className="p-2 bg-accent/10 rounded-xl">
+                                    <Star size={20} className="text-accent" />
                                 </div>
                                 <h2 className="text-lg font-black text-white">Top Courses</h2>
                             </div>
@@ -223,10 +223,10 @@ export default function Indeks({ auth, stats, revenue_monthly, system_health }) 
                                 {stats.top_courses?.map((course, i) => (
                                     <div key={i} className="flex items-center justify-between group cursor-default">
                                         <div className="flex items-center gap-3">
-                                            <span className="text-xs font-black text-gray-600 group-hover:text-amber-500 transition-colors">0{i+1}</span>
+                                            <span className="text-xs font-black text-gray-600 group-hover:text-accent transition-colors">0{i+1}</span>
                                             <p className="text-sm font-bold text-gray-300 group-hover:text-white transition-colors">{course.nama}</p>
                                         </div>
-                                        <span className="text-[10px] font-black bg-white/5 px-2 py-1 rounded text-gray-500 group-hover:bg-amber-500/10 group-hover:text-amber-500 transition-all border border-transparent group-hover:border-amber-500/20">
+                                        <span className="text-[10px] font-black bg-white/5 px-2 py-1 rounded text-gray-500 group-hover:bg-accent/10 group-hover:text-accent transition-all border border-transparent group-hover:border-accent/20">
                                             {course.students_count} Siswa
                                         </span>
                                     </div>

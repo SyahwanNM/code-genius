@@ -36,17 +36,20 @@ export default function Pending({ auth, pengajuan: initialPengajuan }) {
 
             {/* Toast Notification */}
             {toastMsg && (
-                <div className={`fixed bottom-8 right-8 z-[200] px-6 py-4 rounded-2xl shadow-2xl font-bold text-sm flex items-center gap-3 animate-in slide-in-from-bottom-4 ${toastMsg.type === 'error' ? 'bg-red-500' : 'bg-green-600'} text-white`}>
+                <div className={`fixed bottom-8 right-8 z-[200] px-6 py-4 rounded-2xl shadow-2xl font-bold text-sm flex items-center gap-3 animate-in slide-in-from-bottom-4 ${toastMsg.type === 'error' ? 'bg-red-600' : 'bg-green-600'} text-white`}>
                     {toastMsg.type === 'error' ? <XCircle size={18} /> : <CheckCircle2 size={18} />}
                     {toastMsg.msg}
                 </div>
             )}
 
             <div className="px-6 lg:px-12 py-12 space-y-10">
-                <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
-                    <div>
-                        <h1 className="text-4xl font-black mb-2 tracking-tight">Mentor <span className="text-red-500 italic">Academy</span></h1>
-                        <p className="text-gray-500 font-light">Tinjau dan seleksi calon mentor profesional.</p>
+                <header className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-white">Mentor <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Academy</span></h1>
+                        <p className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                            <UserCheck size={14} className="text-accent" />
+                            Tinjau dan seleksi calon mentor profesional.
+                        </p>
                     </div>
                     <div className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-orange-500/10 border border-orange-500/20">
                         <Clock size={16} className="text-orange-500" />
@@ -61,13 +64,13 @@ export default function Pending({ auth, pengajuan: initialPengajuan }) {
 
                                 {/* Applicant Info */}
                                 <div className="flex items-center gap-6 lg:w-64 shrink-0">
-                                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-red-500 flex items-center justify-center text-2xl font-black italic shadow-lg shadow-orange-500/20 shrink-0">
+                                    <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-500 to-accent flex items-center justify-center text-2xl font-black italic shadow-lg shadow-orange-500/20 shrink-0">
                                         {p.nama[0]}
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-black mb-1">{p.nama}</h3>
                                         <p className="text-sm text-gray-500 flex items-center gap-1.5 mb-2">
-                                            <Mail size={12} className="text-red-500" /> {p.email}
+                                            <Mail size={12} className="text-accent" /> {p.email}
                                         </p>
                                         <p className="text-[10px] font-black uppercase tracking-widest text-gray-700">
                                             Applied {new Date(p.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })}

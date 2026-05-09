@@ -66,13 +66,13 @@ export default function Indeks({ auth, users: initialUsers }) {
 
     const stats = [
         { label: 'Total Siswa', count: users.filter(u => u.peran === 'pengguna_biasa').length, icon: User, color: 'text-blue-400', bg: 'bg-blue-500/10' },
-        { label: 'Total Admin', count: users.filter(u => u.peran === 'admin').length, icon: Shield, color: 'text-red-400', bg: 'bg-red-500/10' },
-        { label: 'Total XP', count: users.reduce((acc, u) => acc + (u.xp || 0), 0), icon: Zap, color: 'text-amber-400', bg: 'bg-amber-500/10' },
+        { label: 'Total Admin', count: users.filter(u => u.peran === 'admin').length, icon: Shield, color: 'text-accent', bg: 'bg-accent/10' },
+        { label: 'Total XP', count: users.reduce((acc, u) => acc + (u.xp || 0), 0), icon: Zap, color: 'text-emerald-500', bg: 'bg-emerald-500/10' },
     ];
 
     const roleBadge = (peran) => {
         const p = peran?.toLowerCase();
-        if (p === 'admin')  return 'bg-red-500/10 border-red-500/20 text-red-400 shadow-[0_0_15px_rgba(239,68,68,0.1)]';
+        if (p === 'admin')  return 'bg-accent/10 border-accent/20 text-accent shadow-[0_0_15px_rgba(239,68,68,0.1)]';
         if (p === 'mentor') return 'bg-emerald-500/10 border-emerald-500/20 text-emerald-400';
         return 'bg-blue-500/10 border-blue-500/20 text-blue-400';
     };
@@ -87,10 +87,10 @@ export default function Indeks({ auth, users: initialUsers }) {
                 <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
                     <div className="space-y-1">
                         <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-white">
-                            User <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent italic">Management</span>
+                            User <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Management</span>
                         </h1>
                         <p className="text-gray-500 text-sm font-medium flex items-center gap-2">
-                            <Users size={14} className="text-amber-500" />
+                            <Users size={14} className="text-accent" />
                             Total {users.length} entitas terdaftar dalam database platform.
                         </p>
                     </div>
@@ -98,11 +98,11 @@ export default function Indeks({ auth, users: initialUsers }) {
                     <div className="flex flex-col sm:flex-row gap-3">
                         {/* Search Bar */}
                         <div className="relative group">
-                            <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-red-500 group-hover:scale-110 transition-all" />
+                            <Search size={14} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within:text-accent group-hover:scale-110 transition-all" />
                             <input
                                 type="text"
                                 placeholder="Cari nama atau email..."
-                                className="bg-[#0D1117] border border-white/5 rounded-2xl py-2.5 pl-11 pr-6 text-xs w-full sm:w-72 focus:border-red-500/50 focus:bg-[#121820] outline-none transition-all text-white placeholder-gray-600 shadow-inner"
+                                className="bg-[#0D1117] border border-white/5 rounded-2xl py-2.5 pl-11 pr-6 text-xs w-full sm:w-72 focus:border-accent/50 focus:bg-[#121820] outline-none transition-all text-white placeholder-gray-600 shadow-inner"
                                 value={search}
                                 onChange={e => setSearch(e.target.value)}
                             />
@@ -160,7 +160,7 @@ export default function Indeks({ auth, users: initialUsers }) {
                                                     {(u.nama || '?')[0]}
                                                 </div>
                                                 <div className="min-w-0">
-                                                    <p className="font-bold text-xs text-white group-hover:text-red-500 transition-colors">{u.nama}</p>
+                                                    <p className="font-bold text-xs text-white group-hover:text-accent transition-colors">{u.nama}</p>
                                                     <div className="flex items-center gap-1.5 mt-0.5">
                                                         <Mail size={10} className="text-gray-700" />
                                                         <p className="text-[10px] text-gray-600 truncate">{u.email}</p>
@@ -190,7 +190,7 @@ export default function Indeks({ auth, users: initialUsers }) {
                                             <div className="flex items-center justify-center gap-2">
                                                 <div className="relative group/select">
                                                     <select
-                                                        className="appearance-none bg-[#161B22] border border-white/5 rounded-lg py-1.5 pl-3 pr-8 text-[9px] font-black uppercase tracking-widest text-gray-500 outline-none focus:border-red-500/50 focus:text-white transition-all cursor-pointer"
+                                                        className="appearance-none bg-[#161B22] border border-white/5 rounded-lg py-1.5 pl-3 pr-8 text-[9px] font-black uppercase tracking-widest text-gray-500 outline-none focus:border-accent/50 focus:text-white transition-all cursor-pointer"
                                                         value={roleMap[u.peran] || u.peran}
                                                         onChange={(e) => changeRole(u.id, e.target.value)}
                                                     >
@@ -226,7 +226,7 @@ export default function Indeks({ auth, users: initialUsers }) {
                 {/* Footer Info */}
                 <div className="flex items-center justify-between px-6 py-3 bg-white/[0.01] rounded-2xl border border-white/5">
                     <p className="text-[9px] font-bold text-gray-700 uppercase tracking-widest flex items-center gap-2">
-                        <Shield size={10} className="text-red-500/50" /> System Integrity Verified
+                        <Shield size={10} className="text-accent/50" /> System Integrity Verified
                     </p>
                     <div className="flex items-center gap-4 text-[9px] font-bold text-gray-700">
                         <span>Showing {filtered.length} Results</span>
