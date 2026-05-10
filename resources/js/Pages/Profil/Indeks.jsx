@@ -1,7 +1,7 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { 
-    Award, Star, Clock, Zap, Target, BookOpen, 
+import {
+    Award, Star, Clock, Zap, Target, BookOpen,
     Link as LinkIcon, Globe, Calendar, Edit3, Code2, Sparkles, MapPin, GitBranch
 } from 'lucide-react';
 import UserLayout from '@/Layouts/UserLayout';
@@ -15,7 +15,7 @@ export default function Indeks({ auth }) {
     return (
         <UserLayout auth={auth}>
             <Head title={`${pengguna.nama} - Profil Code Genius`} />
-            
+
             <div className="px-6 lg:px-12 py-12 space-y-12 relative z-10 max-w-7xl mx-auto">
                 {/* Profile Header Card */}
                 <section className="glass-card p-0 overflow-hidden border-white/5 bg-gradient-to-br from-white/[0.02] to-transparent shadow-2xl">
@@ -24,14 +24,14 @@ export default function Indeks({ auth }) {
                         <div className="absolute inset-0 bg-gradient-to-t from-[#05070A] to-transparent opacity-80" />
                         <SparkleBackground />
                     </div>
-                    
+
                     <div className="px-12 pb-12 relative">
                         <div className="flex flex-col md:flex-row items-end gap-10 -mt-20 mb-12">
                             <div className="w-44 h-44 rounded-[44px] bg-accent p-1 shadow-2xl shadow-accent/30">
                                 <div className="w-full h-full rounded-[42px] bg-[#05070A] overflow-hidden flex items-center justify-center">
-                                    <img 
-                                        src={`https://api.dicebear.com/7.x/${avatarStyle}/svg?seed=${pengguna.nama}`} 
-                                        alt={pengguna.nama} 
+                                    <img
+                                        src={`https://api.dicebear.com/7.x/${avatarStyle}/svg?seed=${pengguna.nama}`}
+                                        alt={pengguna.nama}
                                         className="w-full h-full object-cover"
                                     />
                                 </div>
@@ -170,7 +170,7 @@ function SparkleBackground() {
     return (
         <div className="absolute inset-0 z-0">
             {[...Array(20)].map((_, i) => (
-                <div 
+                <div
                     key={i}
                     className="absolute w-1 h-1 bg-accent rounded-full animate-pulse"
                     style={{

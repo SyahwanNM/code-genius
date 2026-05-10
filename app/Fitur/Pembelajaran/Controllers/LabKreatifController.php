@@ -79,6 +79,15 @@ class LabKreatifController extends Controller
                     ['id' => 6, 'judul' => 'Loading state & error handling', 'deskripsi' => 'Tampilkan indikator loading saat data dimuat dan pesan error jika fetch gagal.'],
                 ],
             ],
+            [
+                'id'         => 'proyek-bebas',
+                'nama'       => 'Proyek Bebas',
+                'bahasa'     => 'HTML/CSS/JavaScript',
+                'ikon'       => 'Plus',
+                'deskripsi'  => 'Mulai dari nol dan bangun apa pun yang Anda inginkan. Gunakan kreativitas Anda sepenuhnya tanpa batasan langkah.',
+                'starter'    => "<!DOCTYPE html>\n<html>\n<head>\n  <meta charset=\"UTF-8\">\n  <title>Proyek Saya</title>\n  <style>\n    body { font-family: sans-serif; background: #08090d; color: #fff; padding: 20px; }\n  </style>\n</head>\n<body>\n  <h1>Halo Dunia!</h1>\n  <p>Mulai coding di sini...</p>\n</body>\n</html>",
+                'steps'      => [], // Kosong untuk proyek bebas
+            ],
         ];
     }
 
@@ -101,8 +110,8 @@ class LabKreatifController extends Controller
             'kode_pengguna'      => 'required|string|max:20000',
             'bahasa'             => 'required|string',
             'nama_proyek'        => 'required|string',
-            'step_aktif'         => 'required|string',
-            'deskripsi_step'     => 'required|string',
+            'step_aktif'         => 'nullable|string',
+            'deskripsi_step'     => 'nullable|string',
         ]);
 
         $apiKey = trim(env('GEMINI_API_KEY'));
@@ -113,12 +122,15 @@ class LabKreatifController extends Controller
             ], 500);
         }
 
-        $prompt = "Anda adalah mentor coding AI yang ramah di platform 'Code Genius'. Pengguna sedang mengerjakan proyek mandiri.
+        $contextStep = $request->step_aktif 
+            ? "**Step yang sedang dikerjakan**: {$request->step_aktif}\n**Deskripsi step**: {$request->deskripsi_step}"
+            : "PENGGUNA SEDANG DALAM MODE PROYEK BEBAS (TIDAK ADA STEP KHUSUS). Berikan feedback umum tentang kualitas kode, struktur, atau saran fitur menarik yang bisa ditambahkan.";
 
+        $prompt = "Anda adalah mentor coding AI yang ramah di platform 'Code Genius'. Pengguna sedang mengerjakan proyek mandiri.
+ 
 **Proyek**: {$request->nama_proyek}
 **Bahasa**: {$request->bahasa}
-**Step yang sedang dikerjakan**: {$request->step_aktif}
-**Deskripsi step**: {$request->deskripsi_step}
+{$contextStep}
 
 **Kode pengguna saat ini:**
 ```
@@ -132,7 +144,7 @@ class LabKreatifController extends Controller
 - Identifikasi apa yang sudah benar dan puji usaha mereka
 - Tunjukkan bagian mana yang perlu diperbaiki tanpa membocorkan solusinya
 - Gunakan bahasa Indonesia yang santai dan menyemangati
-- Jika kode sudah benar atau hampir benar, beri selamat dan tantang mereka ke langkah berikutnya
+- Jika kode sudah benar atau hampir benar, beri selamat dan tantang mereka ke langkah berikutnya (atau beri saran fitur baru jika ini proyek bebas)
 
 Berikan respon HANYA dalam format JSON valid:
 {
