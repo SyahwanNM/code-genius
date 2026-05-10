@@ -20,4 +20,9 @@ class Kursus extends Model
     {
         return $this->hasMany(Modul::class, 'id_kursus');
     }
+
+    public function materi(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    {
+        return $this->hasManyThrough(Materi::class, Modul::class, 'id_kursus', 'id_modul');
+    }
 }
