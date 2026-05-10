@@ -106,7 +106,7 @@ export default function UserLayout({ auth, children }) {
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 sm:gap-4 px-3 sm:px-4 py-3 rounded-xl transition-all duration-200 group mb-1.5 sm:mb-2 ${isActive(item.href)
-                                        ? 'bg-amber-500 text-black shadow-[0_10px_24px_rgba(245,158,11,0.2)]'
+                                        ? 'bg-accent text-black shadow-[0_10px_24px_rgba(245,158,11,0.2)]'
                                         : 'text-slate-400 hover:text-white hover:bg-white/5'
                                     }`}
                             >
@@ -125,7 +125,7 @@ export default function UserLayout({ auth, children }) {
 
                         <Link
                             href="/pengaturan"
-                            className={`flex items-center gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg transition-all group mb-1 text-xs sm:text-sm ${isActive('/pengaturan') ? 'bg-amber-500 text-black' : 'text-gray-400 hover:text-white hover:bg-white/5'
+                            className={`flex items-center gap-2.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg transition-all group mb-1 text-xs sm:text-sm ${isActive('/pengaturan') ? 'bg-accent text-black' : 'text-gray-400 hover:text-white hover:bg-white/5'
                                 }`}
                         >
                             <Settings size={15} className={`${isActive('/pengaturan') ? 'text-black' : 'group-hover:text-white transition-colors'} shrink-0`} />
@@ -175,7 +175,7 @@ export default function UserLayout({ auth, children }) {
                         <div className="relative ml-auto">
                             <button
                                 onClick={() => setNotifOpen(!notifOpen)}
-                                className={`p-2.5 rounded-xl transition-all relative ${notifOpen ? 'bg-amber-500 text-black' : 'bg-white/5 text-gray-400 hover:text-white'}`}
+                                className={`p-2.5 rounded-xl transition-all relative ${notifOpen ? 'bg-accent text-black' : 'bg-white/5 text-gray-400 hover:text-white'}`}
                             >
                                 <Bell size={18} />
                                 {notif_unread_count > 0 && (
@@ -192,13 +192,13 @@ export default function UserLayout({ auth, children }) {
                                     <div className="absolute right-0 mt-3 w-80 sm:w-96 bg-[#0D1117] border border-white/10 rounded-[24px] shadow-2xl z-50 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
                                         <div className="px-6 py-4 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                                             <h3 className="text-xs font-black uppercase tracking-widest text-white italic">Pusat Notifikasi</h3>
-                                            <span className="text-[9px] font-bold text-amber-500 bg-amber-500/10 px-2 py-0.5 rounded-full">Terbaru</span>
+                                            <span className="text-[9px] font-bold text-accent bg-accent/10 px-2 py-0.5 rounded-full">Terbaru</span>
                                         </div>
 
                                         <div className="max-h-[400px] overflow-y-auto divide-y divide-white/5">
                                             {notifikasi?.length > 0 ? (
                                                 notifikasi.map((notif) => (
-                                                    <div key={notif.id} className={`p-5 hover:bg-white/[0.02] transition-colors cursor-pointer group ${!notif.dibaca ? 'bg-amber-500/[0.02]' : ''}`}>
+                                                    <div key={notif.id} className={`p-5 hover:bg-white/[0.02] transition-colors cursor-pointer group ${!notif.dibaca ? 'bg-accent/[0.02]' : ''}`}>
                                                         <div className="flex gap-4">
                                                             <div className={`w-8 h-8 rounded-lg shrink-0 flex items-center justify-center ${
                                                                 notif.tipe === 'sukses' ? 'bg-emerald-500/10 text-emerald-500' : 
@@ -210,7 +210,7 @@ export default function UserLayout({ auth, children }) {
                                                                  <Info size={16} />}
                                                             </div>
                                                             <div className="min-w-0">
-                                                                <p className="text-[11px] font-black text-white uppercase tracking-tight group-hover:text-amber-500 transition-colors">{notif.judul}</p>
+                                                                <p className="text-[11px] font-black text-white uppercase tracking-tight group-hover:text-accent transition-colors">{notif.judul}</p>
                                                                 <p className="text-[10px] text-gray-500 mt-1 font-medium leading-relaxed line-clamp-2">{notif.pesan}</p>
                                                                 <p className="text-[9px] text-gray-600 mt-2 font-bold uppercase tracking-widest italic">
                                                                     {new Date(notif.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'short' })}

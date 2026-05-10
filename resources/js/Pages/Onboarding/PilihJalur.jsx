@@ -9,10 +9,10 @@ const paths = [
         tagline: 'Bangun antarmuka yang memukau',
         desc: 'Kuasai seni membangun tampilan web yang indah, responsif, dan interaktif. Dari HTML & CSS hingga React dan animasi canggih.',
         icon: Monitor,
-        gradient: 'from-blue-500 via-cyan-500 to-teal-400',
-        glow: 'shadow-blue-500/30',
-        border: 'border-blue-500/40',
-        ring: 'ring-blue-500',
+        gradient: 'from-accent via-accent/80 to-accent/60',
+        glow: 'shadow-accent/30',
+        border: 'border-accent/40',
+        ring: 'ring-accent',
         techStack: ['HTML5', 'CSS3', 'JavaScript', 'React', 'Tailwind'],
         techIcons: [Globe, Layout, Code2, Layers, Cpu],
         color: 'blue',
@@ -23,10 +23,10 @@ const paths = [
         tagline: 'Bangun sistem yang kuat & skalabel',
         desc: 'Pelajari cara membangun server, API, dan database yang andal. Dari PHP dasar hingga Laravel dan arsitektur microservices.',
         icon: Server,
-        gradient: 'from-violet-500 via-purple-500 to-indigo-400',
-        glow: 'shadow-violet-500/30',
-        border: 'border-violet-500/40',
-        ring: 'ring-violet-500',
+        gradient: 'from-accent via-accent/80 to-accent/60',
+        glow: 'shadow-accent/30',
+        border: 'border-accent/40',
+        ring: 'ring-accent',
         techStack: ['PHP', 'MySQL', 'Laravel', 'REST API', 'Redis'],
         techIcons: [Code2, Database, Server, Layers, Cpu],
         color: 'violet',
@@ -67,7 +67,7 @@ export default function PilihJalur({ jalur_saat_ini }) {
                     </div>
                     <h1 className="text-4xl md:text-6xl font-black mb-5 leading-tight tracking-tight">
                         Pilih Jalur{' '}
-                        <span className="bg-gradient-to-r from-blue-400 via-cyan-400 to-violet-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
                             Kariermu
                         </span>
                     </h1>
@@ -165,7 +165,7 @@ export default function PilihJalur({ jalur_saat_ini }) {
                         disabled={!selected || isSubmitting}
                         className={`inline-flex items-center gap-3 px-10 py-4 rounded-2xl font-black text-sm uppercase tracking-widest transition-all duration-300
                             ${selected
-                                ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow-2xl shadow-blue-500/30 hover:scale-105 hover:shadow-blue-500/50'
+                                ? 'bg-gradient-to-r from-accent to-accent/80 text-white shadow-2xl shadow-accent/30 hover:scale-105 hover:shadow-accent/50'
                                 : 'bg-white/5 text-gray-600 cursor-not-allowed border border-white/10'
                             }`}
                     >

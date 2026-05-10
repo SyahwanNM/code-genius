@@ -62,13 +62,13 @@ export default function AdminLayout({ auth, children }) {
             `}>
                 {/* Logo */}
                 <div className="flex items-center justify-between px-5 py-5 border-b border-white/5 shrink-0">
-                    <Link href="/" className="flex items-center gap-2.5">
+                    <Link href="/" className="flex flex-col items-start gap-0.5">
+                        <span className="text-[12px] font-black uppercase tracking-[3px] text-accent">Control Panel</span>
                         <img
                             src="/images/logo_darkmode.svg"
                             alt="Code Genius"
                             className="h-7 object-contain"
                         />
-                        <span className="bg-gradient-to-r from-amber-500 to-yellow-500 bg-clip-text text-transparent italic">Control Panel</span>
                     </Link>
                     <button
                         className="lg:hidden text-gray-500 hover:text-white"
@@ -92,7 +92,7 @@ export default function AdminLayout({ auth, children }) {
                                 onClick={() => setSidebarOpen(false)}
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${
                                     active
-                                        ? 'bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.2)]'
+                                        ? 'bg-accent text-black shadow-[0_0_20px_rgba(245,158,11,0.2)]'
                                         : 'text-gray-500 hover:text-white hover:bg-white/5'
                                 }`}
                             >
@@ -132,12 +132,12 @@ export default function AdminLayout({ auth, children }) {
                         >
                             <Menu size={18} />
                         </button>
-                        <div className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">
-                            Admin <span className="text-red-500">Panel</span>
+                        <div className="text-[10px] font-black uppercase tracking-[3px] text-accent">
+                            Admin <span className="text-gray-600">Panel</span>
                         </div>
                     </div>
                     <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-red-500 to-orange-500 p-[1.5px]">
+                        <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent to-orange-500 p-[1.5px]">
                             <div className="w-full h-full rounded-[7px] bg-[#0B0E14] flex items-center justify-center text-xs font-black text-white">
                                 {auth.pengguna.nama[0]}
                             </div>

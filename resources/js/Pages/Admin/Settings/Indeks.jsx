@@ -57,11 +57,16 @@ export default function Indeks({ auth, konfigurasi }) {
             <Head title="Admin Settings - Code Genius" />
 
             <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-10 max-w-5xl mx-auto">
-                <header>
-                    <h1 className="text-3xl lg:text-4xl font-black text-white tracking-tight">
-                        Admin <span className="text-amber-500 underline decoration-amber-500/20">Control Center</span>
-                    </h1>
-                    <p className="text-gray-400 text-sm mt-2 font-medium">Konfigurasi akun administrator dan parameter platform.</p>
+                <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-white">
+                            Admin <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Control Center</span>
+                        </h1>
+                        <p className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                            <Settings size={14} className="text-accent" />
+                            Konfigurasi akun administrator dan parameter platform.
+                        </p>
+                    </div>
                 </header>
 
                 <div className="flex flex-col lg:flex-row gap-10">
@@ -73,7 +78,7 @@ export default function Indeks({ auth, konfigurasi }) {
                                 onClick={() => setActiveTab(tab.id)}
                                 className={`w-full flex items-center gap-3 px-6 py-4 rounded-2xl text-xs font-bold uppercase tracking-widest transition-all ${
                                     activeTab === tab.id
-                                        ? 'bg-amber-500 text-black shadow-xl shadow-amber-500/20'
+                                        ? 'bg-accent text-black shadow-xl shadow-accent/20'
                                         : 'text-gray-500 hover:text-white hover:bg-white/5'
                                 }`}
                             >
@@ -102,10 +107,10 @@ export default function Indeks({ auth, konfigurasi }) {
                                     <div className="space-y-3">
                                         <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Full Name</label>
                                         <div className="relative group">
-                                            <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-red-500 transition-colors" />
+                                            <User size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-accent transition-colors" />
                                             <input
                                                 type="text"
-                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-6 focus:border-amber-500 outline-none transition-all text-sm text-white"
+                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-6 focus:border-accent outline-none transition-all text-sm text-white"
                                                 value={profileForm.data.nama}
                                                 onChange={e => profileForm.setData('nama', e.target.value)}
                                             />
@@ -115,10 +120,10 @@ export default function Indeks({ auth, konfigurasi }) {
                                     <div className="space-y-3">
                                         <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Admin Email</label>
                                         <div className="relative group">
-                                            <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-red-500 transition-colors" />
+                                            <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-accent transition-colors" />
                                             <input
                                                 type="email"
-                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-6 focus:border-red-500 outline-none transition-all text-sm text-white"
+                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 pl-12 pr-6 focus:border-accent outline-none transition-all text-sm text-white"
                                                 value={profileForm.data.email}
                                                 onChange={e => profileForm.setData('email', e.target.value)}
                                             />
@@ -131,7 +136,7 @@ export default function Indeks({ auth, konfigurasi }) {
                                     <button
                                         type="submit"
                                         disabled={profileForm.processing}
-                                        className="flex items-center gap-2 px-8 py-4 bg-white text-black font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-gray-200 transition-all shadow-xl disabled:opacity-50"
+                                        className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 disabled:opacity-50"
                                     >
                                         <Save size={14} /> {profileForm.processing ? 'Saving...' : 'Update Identity'}
                                     </button>
@@ -143,7 +148,7 @@ export default function Indeks({ auth, konfigurasi }) {
                         {activeTab === 'security' && (
                             <form onSubmit={submitPassword} className="bg-[#0D1117] border border-white/5 rounded-3xl p-8 lg:p-10 space-y-8 animate-in fade-in duration-300">
                                 <div className="flex items-center gap-4 pb-6 border-b border-white/5">
-                                    <div className="w-12 h-12 rounded-2xl bg-red-500/10 flex items-center justify-center text-red-500">
+                                    <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                                         <Shield size={24} />
                                     </div>
                                     <div>
@@ -157,7 +162,7 @@ export default function Indeks({ auth, konfigurasi }) {
                                         <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Current Security Key</label>
                                         <input
                                             type="password"
-                                            className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-sm text-white"
+                                            className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all text-sm text-white"
                                             value={passwordForm.data.current_password}
                                             onChange={e => passwordForm.setData('current_password', e.target.value)}
                                         />
@@ -168,7 +173,7 @@ export default function Indeks({ auth, konfigurasi }) {
                                             <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">New Admin Password</label>
                                             <input
                                                 type="password"
-                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-sm text-white"
+                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all text-sm text-white"
                                                 value={passwordForm.data.password}
                                                 onChange={e => passwordForm.setData('password', e.target.value)}
                                             />
@@ -178,7 +183,7 @@ export default function Indeks({ auth, konfigurasi }) {
                                             <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Confirm Admin Password</label>
                                             <input
                                                 type="password"
-                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-sm text-white"
+                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all text-sm text-white"
                                                 value={passwordForm.data.password_confirmation}
                                                 onChange={e => passwordForm.setData('password_confirmation', e.target.value)}
                                             />
@@ -190,9 +195,9 @@ export default function Indeks({ auth, konfigurasi }) {
                                     <button
                                         type="submit"
                                         disabled={passwordForm.processing}
-                                        className="px-8 py-4 bg-amber-600 text-black font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-amber-500 transition-all shadow-xl shadow-amber-600/20 disabled:opacity-50"
+                                        className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 disabled:opacity-50"
                                     >
-                                        {passwordForm.processing ? 'Updating...' : 'Renew Credentials'}
+                                        <Save size={14} /> {passwordForm.processing ? 'Updating...' : 'Renew Credentials'}
                                     </button>
                                 </div>
                             </form>
@@ -203,7 +208,7 @@ export default function Indeks({ auth, konfigurasi }) {
                             <form onSubmit={submitSystem} className="space-y-8 animate-in fade-in duration-300">
                                 <div className="bg-[#0D1117] border border-white/5 rounded-3xl p-8 lg:p-10 space-y-8">
                                     <div className="flex items-center gap-4 pb-6 border-b border-white/5">
-                                        <div className="w-12 h-12 rounded-2xl bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                        <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center text-accent">
                                             <Layout size={24} />
                                         </div>
                                         <div>
@@ -217,14 +222,14 @@ export default function Indeks({ auth, konfigurasi }) {
                                             <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Site Name</label>
                                             <input
                                                 type="text"
-                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-amber-500 outline-none transition-all text-sm text-white"
+                                                className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all text-sm text-white"
                                                 value={systemForm.data.site_name}
                                                 onChange={e => systemForm.setData('site_name', e.target.value)}
                                             />
                                         </div>
 
                                         {[
-                                            { id: 'maintenance_mode', label: 'Maintenance Mode', desc: 'Nonaktifkan akses siswa sementara untuk perbaikan.', icon: Server, color: 'text-amber-500' },
+                                            { id: 'maintenance_mode', label: 'Maintenance Mode', desc: 'Nonaktifkan akses siswa sementara untuk perbaikan.', icon: Server, color: 'text-accent' },
                                             { id: 'registration_open', label: 'Public Registration', desc: 'Izinkan pengguna baru mendaftar secara publik.', icon: User, color: 'text-blue-500' },
                                             { id: 'ai_debug', label: 'AI Debug Mode', desc: 'Aktifkan log detail untuk interaksi asisten AI.', icon: Database, color: 'text-purple-500' },
                                         ].map((item) => (
@@ -241,7 +246,7 @@ export default function Indeks({ auth, konfigurasi }) {
                                                 <button 
                                                     type="button"
                                                     onClick={() => systemForm.setData(item.id, !systemForm.data[item.id])}
-                                                    className={`w-12 h-6 rounded-full transition-all relative ${systemForm.data[item.id] ? 'bg-red-500' : 'bg-white/10'}`}
+                                                    className={`w-12 h-6 rounded-full transition-all relative ${systemForm.data[item.id] ? 'bg-accent' : 'bg-white/10'}`}
                                                 >
                                                     <div className={`w-4 h-4 rounded-full bg-white absolute top-1 transition-all ${systemForm.data[item.id] ? 'left-7' : 'left-1'}`} />
                                                 </button>
@@ -260,9 +265,9 @@ export default function Indeks({ auth, konfigurasi }) {
                                         <button
                                             type="submit"
                                             disabled={systemForm.processing}
-                                            className="px-8 py-4 bg-white/5 border border-white/10 text-white font-black uppercase tracking-widest text-[10px] rounded-2xl hover:bg-white/10 transition-all disabled:opacity-50"
+                                            className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 disabled:opacity-50"
                                         >
-                                            {systemForm.processing ? 'Applying...' : 'Apply System Changes'}
+                                            <Save size={14} /> {systemForm.processing ? 'Applying...' : 'Apply Changes'}
                                         </button>
                                     </div>
                                 </div>

@@ -87,7 +87,7 @@ export default function Edit({ auth }) {
             <div className="max-w-5xl mx-auto px-6 lg:px-8 py-12 pb-40">
                 <div className="mb-12 flex items-center justify-between">
                     <div>
-                        <h1 className="text-4xl font-black mb-4">Personalize <span className="text-amber-500 italic">Identity</span></h1>
+                        <h1 className="text-4xl font-black mb-4">Personalize <span className="text-accent italic">Identity</span></h1>
                         <p className="text-gray-500 font-medium text-sm italic">Bangun personal branding Anda di ekosistem Code Genius.</p>
                     </div>
                     <Link href="/profil" className="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 transition-all flex items-center gap-2">
@@ -100,11 +100,11 @@ export default function Edit({ auth }) {
                     <div className="space-y-8">
                         <div className="glass-card p-8 bg-white/[0.02] border-white/5 shadow-2xl space-y-8">
                             <h2 className="text-sm font-black uppercase tracking-[3px] text-gray-500 flex items-center gap-2">
-                                <Sparkles size={16} className="text-amber-500" /> Avatar Style
+                                <Sparkles size={16} className="text-accent" /> Avatar Style
                             </h2>
                             
                             <div className="flex flex-col items-center">
-                                <div className="w-32 h-32 rounded-[32px] bg-amber-500 p-1 shadow-2xl shadow-amber-500/20 mb-8 overflow-hidden">
+                                <div className="w-32 h-32 rounded-[32px] bg-accent p-1 shadow-2xl shadow-accent/20 mb-8 overflow-hidden">
                                     <img 
                                         src={`https://api.dicebear.com/7.x/${data.avatar_style}/svg?seed=${data.nama}`} 
                                         alt="Avatar Preview" 
@@ -120,8 +120,8 @@ export default function Edit({ auth }) {
                                             onClick={() => setData('avatar_style', style.id)}
                                             className={`px-4 py-3 rounded-xl border text-[10px] font-black uppercase tracking-widest transition-all ${
                                                 data.avatar_style === style.id 
-                                                    ? 'bg-amber-500 border-amber-500 text-black' 
-                                                    : 'bg-white/5 border-white/10 text-gray-500 hover:border-amber-500/30'
+                                                    ? 'bg-accent border-accent text-black' 
+                                                    : 'bg-white/5 border-white/10 text-gray-500 hover:border-accent/30'
                                             }`}
                                         >
                                             {style.name}
@@ -131,11 +131,11 @@ export default function Edit({ auth }) {
                             </div>
                         </div>
 
-                        <div className="glass-card p-8 bg-amber-500/5 border-amber-500/20">
-                            <p className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-2 flex items-center gap-2">
+                        <div className="glass-card p-8 bg-accent/5 border-accent/20">
+                            <p className="text-[10px] font-black text-accent uppercase tracking-widest mb-2 flex items-center gap-2">
                                 <Shield size={12} /> Privacy Tip
                             </p>
-                            <p className="text-xs text-amber-500/70 leading-relaxed font-medium">
+                            <p className="text-xs text-accent/70 leading-relaxed font-medium">
                                 Gunakan nama asli agar sertifikat yang Anda dapatkan nantinya valid dan diakui secara profesional.
                             </p>
                         </div>
@@ -147,7 +147,7 @@ export default function Edit({ auth }) {
                             <div className="glass-card p-10 space-y-10 bg-white/[0.02] border-white/5 shadow-2xl shadow-black/20">
                                 <div className="space-y-8">
                                     <h2 className="text-xl font-black flex items-center gap-3">
-                                        <User className="text-amber-500" size={24} /> Basic Information
+                                        <User className="text-accent" size={24} /> Basic Information
                                     </h2>
                                     
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -155,7 +155,7 @@ export default function Edit({ auth }) {
                                             <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Full Name</label>
                                             <input 
                                                 type="text" 
-                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:border-amber-500 outline-none transition-all font-medium text-sm"
+                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all font-medium text-sm"
                                                 value={data.nama}
                                                 onChange={e => setData('nama', e.target.value)}
                                             />
@@ -164,7 +164,7 @@ export default function Edit({ auth }) {
                                             <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Email</label>
                                             <input 
                                                 type="email" 
-                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:border-amber-500 outline-none transition-all font-medium text-sm"
+                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all font-medium text-sm"
                                                 value={data.email}
                                                 onChange={e => setData('email', e.target.value)}
                                             />
@@ -174,7 +174,7 @@ export default function Edit({ auth }) {
                                     <div className="space-y-3">
                                         <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Biodata Singkat</label>
                                         <textarea 
-                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:border-amber-500 outline-none transition-all font-medium text-sm min-h-[120px] resize-none"
+                                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 focus:border-accent outline-none transition-all font-medium text-sm min-h-[120px] resize-none"
                                             placeholder="Gambarkan diri Anda sebagai developer..."
                                             value={data.bio}
                                             onChange={e => setData('bio', e.target.value)}
@@ -184,7 +184,7 @@ export default function Edit({ auth }) {
 
                                 <div className="space-y-8 pt-8 border-t border-white/5">
                                     <h2 className="text-xl font-black flex items-center gap-3">
-                                        <Globe className="text-amber-500" size={24} /> Social Connections
+                                        <Globe className="text-accent" size={24} /> Social Connections
                                     </h2>
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                                         <div className="space-y-3">
@@ -194,7 +194,7 @@ export default function Edit({ auth }) {
                                             <input 
                                                 type="text" 
                                                 placeholder="username"
-                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-amber-500 outline-none transition-all text-xs font-medium"
+                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-accent outline-none transition-all text-xs font-medium"
                                                 value={data.tautan_sosial.github}
                                                 onChange={e => setData('tautan_sosial', { ...data.tautan_sosial, github: e.target.value })}
                                             />
@@ -206,7 +206,7 @@ export default function Edit({ auth }) {
                                             <input 
                                                 type="text" 
                                                 placeholder="profile-url"
-                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-amber-500 outline-none transition-all text-xs font-medium"
+                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-accent outline-none transition-all text-xs font-medium"
                                                 value={data.tautan_sosial.linkedin}
                                                 onChange={e => setData('tautan_sosial', { ...data.tautan_sosial, linkedin: e.target.value })}
                                             />
@@ -218,7 +218,7 @@ export default function Edit({ auth }) {
                                             <input 
                                                 type="text" 
                                                 placeholder="https://..."
-                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-amber-500 outline-none transition-all text-xs font-medium"
+                                                className="w-full bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-accent outline-none transition-all text-xs font-medium"
                                                 value={data.tautan_sosial.website}
                                                 onChange={e => setData('tautan_sosial', { ...data.tautan_sosial, website: e.target.value })}
                                             />
@@ -228,7 +228,7 @@ export default function Edit({ auth }) {
 
                                 <div className="space-y-8 pt-8 border-t border-white/5">
                                     <h2 className="text-xl font-black flex items-center gap-3">
-                                        <CodeIcon className="text-amber-500" size={24} /> Top Expertise
+                                        <CodeIcon className="text-accent" size={24} /> Top Expertise
                                     </h2>
                                     <div className="space-y-4">
                                         <div className="relative">
@@ -236,7 +236,7 @@ export default function Edit({ auth }) {
                                                 <input 
                                                     type="text" 
                                                     placeholder="Tambah keahlian (contoh: Laravel, React, UI/UX)"
-                                                    className="flex-1 bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-amber-500 outline-none transition-all text-xs font-medium"
+                                                    className="flex-1 bg-white/5 border border-white/10 rounded-2xl py-3 px-5 focus:border-accent outline-none transition-all text-xs font-medium"
                                                     value={skillInput}
                                                     onChange={handleSkillInputChange}
                                                     onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addSkill())}
@@ -244,7 +244,7 @@ export default function Edit({ auth }) {
                                                 <button 
                                                     type="button" 
                                                     onClick={() => addSkill()}
-                                                    className="w-12 h-12 bg-amber-500 rounded-2xl flex items-center justify-center text-black shadow-lg shadow-amber-500/20"
+                                                    className="w-12 h-12 bg-accent rounded-2xl flex items-center justify-center text-black shadow-lg shadow-accent/20"
                                                 >
                                                     <Plus size={20} />
                                                 </button>
@@ -258,7 +258,7 @@ export default function Edit({ auth }) {
                                                             key={i}
                                                             type="button"
                                                             onClick={() => addSkill(s)}
-                                                            className="w-full px-5 py-3 text-left text-xs font-bold text-gray-400 hover:bg-amber-500 hover:text-black transition-all flex items-center justify-between group"
+                                                            className="w-full px-5 py-3 text-left text-xs font-bold text-gray-400 hover:bg-accent hover:text-black transition-all flex items-center justify-between group"
                                                         >
                                                             {s}
                                                             <Plus size={14} className="opacity-0 group-hover:opacity-100" />
@@ -281,7 +281,7 @@ export default function Edit({ auth }) {
                                 <div className="flex justify-end pt-8 border-t border-white/5">
                                     <button 
                                         disabled={processing}
-                                        className="w-full flex items-center justify-center gap-3 px-12 py-5 bg-amber-500 text-black font-black uppercase tracking-[4px] text-[10px] rounded-2xl hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20 disabled:opacity-50"
+                                        className="w-full flex items-center justify-center gap-3 px-12 py-5 bg-accent text-black font-black uppercase tracking-[4px] text-[10px] rounded-2xl hover:bg-amber-400 transition-all shadow-xl shadow-accent/20 disabled:opacity-50"
                                     >
                                         <Save size={18} /> Update Digital Profile
                                     </button>

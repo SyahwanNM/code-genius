@@ -13,6 +13,7 @@ use App\Fitur\Admin\Controllers\AdminKursusController;
 use App\Fitur\Admin\Controllers\AdminSoalController;
 use App\Fitur\Admin\Controllers\ApiKursusController;
 use App\Fitur\Admin\Controllers\ApiAdminController;
+use App\Fitur\Autentikasi\Controllers\LupaKataSandiController;
 use App\Fitur\Penjajakan\Controllers\PenjajakanController;
 use Inertia\Inertia;
 
@@ -30,8 +31,16 @@ Route::get('/tentang-kami', function () { return Inertia::render('Public/Tentang
 Route::middleware('guest')->group(function () {
     Route::get('/daftar', [AutentikasiController::class, 'tampilanDaftar'])->name('daftar');
     Route::post('/daftar', [AutentikasiController::class, 'daftar']);
+    Route::get('/verifikasi-otp', [AutentikasiController::class, 'tampilanVerifikasiOTP'])->name('verifikasi.otp');
+    Route::post('/verifikasi-otp', [AutentikasiController::class, 'verifikasiOTP']);
     Route::get('/masuk', [AutentikasiController::class, 'tampilanMasuk'])->name('login');
     Route::post('/masuk', [AutentikasiController::class, 'masuk']);
+
+    // Password Reset
+    Route::get('/lupa-password', [LupaKataSandiController::class, 'tampilanLupaKataSandi'])->name('password.request');
+    Route::post('/lupa-password', [LupaKataSandiController::class, 'kirimTautanReset'])->name('password.email');
+    Route::get('/atur-ulang-password', [LupaKataSandiController::class, 'tampilanAturUlangKataSandi'])->name('password.reset');
+    Route::post('/atur-ulang-password', [LupaKataSandiController::class, 'aturUlangKataSandi'])->name('password.update');
 });
 
 // ─────────────────────────────────────────────────────────────────────────────

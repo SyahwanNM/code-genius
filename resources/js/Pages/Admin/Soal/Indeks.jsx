@@ -130,32 +130,29 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
             <Head title="Admin: Soal Penjajakan" />
 
             <div className="px-4 sm:px-6 lg:px-8 py-6 lg:py-8 space-y-6 max-w-7xl mx-auto">
-                {/* Header */}
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div>
-                        <h1 className="text-2xl lg:text-3xl font-black tracking-tight flex items-center gap-2">
-                            <Brain className="text-amber-400" size={24} />
-                            Soal <span className="text-amber-400">Penjajakan</span>
-                        </h1>
-                        <p className="text-gray-500 text-sm mt-1">
-                            Kelola soal tes penjajakan — <span className="text-white font-semibold">pilihan ganda</span> dan <span className="text-blue-400 font-semibold">soal kode</span>.
+                <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-white">Soal <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Penjajakan</span></h1>
+                        <p className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                            <Brain size={14} className="text-accent" />
+                            Kelola soal tes penjajakan <span className="text-white font-semibold">pilihan ganda</span> dan <span className="text-blue-400 font-semibold">soal kode</span>.
                         </p>
                     </div>
                     <button
                         id="btn-tambah-soal"
                         onClick={openCreate}
-                        className="flex items-center justify-center gap-2 px-5 py-2.5 bg-amber-500 text-black font-bold text-sm rounded-xl hover:bg-amber-600 transition-all shadow-lg shadow-amber-500/20 shrink-0"
+                        className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 shrink-0"
                     >
                         <Plus size={16} /> Tambah Soal
                     </button>
-                </div>
+                </header>
 
                 {/* Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                     {[
                         { label: 'Total Soal', val: stats.total,    color: 'text-white',      bg: 'bg-white/5' },
                         { label: 'Frontend',   val: stats.frontend, color: 'text-blue-400',   bg: 'bg-blue-500/10' },
-                        { label: 'Backend',    val: stats.backend,  color: 'text-amber-400', bg: 'bg-amber-500/10' },
+                        { label: 'Backend',    val: stats.backend,  color: 'text-accent', bg: 'bg-accent/10' },
                         { label: 'Aktif',      val: stats.aktif,    color: 'text-green-400',  bg: 'bg-green-500/10' },
                     ].map((s, i) => (
                         <div key={i} className={`p-4 lg:p-5 rounded-xl border border-white/5 ${s.bg}`}>
@@ -170,7 +167,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                     {[{ value: 'semua', label: 'Semua' }, ...JALUR_OPTIONS.map(j => ({ value: j.value, label: j.label }))].map(f => (
                         <button key={f.value} onClick={() => handleFilter(f.value)}
                             className={`px-5 py-2 rounded-xl text-sm font-bold transition-all border
-                                ${filterActive === f.value ? 'bg-amber-500/20 border-amber-500/50 text-amber-300' : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'}`}>
+                                ${filterActive === f.value ? 'bg-accent/20 border-accent/50 text-accent-300' : 'bg-white/5 border-white/10 text-gray-500 hover:text-white'}`}>
                             {f.label}
                         </button>
                     ))}
@@ -263,14 +260,14 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                                                 <div className="flex items-center gap-1">
                                                     <button
                                                         onClick={() => openEdit(s)}
-                                                        className="p-1.5 rounded-lg text-gray-600 hover:text-blue-400 hover:bg-blue-500/10 transition-all"
+                                                        className="p-2.5 rounded-xl text-gray-600 hover:text-blue-400 hover:bg-blue-500/10 transition-all"
                                                         title="Edit soal"
                                                     >
                                                         <Edit2 size={14} />
                                                     </button>
                                                     <button
                                                         onClick={() => handleDelete(s.id)}
-                                                        className="p-1.5 rounded-lg text-gray-600 hover:text-red-400 hover:bg-red-500/10 transition-all"
+                                                        className="p-2.5 rounded-xl text-gray-600 hover:text-red-400 hover:bg-red-500/10 transition-all"
                                                         title="Hapus soal"
                                                     >
                                                         <Trash2 size={14} />
@@ -453,7 +450,7 @@ export default function SoalIndeks({ auth, soal, filter_jalur, stats }) {
                                     Batal
                                 </button>
                                 <button type="submit" disabled={processing}
-                                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 text-black font-black text-sm uppercase tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+                                    className="flex-1 py-3 rounded-2xl bg-gradient-to-r from-accent to-yellow-500 text-black font-black text-sm uppercase tracking-widest hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
                                     <Save size={16} />
                                     {processing ? 'Menyimpan...' : editTarget ? 'Simpan Perubahan' : 'Tambah Soal'}
                                 </button>

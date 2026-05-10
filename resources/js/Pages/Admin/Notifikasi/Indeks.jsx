@@ -44,7 +44,7 @@ export default function Indeks({ auth, broadcasts }) {
         switch (tipe) {
             case 'peringatan': return 'bg-red-500/10 text-red-500 border-red-500/20';
             case 'sukses': return 'bg-emerald-500/10 text-emerald-500 border-emerald-500/20';
-            default: return 'bg-amber-500/10 text-amber-500 border-amber-500/20';
+            default: return 'bg-accent/10 text-accent border-accent/20';
         }
     };
 
@@ -53,22 +53,22 @@ export default function Indeks({ auth, broadcasts }) {
             <Head title="Manajemen Broadcast - Admin" />
             
             <div className="p-8 space-y-10">
-                <div className="flex items-center justify-between">
-                    <div>
-                        <h1 className="text-3xl font-black text-white uppercase tracking-tighter italic">Broadcast <span className="text-amber-500">Center</span></h1>
-                        <p className="text-gray-500 text-sm font-medium mt-1">Grup pengumuman massal untuk efisiensi komunikasi.</p>
+                <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                    <div className="space-y-1">
+                        <h1 className="text-3xl lg:text-4xl font-black tracking-tight text-white">Broadcast <span className="bg-gradient-to-r from-accent to-yellow-500 bg-clip-text text-transparent italic">Center</span></h1>
+                        <p className="text-gray-500 text-sm font-medium flex items-center gap-2">
+                            <Bell size={14} className="text-accent" />
+                            Grup pengumuman massal untuk efisiensi komunikasi.
+                        </p>
                     </div>
-                    <div className="w-12 h-12 bg-amber-500/10 rounded-2xl flex items-center justify-center text-amber-500 border border-amber-500/20">
-                        <Bell size={24} />
-                    </div>
-                </div>
+                </header>
 
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     {/* Form Blast */}
                     <div className="lg:col-span-1">
                         <form onSubmit={submit} className="glass-card p-8 bg-white/[0.02] border-white/5 space-y-6 sticky top-8">
                             <h2 className="text-sm font-black uppercase tracking-[3px] text-gray-400 flex items-center gap-3">
-                                <Send size={16} className="text-amber-500" /> New Broadcast
+                                <Send size={16} className="text-accent" /> New Broadcast
                             </h2>
 
                             <div className="space-y-4">
@@ -77,7 +77,7 @@ export default function Indeks({ auth, broadcasts }) {
                                     <input 
                                         type="text"
                                         placeholder="Contoh: Update Maintenance Sistem"
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-amber-500 outline-none transition-all font-medium"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-accent outline-none transition-all font-medium"
                                         value={data.judul}
                                         onChange={e => setData('judul', e.target.value)}
                                     />
@@ -88,7 +88,7 @@ export default function Indeks({ auth, broadcasts }) {
                                     <label className="text-[10px] font-black uppercase tracking-widest text-gray-600 px-1">Isi Pesan</label>
                                     <textarea 
                                         placeholder="Tulis detail pengumuman di sini..."
-                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-amber-500 outline-none transition-all font-medium min-h-[120px] resize-none"
+                                        className="w-full bg-black/40 border border-white/10 rounded-xl py-3 px-4 text-sm text-white focus:border-accent outline-none transition-all font-medium min-h-[120px] resize-none"
                                         value={data.pesan}
                                         onChange={e => setData('pesan', e.target.value)}
                                     />
@@ -119,7 +119,7 @@ export default function Indeks({ auth, broadcasts }) {
                                         <input 
                                             type="text"
                                             placeholder="/dashboard"
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white focus:border-amber-500 outline-none transition-all font-medium"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-sm text-white focus:border-accent outline-none transition-all font-medium"
                                             value={data.tautan}
                                             onChange={e => setData('tautan', e.target.value)}
                                         />
@@ -129,7 +129,7 @@ export default function Indeks({ auth, broadcasts }) {
 
                             <button 
                                 disabled={processing}
-                                className="w-full py-4 bg-amber-500 text-black text-[10px] font-black uppercase tracking-[4px] rounded-xl hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/10 active:scale-95 disabled:opacity-50"
+                                className="w-full py-4 bg-accent text-black text-[10px] font-black uppercase tracking-[4px] rounded-xl hover:bg-accent-400 transition-all shadow-xl shadow-accent/10 active:scale-95 disabled:opacity-50"
                             >
                                 Kirim Broadcast
                             </button>
@@ -140,7 +140,7 @@ export default function Indeks({ auth, broadcasts }) {
                     <div className="lg:col-span-2 space-y-6">
                         <div className="flex items-center justify-between">
                             <h2 className="text-sm font-black uppercase tracking-[3px] text-gray-400 flex items-center gap-3">
-                                <History size={16} className="text-amber-500" /> Session History
+                                <History size={16} className="text-accent" /> Session History
                             </h2>
                         </div>
 
@@ -164,7 +164,7 @@ export default function Indeks({ auth, broadcasts }) {
                                                     <span className="text-[10px] font-medium text-gray-600 flex items-center gap-1.5">
                                                         <Clock size={10} /> {new Date(b.created_at).toLocaleString()}
                                                     </span>
-                                                    <span className="text-[10px] font-black text-amber-500 uppercase flex items-center gap-1.5">
+                                                    <span className="text-[10px] font-black text-accent uppercase flex items-center gap-1.5">
                                                         <Users size={10} /> {b.total_penerima} Penerima
                                                     </span>
                                                 </div>
@@ -192,7 +192,7 @@ export default function Indeks({ auth, broadcasts }) {
                                                     <p className="text-xs text-gray-400 leading-relaxed font-medium">{b.pesan}</p>
                                                 </div>
                                                 {b.tautan && (
-                                                    <div className="flex items-center gap-2 text-[10px] font-bold text-amber-500/70 italic">
+                                                    <div className="flex items-center gap-2 text-[10px] font-bold text-accent/70 italic">
                                                         <LinkIcon size={12} /> Redirect to: {b.tautan}
                                                     </div>
                                                 )}
@@ -204,7 +204,7 @@ export default function Indeks({ auth, broadcasts }) {
                                                             </div>
                                                         ))}
                                                         {b.total_penerima > 5 && (
-                                                            <div className="w-7 h-7 rounded-full border-2 border-[#0B0E14] bg-amber-500 flex items-center justify-center text-[8px] font-black text-black">
+                                                            <div className="w-7 h-7 rounded-full border-2 border-[#0B0E14] bg-accent flex items-center justify-center text-[8px] font-black text-black">
                                                                 +{b.total_penerima - 5}
                                                             </div>
                                                         )}
@@ -235,7 +235,7 @@ export default function Indeks({ auth, broadcasts }) {
                                     dangerouslySetInnerHTML={{ __html: link.label }}
                                     className={`px-4 py-2 rounded-xl text-[10px] font-black transition-all ${
                                         link.active 
-                                            ? 'bg-amber-500 text-black' 
+                                            ? 'bg-accent text-black' 
                                             : 'bg-white/5 text-gray-500 hover:bg-white/10'
                                     } ${!link.url && 'opacity-30 cursor-not-allowed'}`}
                                 />

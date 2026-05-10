@@ -80,20 +80,20 @@ export default function TesPenjajakan({ soal, jalur }) {
 
             {/* Background glow */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-violet-600/10 blur-[100px] rounded-full" />
-                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-blue-600/10 blur-[100px] rounded-full" />
+                <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-accent/10 blur-[100px] rounded-full" />
+                <div className="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent/10 blur-[100px] rounded-full" />
             </div>
 
             <div className="relative z-10 w-full max-w-3xl">
                 {/* Header */}
                 <div className="text-center mb-8">
                     <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-xs font-bold uppercase tracking-[4px] text-gray-400">
-                        <Brain size={12} className="text-violet-400" />
+                        <Brain size={12} className="text-accent" />
                         Langkah 2 dari 2 — Tes Penjajakan
                     </div>
                     <h1 className="text-3xl md:text-4xl font-black mb-2">
                         Uji{' '}
-                        <span className="bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent">
+                        <span className="bg-gradient-to-r from-accent to-accent bg-clip-text text-transparent">
                             Kemampuanmu
                         </span>
                     </h1>
@@ -111,7 +111,7 @@ export default function TesPenjajakan({ soal, jalur }) {
                         <span>{terjawab} terjawab</span>
                     </div>
                     <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-gradient-to-r from-blue-500 to-violet-500 rounded-full transition-all duration-500"
+                        <div className="h-full bg-gradient-to-r from-accent to-accent rounded-full transition-all duration-500"
                             style={{ width: `${((currentIdx + 1) / totalSoal) * 100}%` }} />
                     </div>
                     {/* Dot nav */}
@@ -122,7 +122,7 @@ export default function TesPenjajakan({ soal, jalur }) {
                             return (
                                 <button key={s.id} onClick={() => { setDirection(i > currentIdx ? 'right' : 'left'); setCurrentIdx(i); }}
                                     className={`h-2.5 rounded-full transition-all duration-300
-                                        ${i === currentIdx ? 'w-6 bg-violet-500' : isDone ? 'w-2.5 bg-green-500/70' : 'w-2.5 bg-white/10'}`}
+                                        ${i === currentIdx ? 'w-6 bg-accent' : isDone ? 'w-2.5 bg-green-500/70' : 'w-2.5 bg-white/10'}`}
                                 />
                             );
                         })}
@@ -137,13 +137,13 @@ export default function TesPenjajakan({ soal, jalur }) {
                     <div className="bg-white/[0.03] border border-white/10 rounded-3xl p-7 mb-5 shadow-2xl">
                         {/* Soal header */}
                         <div className="flex items-center gap-3 mb-5">
-                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-violet-500 flex items-center justify-center font-black text-sm text-white shrink-0">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent to-accent flex items-center justify-center font-black text-sm text-white shrink-0">
                                 {currentIdx + 1}
                             </div>
                             <div className="flex items-center gap-2 flex-wrap">
                                 <span className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Pertanyaan</span>
                                 {isKodeTipe ? (
-                                    <span className="px-2.5 py-1 rounded-lg bg-blue-500/15 border border-blue-500/30 text-blue-400 text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
+                                    <span className="px-2.5 py-1 rounded-lg bg-accent/15 border border-accent/30 text-accent text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
                                         <Code2 size={10} /> Soal Kode
                                     </span>
                                 ) : (
@@ -176,11 +176,11 @@ export default function TesPenjajakan({ soal, jalur }) {
                                         <button key={key} id={`opsi-${key}`} onClick={() => pilihJawaban(key)}
                                             className={`w-full text-left flex items-start gap-4 p-5 rounded-2xl border-2 transition-all duration-200 group
                                                 ${isChosen
-                                                    ? 'bg-gradient-to-r from-violet-500/20 to-blue-500/20 border-violet-500/60 shadow-lg shadow-violet-500/20 scale-[1.01]'
+                                                    ? 'bg-gradient-to-r from-accent/20 to-accent/20 border-accent/60 shadow-lg shadow-accent/20 scale-[1.01]'
                                                     : 'bg-white/[0.02] border-white/10 hover:border-white/20 hover:bg-white/[0.05]'
                                                 }`}>
                                             <div className={`w-8 h-8 shrink-0 rounded-xl flex items-center justify-center font-black text-sm transition-all
-                                                ${isChosen ? 'bg-gradient-to-br from-violet-500 to-blue-500 text-white' : 'bg-white/5 text-gray-500 group-hover:bg-white/10 group-hover:text-gray-300'}`}>
+                                                ${isChosen ? 'bg-gradient-to-br from-accent to-accent text-white' : 'bg-white/5 text-gray-500 group-hover:bg-white/10 group-hover:text-gray-300'}`}>
                                                 {OPSI_LABELS[i]}
                                             </div>
                                             <span className={`text-sm leading-relaxed font-medium mt-0.5 ${isChosen ? 'text-white' : 'text-gray-400 group-hover:text-gray-200'}`}>
@@ -203,7 +203,7 @@ export default function TesPenjajakan({ soal, jalur }) {
                                     onChange={e => pilihJawaban(e.target.value)}
                                     rows={4}
                                     placeholder="Ketik jawaban atau kode kamu di sini..."
-                                    className="w-full bg-[#0a0d14] border-2 border-white/10 rounded-2xl px-5 py-4 text-sm text-green-300 font-mono leading-relaxed focus:border-violet-500/60 focus:ring-0 outline-none transition-all resize-none placeholder-gray-700"
+                                    className="w-full bg-[#0a0d14] border-2 border-white/10 rounded-2xl px-5 py-4 text-sm text-green-300 font-mono leading-relaxed focus:border-accent/60 focus:ring-0 outline-none transition-all resize-none placeholder-gray-700"
                                 />
                                 <p className="text-[11px] text-gray-600 leading-relaxed">
                                     💡 Tidak perlu menulis kode lengkap. Fokus pada jawaban atau kata kunci yang diminta dalam pertanyaan.
@@ -224,7 +224,7 @@ export default function TesPenjajakan({ soal, jalur }) {
                                 disabled={!semuaTerjawab || isSubmitting}
                                 className={`flex items-center gap-2 px-8 py-3 rounded-2xl font-black text-sm uppercase tracking-widest transition-all
                                     ${semuaTerjawab
-                                        ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow-xl shadow-violet-500/30 hover:scale-105'
+                                        ? 'bg-gradient-to-r from-accent to-accent text-white shadow-xl shadow-accent/30 hover:scale-105'
                                         : 'bg-white/5 border border-white/10 text-gray-600 cursor-not-allowed'
                                     }`}>
                                 {isSubmitting
@@ -237,7 +237,7 @@ export default function TesPenjajakan({ soal, jalur }) {
                                 disabled={isKodeTipe ? false : !jawabanSkrg}
                                 className={`flex items-center gap-2 px-8 py-3 rounded-2xl font-black text-sm uppercase tracking-widest transition-all
                                     ${(isKodeTipe || jawabanSkrg)
-                                        ? 'bg-gradient-to-r from-blue-500 to-violet-500 text-white shadow-xl shadow-violet-500/20 hover:scale-105'
+                                        ? 'bg-gradient-to-r from-accent to-accent text-white shadow-xl shadow-accent/20 hover:scale-105'
                                         : 'bg-white/5 border border-white/10 text-gray-600 cursor-not-allowed'
                                     }`}>
                                 Selanjutnya <ChevronRight size={18} />

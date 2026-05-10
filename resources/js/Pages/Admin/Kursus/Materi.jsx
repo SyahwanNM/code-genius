@@ -151,7 +151,7 @@ export default function Materi({ auth, kursus }) {
                         </Link>
                         <div>
                             <div className="flex items-center gap-3 mb-1">
-                                <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-500 text-[8px] font-black uppercase tracking-widest border border-amber-500/20">Active Course</span>
+                                <span className="px-2 py-0.5 rounded-full bg-accent/10 text-accent text-[8px] font-black uppercase tracking-widest border border-accent/20">Active Course</span>
                                 <h1 className="text-2xl font-black text-white">{kursus.nama}</h1>
                             </div>
                             <p className="text-gray-500 text-xs font-medium">Pengaturan struktur modul, materi teori, dan tantangan kode.</p>
@@ -162,7 +162,7 @@ export default function Materi({ auth, kursus }) {
                             setModulData({ id: null, judul: '', urutan: modul.length + 1 });
                             setShowModulModal(true);
                         }}
-                        className="flex items-center justify-center gap-3 px-6 py-3 bg-amber-500 text-black font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-amber-400 transition-all shadow-xl shadow-amber-500/20"
+                        className="flex items-center gap-2 px-6 py-3 bg-accent text-black font-black text-xs uppercase tracking-widest rounded-2xl hover:bg-accent/90 transition-all shadow-lg shadow-accent/20"
                     >
                         <Plus size={16} /> Add Module
                     </button>
@@ -181,7 +181,7 @@ export default function Materi({ auth, kursus }) {
                         <div key={m.id} className="bg-[#0D1117] border border-white/5 rounded-[32px] overflow-hidden group">
                             <div className="px-8 py-6 bg-white/[0.02] border-b border-white/5 flex items-center justify-between">
                                 <div className="flex items-center gap-4">
-                                    <div className="w-8 h-8 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 font-black text-xs">
+                                    <div className="w-8 h-8 rounded-xl bg-accent/10 flex items-center justify-center text-accent font-black text-xs">
                                         {idx + 1}
                                     </div>
                                     <h3 className="font-black text-white uppercase tracking-wider text-sm">{m.judul}</h3>
@@ -218,7 +218,7 @@ export default function Materi({ auth, kursus }) {
                                             {mat.tipe === 'teks' ? (
                                                 <FileText size={16} className="text-blue-500" />
                                             ) : (
-                                                <Code size={16} className="text-amber-500" />
+                                                <Code size={16} className="text-accent" />
                                             )}
                                             <div>
                                                 <p className="text-sm font-bold text-gray-300 group-hover/item:text-white transition-colors">{mat.judul}</p>
@@ -255,34 +255,49 @@ export default function Materi({ auth, kursus }) {
             {/* Modal Modul */}
             {showModulModal && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <div className="fixed inset-0 bg-black/90 backdrop-blur-md" onClick={() => setShowModulModal(false)} />
-                    <div className="relative w-full max-w-lg bg-[#0D1117] border border-white/10 rounded-[40px] p-10 space-y-8 animate-in zoom-in-95">
-                        <h2 className="text-2xl font-black text-white">{modulData.id ? 'Edit' : 'Add'} <span className="text-red-500">Module</span></h2>
-                        <form onSubmit={submitModul} className="space-y-6">
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Module Title</label>
-                                <input 
-                                    type="text" 
-                                    className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-white"
-                                    value={modulData.judul}
-                                    onChange={e => setModulData({...modulData, judul: e.target.value})}
-                                    placeholder="e.g. Introduction to Backend Architecture"
-                                />
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowModulModal(false)} />
+                    <div className="relative w-full max-w-md bg-[#0D1117] border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col">
+                        {/* Header */}
+                        <div className="flex items-center justify-between px-7 py-5 border-b border-white/5">
+                            <div>
+                                <h2 className="text-lg font-black text-white">{modulData.id ? 'Edit' : 'Tambah'} <span className="text-accent italic">Module</span></h2>
+                                <p className="text-gray-600 text-[10px] font-medium mt-0.5">{modulData.id ? 'Perbarui' : 'Buat'} struktur modul kurikulum</p>
                             </div>
-                            <div className="space-y-3">
-                                <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Sequence Order</label>
-                                <input 
-                                    type="number" 
-                                    className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-white"
-                                    value={modulData.urutan}
-                                    onChange={e => setModulData({...modulData, urutan: e.target.value})}
-                                />
-                            </div>
-                            <div className="flex gap-4 pt-4">
-                                <button type="button" onClick={() => setShowModulModal(false)} className="flex-1 py-4 rounded-2xl bg-white/5 text-gray-500 font-black uppercase tracking-widest text-[10px]">Cancel</button>
-                                <button type="submit" className="flex-2 px-10 py-4 rounded-2xl bg-white text-black font-black uppercase tracking-widest text-[10px]">Save Module</button>
-                            </div>
-                        </form>
+                            <button onClick={() => setShowModulModal(false)} className="p-2 rounded-xl bg-white/5 text-gray-500 hover:text-white hover:bg-white/10 transition-all">
+                                <X size={16} />
+                            </button>
+                        </div>
+                        {/* Body */}
+                        <div className="px-7 py-6 space-y-5">
+                            <form onSubmit={submitModul} id="form-modul" className="space-y-5">
+                                <div>
+                                    <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500 mb-2">Judul Modul</label>
+                                    <input 
+                                        type="text" 
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 px-4 focus:border-accent outline-none transition-all text-white text-sm placeholder-gray-700"
+                                        value={modulData.judul}
+                                        onChange={e => setModulData({...modulData, judul: e.target.value})}
+                                        placeholder="e.g. Introduction to Backend Architecture"
+                                    />
+                                </div>
+                                <div>
+                                    <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500 mb-2">Urutan</label>
+                                    <input 
+                                        type="number" 
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 px-4 focus:border-accent outline-none transition-all text-white text-sm"
+                                        value={modulData.urutan}
+                                        onChange={e => setModulData({...modulData, urutan: e.target.value})}
+                                    />
+                                </div>
+                            </form>
+                        </div>
+                        {/* Footer */}
+                        <div className="flex gap-3 px-7 py-5 border-t border-white/5">
+                            <button type="button" onClick={() => setShowModulModal(false)} className="flex-1 py-3 rounded-xl bg-white/5 text-gray-400 font-bold text-xs hover:text-white hover:bg-white/10 transition-all">Batal</button>
+                            <button type="submit" form="form-modul" className="flex-[2] py-3 rounded-xl bg-accent text-black font-black text-xs uppercase tracking-widest hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 flex items-center justify-center gap-2">
+                                <Save size={14} /> Simpan Modul
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
@@ -290,87 +305,104 @@ export default function Materi({ auth, kursus }) {
             {/* Modal Materi */}
             {showMateriModal && (
                 <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-                    <div className="fixed inset-0 bg-black/95 backdrop-blur-lg" onClick={() => setShowMateriModal(false)} />
-                    <div className="relative w-full max-w-4xl bg-[#0D1117] border border-white/10 rounded-[40px] p-8 lg:p-12 space-y-10 animate-in zoom-in-95 max-h-[90vh] overflow-y-auto custom-scrollbar">
-                        <div className="flex items-center justify-between">
-                            <h2 className="text-3xl font-black text-white">{materiData.id ? 'Edit' : 'Add'} <span className="text-red-500">Material</span></h2>
-                            <div className="flex bg-white/5 p-1 rounded-xl">
-                                <button 
-                                    onClick={() => setMateriData({...materiData, tipe: 'teks'})}
-                                    className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${materiData.tipe === 'teks' ? 'bg-red-500 text-white' : 'text-gray-500'}`}
-                                >
-                                    Theory
-                                </button>
-                                <button 
-                                    onClick={() => setMateriData({...materiData, tipe: 'latihan'})}
-                                    className={`px-4 py-2 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${materiData.tipe === 'latihan' ? 'bg-amber-500 text-black' : 'text-gray-500'}`}
-                                >
-                                    Challenge
+                    <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setShowMateriModal(false)} />
+                    <div className="relative w-full max-w-3xl bg-[#0D1117] border border-white/10 rounded-3xl shadow-2xl overflow-hidden animate-in zoom-in-95 duration-300 flex flex-col max-h-[90vh]">
+                        {/* Header sticky */}
+                        <div className="flex items-center justify-between px-7 py-5 border-b border-white/5 shrink-0">
+                            <div className="flex items-center gap-4">
+                                <div>
+                                    <h2 className="text-lg font-black text-white">{materiData.id ? 'Edit' : 'Tambah'} <span className="text-accent italic">Material</span></h2>
+                                    <p className="text-gray-600 text-[10px] font-medium mt-0.5">Konten teori atau tantangan kode</p>
+                                </div>
+                            </div>
+                            <div className="flex items-center gap-3">
+                                {/* Tipe toggle */}
+                                <div className="flex bg-white/5 border border-white/10 p-1 rounded-xl">
+                                    <button 
+                                        onClick={() => setMateriData({...materiData, tipe: 'teks'})}
+                                        className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${materiData.tipe === 'teks' ? 'bg-accent text-black' : 'text-gray-500 hover:text-white'}`}
+                                    >
+                                        Theory
+                                    </button>
+                                    <button 
+                                        onClick={() => setMateriData({...materiData, tipe: 'latihan'})}
+                                        className={`px-4 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest transition-all ${materiData.tipe === 'latihan' ? 'bg-accent text-black' : 'text-gray-500 hover:text-white'}`}
+                                    >
+                                        Challenge
+                                    </button>
+                                </div>
+                                <button onClick={() => setShowMateriModal(false)} className="p-2 rounded-xl bg-white/5 text-gray-500 hover:text-white hover:bg-white/10 transition-all">
+                                    <X size={16} />
                                 </button>
                             </div>
                         </div>
 
-                        <form onSubmit={submitMateri} className="space-y-8">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                <div className="space-y-3 md:col-span-2">
-                                    <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Material Title</label>
+                        {/* Scrollable body */}
+                        <div className="overflow-y-auto flex-1 px-7 py-6">
+                            <form onSubmit={submitMateri} id="form-materi" className="space-y-5">
+                                <div>
+                                    <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500 mb-2">Judul Materi</label>
                                     <input 
                                         type="text" 
-                                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-white"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 px-4 focus:border-accent outline-none transition-all text-white text-sm placeholder-gray-700"
                                         value={materiData.judul}
                                         onChange={e => setMateriData({...materiData, judul: e.target.value})}
+                                        placeholder="Judul materi yang deskriptif..."
                                     />
                                 </div>
                                 
-                                <div className="space-y-3 md:col-span-2">
-                                    <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Core Content (Markdown)</label>
+                                <div>
+                                    <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500 mb-2">Konten (Markdown)</label>
                                     <textarea 
-                                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all min-h-[200px] text-white text-sm leading-relaxed"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 px-4 focus:border-accent outline-none transition-all min-h-[160px] text-white text-sm leading-relaxed resize-none placeholder-gray-700"
                                         value={materiData.konten}
                                         onChange={e => setMateriData({...materiData, konten: e.target.value})}
-                                        placeholder="Use markdown for better formatting..."
+                                        placeholder="Tulis konten dengan format Markdown..."
                                     />
                                 </div>
 
                                 {materiData.tipe === 'latihan' && (
-                                    <>
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black uppercase tracking-[3px] text-amber-500/60">Starter Code</label>
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 bg-white/[0.02] rounded-xl border border-white/5">
+                                        <div>
+                                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-accent/50 mb-2">Starter Code</label>
                                             <textarea 
-                                                className="w-full bg-[#05070A] border border-white/5 rounded-2xl py-4 px-6 focus:border-amber-500 outline-none transition-all min-h-[150px] text-xs font-mono text-amber-400/80"
+                                                className="w-full bg-[#05070A] border border-white/5 rounded-xl py-3 px-4 focus:border-accent outline-none transition-all min-h-[130px] text-xs font-mono text-accent/70 resize-none"
                                                 value={materiData.contoh_kode}
                                                 onChange={e => setMateriData({...materiData, contoh_kode: e.target.value})}
+                                                placeholder="// Kode awal untuk siswa..."
                                             />
                                         </div>
-                                        <div className="space-y-3">
-                                            <label className="text-[10px] font-black uppercase tracking-[3px] text-emerald-500/60">Solution / Key Match</label>
+                                        <div>
+                                            <label className="block text-[10px] font-black uppercase tracking-[3px] text-emerald-500/50 mb-2">Solution / Key Match</label>
                                             <textarea 
-                                                className="w-full bg-[#05070A] border border-white/5 rounded-2xl py-4 px-6 focus:border-emerald-500 outline-none transition-all min-h-[150px] text-xs font-mono text-emerald-400/80"
+                                                className="w-full bg-[#05070A] border border-white/5 rounded-xl py-3 px-4 focus:border-emerald-500 outline-none transition-all min-h-[130px] text-xs font-mono text-emerald-400/70 resize-none"
                                                 value={materiData.jawaban_kode}
                                                 onChange={e => setMateriData({...materiData, jawaban_kode: e.target.value})}
+                                                placeholder="// Jawaban referensi..."
                                             />
                                         </div>
-                                    </>
+                                    </div>
                                 )}
 
-                                <div className="space-y-3">
-                                    <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-600">Order</label>
+                                <div className="w-32">
+                                    <label className="block text-[10px] font-black uppercase tracking-[3px] text-gray-500 mb-2">Urutan</label>
                                     <input 
                                         type="number" 
-                                        className="w-full bg-white/[0.02] border border-white/10 rounded-2xl py-4 px-6 focus:border-red-500 outline-none transition-all text-white"
+                                        className="w-full bg-white/[0.03] border border-white/10 rounded-xl py-3 px-4 focus:border-accent outline-none transition-all text-white text-sm"
                                         value={materiData.urutan}
                                         onChange={e => setMateriData({...materiData, urutan: e.target.value})}
                                     />
                                 </div>
-                            </div>
+                            </form>
+                        </div>
 
-                            <div className="flex gap-4 pt-6">
-                                <button type="button" onClick={() => setShowMateriModal(false)} className="flex-1 py-5 rounded-2xl bg-white/5 text-gray-400 font-black uppercase tracking-widest text-[10px]">Cancel</button>
-                                <button type="submit" className="flex-[2] py-5 rounded-2xl bg-white text-black font-black uppercase tracking-widest text-[10px] hover:bg-gray-200 transition-all shadow-2xl shadow-white/5">
-                                    <Save size={14} className="inline mr-2" /> Save Material
-                                </button>
-                            </div>
-                        </form>
+                        {/* Sticky footer */}
+                        <div className="flex gap-3 px-7 py-5 border-t border-white/5 shrink-0">
+                            <button type="button" onClick={() => setShowMateriModal(false)} className="flex-1 py-3 rounded-xl bg-white/5 text-gray-400 font-bold text-xs hover:text-white hover:bg-white/10 transition-all">Batal</button>
+                            <button type="submit" form="form-materi" className="flex-[2] py-3 rounded-xl bg-accent text-black font-black text-xs uppercase tracking-widest hover:bg-accent/90 transition-all shadow-lg shadow-accent/20 flex items-center justify-center gap-2">
+                                <Save size={14} /> Simpan Materi
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
