@@ -6,6 +6,7 @@ use App\Fitur\Autentikasi\Controllers\AutentikasiController;
 use App\Fitur\Pembelajaran\Controllers\KursusController;
 use App\Fitur\Pembelajaran\Controllers\AsistenAIController;
 use App\Fitur\Pembelajaran\Controllers\ProgresController;
+use App\Fitur\Pembelajaran\Controllers\LabKreatifController;
 use App\Fitur\Autentikasi\Controllers\ProfilController;
 use App\Fitur\Admin\Controllers\AdminBerandaController;
 use App\Fitur\Admin\Controllers\AdminUserController;
@@ -64,6 +65,10 @@ Route::middleware(['auth', 'cek.onboarding'])->group(function () {
     Route::get('/kursus', [KursusController::class, 'indeks'])->name('kursus.indeks');
     Route::get('/kursus/{slug_kursus}', [KursusController::class, 'detail'])->name('kursus.detail');
     Route::get('/kursus/{slug_kursus}/{slug_materi}', [KursusController::class, 'materi'])->name('kursus.materi');
+
+    // Lab Kreatif
+    Route::get('/lab', [LabKreatifController::class, 'indeks'])->name('lab');
+    Route::post('/lab/evaluasi', [LabKreatifController::class, 'evaluasiAI'])->name('lab.evaluasi');
 
     // API untuk Siswa
     Route::post('/progres/selesai', [ProgresController::class, 'selesai'])->name('progres.selesai');

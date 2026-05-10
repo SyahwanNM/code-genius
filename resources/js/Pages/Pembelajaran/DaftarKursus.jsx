@@ -1,6 +1,6 @@
 import React from 'react';
 import { Head, Link } from '@inertiajs/react';
-import { Book, Clock, BookOpen, Server, Database, Code2, ChevronRight, Layers, Sparkles } from 'lucide-react';
+import { Book, Clock, BookOpen, Server, Database, Code2, ChevronRight, Layers, Sparkles, Hammer, FlaskConical, Lightbulb } from 'lucide-react';
 import UserLayout from '@/Layouts/UserLayout';
 import NavbarPublik from '@/Components/NavbarPublik';
 
@@ -41,6 +41,49 @@ export default function DaftarKursus({ auth, semua_kursus }) {
                     Kuasai teknologi industri melalui kurikulum berbasis proyek yang dirancang oleh pakar.
                 </p>
             </header>
+
+            {/* ── Lab Kreatif CTA — hanya tampil untuk user login ── */}
+            {!isPublic && (
+                <div className="mb-10">
+                    <Link
+                        href="/lab"
+                        className="group relative flex flex-col sm:flex-row items-start sm:items-center gap-6 p-7 rounded-[28px] bg-[#0D1117] border border-white/5 hover:border-accent/40 hover:shadow-2xl hover:shadow-accent/10 transition-all duration-500 overflow-hidden"
+                    >
+                        {/* Glow orb */}
+                        <div className="absolute -right-10 -top-10 w-52 h-52 bg-accent/5 rounded-full blur-3xl group-hover:bg-accent/10 transition-all pointer-events-none" />
+
+                        {/* Icon */}
+                        <div className="shrink-0 w-16 h-16 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-accent group-hover:scale-110 group-hover:bg-accent group-hover:text-black transition-all duration-500 shadow-xl shadow-accent/10">
+                            <Hammer size={28} />
+                        </div>
+
+                        {/* Text */}
+                        <div className="flex-1 relative z-10">
+                            <div className="flex items-center gap-2 mb-2">
+                                <span className="px-2.5 py-1 rounded-full bg-accent/10 border border-accent/20 text-accent text-[9px] font-black uppercase tracking-widest">
+                                    New Feature
+                                </span>
+                                <span className="px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-gray-400 text-[9px] font-black uppercase tracking-widest flex items-center gap-1">
+                                    <Lightbulb size={9} /> AI-Guided
+                                </span>
+                            </div>
+                            <h2 className="text-xl font-black text-white uppercase italic tracking-tight group-hover:text-accent transition-colors mb-1">
+                                Lab Kreatif
+                            </h2>
+                            <p className="text-gray-500 text-xs leading-relaxed max-w-lg">
+                                Asah skill dengan membangun proyek nyata. Pilih template, kerjakan step-by-step, dan minta hint dari AI jika menemui kendala — tanpa spoiler jawaban!
+                            </p>
+                        </div>
+
+                        {/* CTA Arrow */}
+                        <div className="shrink-0 flex items-center gap-2 px-5 py-3 rounded-2xl bg-accent text-black text-[10px] font-black uppercase tracking-widest group-hover:bg-amber-400 transition-all shadow-xl shadow-accent/20 active:scale-95 self-start sm:self-center">
+                            <FlaskConical size={14} />
+                            <span>Coba Sekarang</span>
+                            <ChevronRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </div>
+                    </Link>
+                </div>
+            )}
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {semua_kursus.map((k, i) => (
