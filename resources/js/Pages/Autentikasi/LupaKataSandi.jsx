@@ -1,22 +1,20 @@
 import React from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { Sparkles, ArrowRight, Lock, Mail } from 'lucide-react';
+import { Sparkles, ArrowRight, Mail, ArrowLeft } from 'lucide-react';
 
-export default function Masuk({ status }) {
+export default function LupaKataSandi({ status }) {
     const { data, setData, post, processing, errors } = useForm({
         email: '',
-        kata_sandi: '',
-        ingat_saya: false,
     });
 
     const submit = (e) => {
         e.preventDefault();
-        post('/masuk');
+        post('/lupa-password');
     };
 
     return (
         <div className="min-h-screen bg-[#08090D] flex items-center justify-center p-6 relative overflow-hidden font-outfit">
-            <Head title="Masuk — Code Genius" />
+            <Head title="Lupa Password — Code Genius" />
 
             {/* Background glows */}
             <div className="pointer-events-none absolute inset-0">
@@ -49,21 +47,21 @@ export default function Masuk({ status }) {
 
                         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-yellow-400/10 border border-yellow-400/20 text-yellow-400 text-[10px] font-bold uppercase tracking-widest mb-4">
                             <Sparkles size={10} />
-                            Portal Pembelajaran
+                            Pemulihan Akun
                         </div>
 
-                        <h1 className="text-3xl font-black text-white tracking-tight">Selamat Datang</h1>
-                        <p className="text-gray-500 text-xs mt-2">Masuk untuk melanjutkan perjalanan belajarmu</p>
+                        <h1 className="text-3xl font-black text-white tracking-tight">Lupa Password?</h1>
+                        <p className="text-gray-500 text-xs mt-2">Masukkan email Anda dan kami akan mengirimkan tautan reset</p>
                     </div>
 
                     {status && (
-                        <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold text-center">
+                        <div className="mb-6 p-4 rounded-xl bg-green-500/10 border border-green-500/20 text-green-400 text-xs font-bold">
                             {status}
                         </div>
                     )}
 
                     {/* Form */}
-                    <form onSubmit={submit} className="space-y-5">
+                    <form onSubmit={submit} className="space-y-6">
 
                         {/* Email */}
                         <div className="space-y-2">
@@ -78,49 +76,11 @@ export default function Masuk({ status }) {
                                     placeholder="nama@email.com"
                                     value={data.email}
                                     onChange={(e) => setData('email', e.target.value)}
+                                    required
+                                    autoFocus
                                 />
                             </div>
                             {errors.email && <p className="text-red-400 text-[10px] font-bold">{errors.email}</p>}
-                        </div>
-
-                        {/* Password */}
-                        <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                                <label className="text-[10px] font-black uppercase tracking-[3px] text-gray-500">Kata Sandi</label>
-                                <Link href="/lupa-password" className="text-[10px] font-bold text-yellow-400/70 hover:text-yellow-400 transition-colors uppercase tracking-widest">
-                                    Lupa Password?
-                                </Link>
-                            </div>
-                            <div className="relative group">
-                                <Lock size={15} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-600 group-focus-within:text-yellow-400 transition-colors" />
-                                <input
-                                    type="password"
-                                    className="w-full bg-white/[0.03] border border-white/8 rounded-xl pl-11 pr-4 py-3.5 focus:border-yellow-400/50 focus:bg-yellow-400/[0.02] focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
-                                    placeholder="••••••••"
-                                    value={data.kata_sandi}
-                                    onChange={(e) => setData('kata_sandi', e.target.value)}
-                                />
-                            </div>
-                            {errors.kata_sandi && <p className="text-red-400 text-[10px] font-bold">{errors.kata_sandi}</p>}
-                        </div>
-
-                        {/* Remember me toggle */}
-                        <div className="flex items-center">
-                            <label className="flex items-center cursor-pointer group gap-3">
-                                <div className="relative flex-shrink-0">
-                                    <input
-                                        type="checkbox"
-                                        className="sr-only"
-                                        checked={data.ingat_saya}
-                                        onChange={e => setData('ingat_saya', e.target.checked)}
-                                    />
-                                    <div className={`w-9 h-5 rounded-full transition-colors duration-200 ${data.ingat_saya ? 'bg-yellow-400' : 'bg-white/10'}`} />
-                                    <div className={`absolute top-1 left-1 w-3 h-3 bg-white rounded-full shadow transition-transform duration-200 ${data.ingat_saya ? 'translate-x-4' : ''}`} />
-                                </div>
-                                <span className="text-[10px] font-black uppercase tracking-widest text-gray-500 group-hover:text-gray-300 transition-colors">
-                                    Ingat Saya
-                                </span>
-                            </label>
                         </div>
 
                         {/* Submit */}
@@ -129,29 +89,25 @@ export default function Masuk({ status }) {
                             disabled={processing}
                             className="group w-full flex items-center justify-center gap-2 py-3.5 bg-yellow-400 text-black font-black text-sm uppercase tracking-wider rounded-xl hover:bg-yellow-300 transition-all duration-200 shadow-[0_0_30px_rgba(250,204,21,0.25)] hover:shadow-[0_0_40px_rgba(250,204,21,0.35)] active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
                         >
-                            {processing ? 'Mengautentikasi...' : (
+                            {processing ? 'Mengirim...' : (
                                 <>
-                                    Masuk Sekarang
+                                    Kirim Tautan Reset
                                     <ArrowRight size={15} className="group-hover:translate-x-1 transition-transform" />
                                 </>
                             )}
                         </button>
                     </form>
 
-                    {/* Divider */}
-                    <div className="flex items-center gap-4 my-8">
-                        <div className="flex-1 h-px bg-white/5" />
-                        <span className="text-[10px] font-bold uppercase tracking-widest text-gray-700">atau</span>
-                        <div className="flex-1 h-px bg-white/5" />
-                    </div>
-
                     {/* Footer link */}
-                    <p className="text-center text-gray-500 text-[10px] font-bold uppercase tracking-widest">
-                        Belum punya akun?{' '}
-                        <Link href="/daftar" className="text-yellow-400 hover:text-yellow-300 transition-colors font-black">
-                            Daftar sekarang
+                    <div className="mt-8 text-center">
+                        <Link 
+                            href="/masuk" 
+                            className="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[2px] text-gray-500 hover:text-white transition-colors"
+                        >
+                            <ArrowLeft size={12} />
+                            Kembali ke Masuk
                         </Link>
-                    </p>
+                    </div>
                 </div>
             </div>
         </div>

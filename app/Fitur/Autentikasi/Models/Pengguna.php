@@ -72,4 +72,15 @@ class Pengguna extends Authenticatable
     {
         return $this->hasMany(\App\Models\Notifikasi::class, 'id_pengguna')->orderBy('created_at', 'desc');
     }
+
+    /**
+     * Kirim notifikasi atur ulang kata sandi kustom (Antrean/Queue).
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token): void
+    {
+        $this->notify(new \App\Fitur\Autentikasi\Notifications\AturUlangKataSandiNotification($token, $this->email));
+    }
 }

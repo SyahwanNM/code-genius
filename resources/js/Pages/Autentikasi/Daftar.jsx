@@ -106,11 +106,13 @@ export default function Daftar() {
                                 <input
                                     type="password"
                                     className="w-full bg-white/[0.03] border border-white/8 rounded-xl pl-11 pr-4 py-3.5 focus:border-yellow-400/50 focus:bg-yellow-400/[0.02] focus:ring-0 outline-none transition-all text-sm text-white placeholder-gray-700"
-                                    placeholder="Min. 8 karakter"
+                                    placeholder="••••••••"
                                     value={data.kata_sandi}
                                     onChange={(e) => setData('kata_sandi', e.target.value)}
+                                    required
                                 />
                             </div>
+                            {!errors.kata_sandi && <p className="text-gray-500 text-[10px] mt-1 ml-1">Minimal 8 karakter.</p>}
                             {errors.kata_sandi && <p className="text-red-400 text-[10px] font-bold">{errors.kata_sandi}</p>}
                         </div>
 
